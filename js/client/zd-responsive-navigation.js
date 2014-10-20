@@ -11,7 +11,9 @@ jQuery(document).ready(function($){
         // Variables
         var menuOpen = false,
 
-            menuButton = $('#showLeft'),
+            slideDirection = $('#showLeft').length ? 'right' : 'left',
+
+            menuButton = $('#showLeft').length ? $('#showLeft') : $('#showRight'),
 
             menu = $('#cbp-spmenu-s1'),
 
@@ -23,6 +25,8 @@ jQuery(document).ready(function($){
 
             menuOverlay = $('.cbp-menu-overlay');
 
+        //console.log(slideDirection);
+
 
         // Private functions
         var openMenuPrivate = function () {
@@ -33,9 +37,11 @@ jQuery(document).ready(function($){
 
             $body
                 .addClass('cbp-body-open')
-                .css({
-                    'right': menu.outerWidth() + 'px'
-                });
+                .css(slideDirection, menu.outerWidth() + 'px');
+
+            if( slideDirection === 'right' ) {
+                $body.css('left', 'initial');
+            }
 
             menuOpen = true;
         };
@@ -53,9 +59,7 @@ jQuery(document).ready(function($){
 
             $body
                 .removeClass('cbp-body-open')
-                .css({
-                    'right': '0'
-                });
+                .css(slideDirection, '0');
 
             menuOpen = false;
         };
@@ -83,6 +87,7 @@ jQuery(document).ready(function($){
         // Event listeners
 
         menuButton.on('click', function() {
+            //console.log('menu button clicked');
 
             //console.log('menuOpen: ' + menuOpen);
 

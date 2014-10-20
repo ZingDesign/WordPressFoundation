@@ -11,8 +11,11 @@ class ZingDesignThemeOptions {
     private $tabs;
     private $options;
     private $page_id;
+	private $text_domain;
     
     function __construct() {
+
+	    $this->text_domain = $this->text_domain;
 
         if( is_admin() ) {
             add_action( 'admin_menu', array($this, 'zd_theme_options_init') );
@@ -35,8 +38,8 @@ class ZingDesignThemeOptions {
 //        );
 
         $options = array(
-            'logo' => array(
-                'id'        => 'zd-logo',
+            'header_logo' => array(
+                'id'        => 'zd-logo-header',
                 'type'      => 'image',
                 'section'   => 'general'
             ),
@@ -44,6 +47,22 @@ class ZingDesignThemeOptions {
                 'id'        => 'zd-logo-footer',
                 'type'      => 'image',
                 'section'   => 'general'
+            ),
+            'enable_mobile_navigation' => array(
+                'id'        => 'zd-enable-mobile-navigation',
+                'type'      => 'checkbox',
+                'section'   => 'general',
+	            'default'   => true
+            ),
+            'mobile_navigation_alignment' => array(
+                'id'        => 'zd-mobile-navigation-alignment',
+                'type'      => 'select',
+                'section'   => 'general',
+                'dropdown'   => array(
+	                'left'  => 'Left',
+	                'right' => 'Right'
+                ),
+	            'default'   => 'right'
             )
         );
 
@@ -132,7 +151,7 @@ class ZingDesignThemeOptions {
 
             add_settings_section(
                 'zd-general-section',
-                __($tab_title, 'zingdesign'),
+                __($tab_title, $this->text_domain),
                 array($this, 'zd_section_callback'),
                 $this->page_id,
                 array(
@@ -152,15 +171,22 @@ class ZingDesignThemeOptions {
 
             $section = isset($option['section']) ? $option['section'] : 'general';
 
+	        $dropdown = isset($option['dropdown']) ? $option['dropdown'] : false;
+
+	        if( isset($option['default']) ) {
+		        add_option($id, $option['default']);
+	        }
+
             add_settings_field(
                 $id,
-                '<div class="input-group"><label class="'.$option_type.'-label" for="'.$id.'">' . __($title, 'zingdesign') . '</label>',
+                '<div class="input-group"><label class="'.$option_type.'-label" for="'.$id.'">' . __($title, $this->text_domain) . '</label>',
                 array($this, 'zd_setting_input'),
                 $this->page_id,
                 'zd-'.$section.'-section',
                 array(
                     'id' => $id,
-                    'type' => $option_type
+                    'type' => $option_type,
+	                'dropdown' => $dropdown
                 )
             );
 
@@ -183,6 +209,13 @@ class ZingDesignThemeOptions {
         $type = $args['type'];
         $id = $args['id'];
 
+	    $dropdown = isset($args['dropdown']) ? $args['dropdown'] : array();
+
+	    $default = isset($args['default']) ? $args['default'] : '';
+
+	    $is_checkbox = 'checkbox' === $type;
+	    $is_hidden = 'hidden' === $type;
+
         if( ! $type ) {
             $type = 'text';
         }
@@ -193,19 +226,31 @@ class ZingDesignThemeOptions {
         }
 
 //        $name = str_replace("-", "_", $id);
-        $value = get_option( $id );
+        $current_value = get_option( $id ) ? get_option( $id ) : $default;
+	    $value = ( $is_checkbox || $is_hidden ) ? '1' : $current_value;
 
-        if( in_array($type, array('text', 'email', 'number')) ) {
-            echo "<input type=\"{$type}\" id=\"{$id}\" name=\"{$id}\" value=\"{$value}\" />\n";
-        }
+	    if( in_array($type, array('text', 'email', 'number', 'checkbox', 'hidden')) ) {
+		    $checked = '';
 
-        if( 'image' === $type ) {
+		    if( $is_checkbox ) {
+			    $checked = (!empty($current_value) && $current_value === "1") ? ' checked="checked"' : '';
+		    }
+
+//		    if( $is_checkbox || $is_hidden ) {
+//			    $value = '1';
+//
+//		    }
+
+		    echo "<input type=\"{$type}\" id=\"{$id}\" name=\"{$id}\" value=\"{$value}\"{$checked} />\n";
+	    }
+
+        else if( 'image' === $type ) {
             $bg = '';
             echo "<div>\n";
             $rand = mt_rand(100, 1000);
 
             $button_text = empty($value) ? 'Insert image' : 'Change image';
-            echo "<button class=\"zd-insert-image-button button button-default\">".__($button_text, 'zingdesign')."</button>\n";
+            echo "<button class=\"zd-insert-image-button button button-default\">".__($button_text, $this->text_domain)."</button>\n";
 
 //            $image_src = array();
             $image_url = '';
@@ -225,13 +270,28 @@ class ZingDesignThemeOptions {
 
             $hide = empty($image_url) ? ' zd-hide' : '';
 
-            echo "<p class=\"image-preview-label{$hide}\"><strong>" . __('Image Preview', 'zingdesign') . "</strong></p>\n";
+            echo "<p class=\"image-preview-label{$hide}\"><strong>" . __('Image Preview', $this->text_domain) . "</strong></p>\n";
 
             echo "<div class=\"zd-image-preview\" id=\"zd-image-preview-{$rand}\"{$bg}>";
 //            echo $value;
             echo "</div>\n";
 
             echo "</div>\n";
+        }
+        else if( 'select' === $type ) {
+	        echo "<select id=\"{$id}\" name=\"{$id}\">\n";
+
+	        echo "<option value=\"-1\">" . __('Select an option', $this->text_domain) . "</option>\n";
+
+	        if( !empty($dropdown) ) {
+		        foreach($dropdown as $option_value => $option_label) {
+			        $selected = $value === $option_value ? ' selected' : '';
+
+			        echo "<option value=\"{$option_value}\"{$selected}>" . __($option_label, $this->text_domain) . "</option>\n";
+		        }
+	        }
+
+	        echo "</select>\n";
         }
 
         echo "</div><!--.input-group-->\n";

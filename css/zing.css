@@ -10753,20 +10753,21 @@ img.aligncenter,
 
 /* line 1, ../scss/_responsive-navigation.scss */
 body {
+  left: 0;
   right: 0;
   overflow-y: visible;
-  -webkit-transition: right 0.3s ease;
-  -moz-transition: right 0.3s ease;
-  -o-transition: right 0.3s ease;
-  transition: right 0.3s ease;
+  -webkit-transition: left 0.3s ease, right 0.3s ease;
+  -moz-transition: left 0.3s ease, right 0.3s ease;
+  -o-transition: left 0.3s ease, right 0.3s ease;
+  transition: left 0.3s ease, right 0.3s ease;
 }
-/* line 8, ../scss/_responsive-navigation.scss */
+/* line 10, ../scss/_responsive-navigation.scss */
 body.cbp-body-open {
   overflow-y: hidden;
 }
 
 /* General styles for all menus */
-/* line 14, ../scss/_responsive-navigation.scss */
+/* line 16, ../scss/_responsive-navigation.scss */
 .cbp-spmenu {
   background-color: #dddddd;
   position: fixed;
@@ -10776,13 +10777,13 @@ body.cbp-body-open {
   -moz-box-shadow: inset 0 0 transparent;
   box-shadow: inset 0 0 transparent;
 }
-/* line 23, ../scss/_responsive-navigation.scss */
+/* line 25, ../scss/_responsive-navigation.scss */
 .cbp-spmenu.cbp-spmenu-open {
   -webkit-box-shadow: inset 3px 0 5px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: inset 3px 0 5px rgba(0, 0, 0, 0.1);
   box-shadow: inset 3px 0 5px rgba(0, 0, 0, 0.1);
 }
-/* line 37, ../scss/_responsive-navigation.scss */
+/* line 39, ../scss/_responsive-navigation.scss */
 .cbp-spmenu a {
   display: block;
   font-weight: 200;
@@ -10790,24 +10791,24 @@ body.cbp-body-open {
   font-size: 16px;
   font-size: 1rem;
 }
-/* line 44, ../scss/_responsive-navigation.scss */
+/* line 46, ../scss/_responsive-navigation.scss */
 .cbp-spmenu a:hover {
   background-color: #d0d0d0;
 }
-/* line 48, ../scss/_responsive-navigation.scss */
+/* line 50, ../scss/_responsive-navigation.scss */
 .cbp-spmenu a:active {
   background-color: #c4c4c4;
   color: #4d4d4d;
 }
-/* line 55, ../scss/_responsive-navigation.scss */
+/* line 57, ../scss/_responsive-navigation.scss */
 .cbp-spmenu a.cart-link i {
   margin-right: 10px;
 }
-/* line 62, ../scss/_responsive-navigation.scss */
+/* line 64, ../scss/_responsive-navigation.scss */
 .cbp-spmenu ul {
   margin: 0;
 }
-/* line 66, ../scss/_responsive-navigation.scss */
+/* line 68, ../scss/_responsive-navigation.scss */
 .cbp-spmenu img {
   display: inline-block;
   width: 30px;
@@ -10815,20 +10816,20 @@ body.cbp-body-open {
 }
 
 /* Orientation-dependent styles for the content of the menu */
-/* line 81, ../scss/_responsive-navigation.scss */
+/* line 83, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-vertical {
   width: 240px;
   height: 100%;
   top: 0;
   z-index: 1000;
 }
-/* line 87, ../scss/_responsive-navigation.scss */
+/* line 89, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-vertical a {
   border-bottom: 1px solid #c4c4c4;
   padding: .75em;
 }
 
-/* line 93, ../scss/_responsive-navigation.scss */
+/* line 95, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-horizontal {
   width: 100%;
   height: 150px;
@@ -10836,13 +10837,13 @@ body.cbp-body-open {
   z-index: 1000;
   overflow: hidden;
 }
-/* line 100, ../scss/_responsive-navigation.scss */
+/* line 102, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-horizontal h3 {
   height: 100%;
   width: 20%;
   float: left;
 }
-/* line 106, ../scss/_responsive-navigation.scss */
+/* line 108, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-horizontal a {
   float: left;
   width: 20%;
@@ -10851,67 +10852,67 @@ body.cbp-body-open {
 }
 
 /* Vertical menu that slides from the left or right */
-/* line 117, ../scss/_responsive-navigation.scss */
+/* line 119, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-left {
   left: -240px;
 }
 
-/* line 121, ../scss/_responsive-navigation.scss */
+/* line 123, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-right {
   right: -240px;
 }
 
-/* line 125, ../scss/_responsive-navigation.scss */
+/* line 127, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-left.cbp-spmenu-open {
   left: 0px;
 }
 
-/* line 129, ../scss/_responsive-navigation.scss */
+/* line 131, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-right.cbp-spmenu-open {
   right: 0px;
 }
 
 /* Horizontal menu that slides from the top or bottom */
-/* line 135, ../scss/_responsive-navigation.scss */
+/* line 137, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-top {
   top: -150px;
 }
 
-/* line 139, ../scss/_responsive-navigation.scss */
+/* line 141, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-bottom {
   bottom: -150px;
 }
 
-/* line 143, ../scss/_responsive-navigation.scss */
+/* line 145, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-top.cbp-spmenu-open {
   top: 0px;
 }
 
-/* line 147, ../scss/_responsive-navigation.scss */
+/* line 149, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-bottom.cbp-spmenu-open {
   bottom: 0px;
 }
 
 /* Push classes applied to the body */
-/* line 153, ../scss/_responsive-navigation.scss */
+/* line 155, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-push {
   overflow-x: hidden;
   position: relative;
   left: 0;
 }
 
-/* line 159, ../scss/_responsive-navigation.scss */
+/* line 161, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-push-toright {
   left: 240px;
 }
 
-/* line 163, ../scss/_responsive-navigation.scss */
+/* line 165, ../scss/_responsive-navigation.scss */
 .cbp-spmenu-push-toleft {
   left: -240px;
 }
 
 /* Transitions */
-/* line 171, ../scss/_responsive-navigation.scss */
+/* line 173, ../scss/_responsive-navigation.scss */
 .cbp-spmenu,
 .cbp-spmenu-push {
   -webkit-transition: all 0.3s ease;
@@ -10920,7 +10921,7 @@ body.cbp-body-open {
   transition: all 0.3s ease;
 }
 
-/* line 180, ../scss/_responsive-navigation.scss */
+/* line 182, ../scss/_responsive-navigation.scss */
 .burger-icon {
   padding: 10px 18px;
   color: #dddddd;
@@ -10929,21 +10930,26 @@ body.cbp-body-open {
   font-size: 30px;
   font-size: 1.875rem;
 }
-/* line 189, ../scss/_responsive-navigation.scss */
+/* line 191, ../scss/_responsive-navigation.scss */
 .burger-icon:hover {
   color: #d0d0d0;
 }
-/* line 193, ../scss/_responsive-navigation.scss */
+/* line 195, ../scss/_responsive-navigation.scss */
 .burger-icon.active {
   background-color: #595959;
 }
 
-/* line 198, ../scss/_responsive-navigation.scss */
+/* line 200, ../scss/_responsive-navigation.scss */
+#showRight {
+  float: left;
+}
+
+/* line 204, ../scss/_responsive-navigation.scss */
 #showLeft {
   float: right;
 }
 
-/* line 203, ../scss/_responsive-navigation.scss */
+/* line 209, ../scss/_responsive-navigation.scss */
 .cbp-menu-overlay {
   position: absolute;
   top: 0;
@@ -10955,7 +10961,7 @@ body.cbp-body-open {
   background-color: transparent;
   display: none;
 }
-/* line 214, ../scss/_responsive-navigation.scss */
+/* line 220, ../scss/_responsive-navigation.scss */
 .cbp-body-open .cbp-menu-overlay {
   display: block;
   cursor: pointer;
@@ -10963,41 +10969,41 @@ body.cbp-body-open {
 
 /* Example media queries */
 @media screen and (max-width: 55.1875em) {
-  /* line 224, ../scss/_responsive-navigation.scss */
+  /* line 230, ../scss/_responsive-navigation.scss */
   .cbp-spmenu-horizontal {
     font-size: 75%;
     height: 110px;
   }
 
-  /* line 229, ../scss/_responsive-navigation.scss */
+  /* line 235, ../scss/_responsive-navigation.scss */
   .cbp-spmenu-top {
     top: -110px;
   }
 
-  /* line 233, ../scss/_responsive-navigation.scss */
+  /* line 239, ../scss/_responsive-navigation.scss */
   .cbp-spmenu-bottom {
     bottom: -110px;
   }
 }
 @media screen and (max-height: 26.375em) {
-  /* line 241, ../scss/_responsive-navigation.scss */
+  /* line 247, ../scss/_responsive-navigation.scss */
   .cbp-spmenu-vertical {
     font-size: 90%;
     width: 190px;
   }
 
-  /* line 247, ../scss/_responsive-navigation.scss */
+  /* line 253, ../scss/_responsive-navigation.scss */
   .cbp-spmenu-left,
   .cbp-spmenu-push-toleft {
     left: -190px;
   }
 
-  /* line 251, ../scss/_responsive-navigation.scss */
+  /* line 257, ../scss/_responsive-navigation.scss */
   .cbp-spmenu-right {
     right: -190px;
   }
 
-  /* line 255, ../scss/_responsive-navigation.scss */
+  /* line 261, ../scss/_responsive-navigation.scss */
   .cbp-spmenu-push-toright {
     left: 190px;
   }
