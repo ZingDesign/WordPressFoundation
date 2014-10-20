@@ -295,7 +295,8 @@ function zd_admin_setup() {
     wp_enqueue_style( 'zd-admin-style', get_template_directory_uri() . '/css/zing-admin.css' );
 
     wp_enqueue_media();
-    wp_enqueue_script('zd-admin', get_template_directory_uri() . '/js/admin/zing-admin.js', array('jquery'), '1', 1);
+	wp_enqueue_script('spectrum', get_template_directory_uri() . '/js/admin/spectrum-min.js', array('jquery'), '1', 1);
+    wp_enqueue_script('zd-admin', get_template_directory_uri() . '/js/admin/zing-admin.js', array('jquery', 'spectrum'), '1', 1);
 
 }
 

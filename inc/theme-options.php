@@ -63,7 +63,13 @@ class ZingDesignThemeOptions {
 	                'right' => 'Right'
                 ),
 	            'default'   => 'right'
-            )
+            ),
+	        'google_analytics_code' => array(
+		        'id' => 'google-analytics-code',
+		        'type' => 'text',
+		        'section' => 'analytics',
+		        'default' => 'UA-XXXXXXXX-X'
+	        )
         );
 
         $args = array(
@@ -93,6 +99,8 @@ class ZingDesignThemeOptions {
             }
 
         }
+
+	    $tabs[] = 'analytics';
 
         $this->tabs = $tabs;
 
@@ -150,7 +158,7 @@ class ZingDesignThemeOptions {
             $tab_title = ucfirst($tab);
 
             add_settings_section(
-                'zd-general-section',
+                'zd-'.$tab.'-section',
                 __($tab_title, $this->text_domain),
                 array($this, 'zd_section_callback'),
                 $this->page_id,
@@ -334,9 +342,9 @@ class ZingDesignThemeOptions {
 
     function zd_footer_output() {
 
-	    //if( get_option('zd-enable-mobile-navigation') ) {
+	    if( get_option('zd-enable-mobile-navigation') ) {
 		    echo '<div class="cbp-menu-overlay"></div>'."\n";
-	    //}
+	    }
     }
 }
 

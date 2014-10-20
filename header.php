@@ -11,23 +11,23 @@
 	$nav_menu_enabled = get_option('zd-enable-mobile-navigation');
 	$nav_menu_direction = get_option('zd-mobile-navigation-alignment');
 
+	$nav_class = 'cbp-spmenu';
+
 	if( $nav_menu_enabled ) {
-		$nav_class = $nav_menu_direction === 'right' ? 'cbp-spmenu-right' : 'cbp-spmenu-left';
-
-
-		$nav_class = 'cbp-spmenu-right';
 		$menu_toggle_id = 'showLeft';
 
 		if( $nav_menu_direction === 'left') {
-			$nav_class = 'cbp-spmenu-left';
+			$nav_class .= ' cbp-spmenu-left';
 			$menu_toggle_id = 'showRight';
+		}
+		else {
+
+			$nav_class .= ' cbp-spmenu-right';
 		}
 	}
 	else {
-
-
 		$nav_class = 'cbp-spmenu-disabled';
-		$menu_toggle_id = 'menuDisabled';
+		$menu_toggle_id = 'menu-disabled';
 	}
 
 
@@ -57,7 +57,7 @@
     <script src="<?php echo get_template_directory_uri(); ?>/js/polyfill/ie.min.js"></script>
     <![endif]-->
 
-	<?php if($google_analytics_code = get_option('google_analytics_code')) : ?>
+	<?php if($google_analytics_code = get_option('google-analytics-code')) : ?>
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -80,7 +80,7 @@
 		<header class="masthead container">
 
 			<a class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo('name'); ?></a>
-			<nav id="cbp-spmenu-s1" class="top-menu cbp-spmenu cbp-spmenu-vertical <?php echo $nav_class; ?>" role="navigation" aria-label="Main menu">
+			<nav id="cbp-spmenu-s1" class="top-menu cbp-spmenu-vertical <?php echo $nav_class; ?>" role="navigation" aria-label="Main menu">
 				<a class="screen-reader-text skip-link" href="#content"><?php _e( 'Skip to content', 'zingdesign' ); ?></a>
 
 				<!-- Top menu-->
@@ -94,6 +94,8 @@
 			</nav>
 
 			<a id="<?php echo $menu_toggle_id; ?>" class="burger-icon"><i class="fa fa-bars"></i></a>
+
+			<?php echo get_search_form(); ?>
 
 
 		</header>
