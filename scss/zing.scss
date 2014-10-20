@@ -1,0 +1,89 @@
+// Foundation
+@import "../fnd/bower_components/foundation/scss/normalize";
+//@import "../fnd/bower_components/foundation/scss/foundation";
+@import "../fnd/bower_components/foundation/scss/foundation/functions";
+
+@import "globals";
+
+@import "compass/css3/font-face";
+@import "fonts";
+
+@import "settings";
+
+// Comment out unused Foundation components here:
+
+@import "../fnd/bower_components/foundation/scss/foundation/components/accordion";
+@import"../fnd/bower_components/foundation/scss/foundation/components/alert-boxes";
+@import"../fnd/bower_components/foundation/scss/foundation/components/block-grid";
+@import"../fnd/bower_components/foundation/scss/foundation/components/breadcrumbs";
+@import"../fnd/bower_components/foundation/scss/foundation/components/button-groups";
+@import"../fnd/bower_components/foundation/scss/foundation/components/buttons";
+@import"../fnd/bower_components/foundation/scss/foundation/components/clearing";
+@import"../fnd/bower_components/foundation/scss/foundation/components/dropdown";
+@import"../fnd/bower_components/foundation/scss/foundation/components/dropdown-buttons";
+@import"../fnd/bower_components/foundation/scss/foundation/components/flex-video";
+@import"../fnd/bower_components/foundation/scss/foundation/components/forms";
+@import "../fnd/bower_components/foundation/scss/foundation/components/grid";
+@import"../fnd/bower_components/foundation/scss/foundation/components/inline-lists";
+@import"../fnd/bower_components/foundation/scss/foundation/components/joyride";
+@import"../fnd/bower_components/foundation/scss/foundation/components/keystrokes";
+@import"../fnd/bower_components/foundation/scss/foundation/components/labels";
+@import"../fnd/bower_components/foundation/scss/foundation/components/magellan";
+
+// Orbit replaced by Slick
+//@import"../fnd/bower_components/foundation/scss/foundation/components/orbit";
+
+@import"../fnd/bower_components/foundation/scss/foundation/components/pagination";
+@import"../fnd/bower_components/foundation/scss/foundation/components/panels";
+@import"../fnd/bower_components/foundation/scss/foundation/components/pricing-tables";
+@import"../fnd/bower_components/foundation/scss/foundation/components/progress-bars";
+@import"../fnd/bower_components/foundation/scss/foundation/components/reveal";
+@import"../fnd/bower_components/foundation/scss/foundation/components/side-nav";
+@import"../fnd/bower_components/foundation/scss/foundation/components/split-buttons";
+@import"../fnd/bower_components/foundation/scss/foundation/components/sub-nav";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/switch";
+@import"../fnd/bower_components/foundation/scss/foundation/components/tables";
+@import"../fnd/bower_components/foundation/scss/foundation/components/tabs";
+@import"../fnd/bower_components/foundation/scss/foundation/components/thumbs";
+@import"../fnd/bower_components/foundation/scss/foundation/components/tooltips";
+@import"../fnd/bower_components/foundation/scss/foundation/components/top-bar";
+@import "../fnd/bower_components/foundation/scss/foundation/components/type";
+@import"../fnd/bower_components/foundation/scss/foundation/components/offcanvas";
+@import"../fnd/bower_components/foundation/scss/foundation/components/visibility";
+
+// Compass helpers
+
+@import "compass/css3/box-shadow";
+@import "compass/css3/background-size";
+@import "compass/css3/border-radius";
+@import "compass/css3/opacity";
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+//@import "compass/utilities/general/clearfix";
+//@import "compass/css3/box-sizing";
+//@import "compass/typography/text/replacement";
+
+// Plugins
+@import "../fnd/bower_components/font-awesome/scss/font-awesome";
+@import "../fnd/bower_components/slick-carousel/slick/slick";
+
+// General stylesheets
+
+@import "typography";
+@import "mixins";
+@import "general";
+@import "wordpress";
+@import "responsive-navigation";
+@import "header";
+@import "footer";
+@import "sidebars";
+@import "post-content";
+@import "ui";
+@import "banners";
+
+// Extra stylesheets go here
+
+// Important: Legacy and No-JS and print always load last
+@import "legacy";
+@import "no-js";
+@import "print";

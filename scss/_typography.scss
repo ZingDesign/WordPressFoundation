@@ -1,0 +1,10 @@
+// Typography
+
+//Fonts
+
+//Text truncation
+@mixin restrict-height-by-lines($lines) {
+  display: block;
+  overflow: hidden;
+  height: $lines * $para-line-height * $para-base-font-size * 1px;
+}

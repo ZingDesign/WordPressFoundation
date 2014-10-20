@@ -1,0 +1,13 @@
+# generated files
+node_modules
+bower_components
+.sass-cache
+.idea
+
+
+#
+*.orig
+*.BACKUP.*
+*.LOCAL.*
+*.REMOTE.*
+*.BASE.*

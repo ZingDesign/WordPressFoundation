@@ -1,0 +1,81 @@
+@media print {
+//  Margin  //
+  body {
+    margin: 0 15px;
+  }
+
+  h1, h2 {
+    font-size: 14px;
+  }
+
+  h3 {
+    font-size: 12px;
+  }
+
+  h1, h3 {
+    padding: 0;
+    font-weight: bold;
+  }
+
+  p {
+    margin: 5px auto;
+    font-size: 9px;
+  }
+
+  img {
+    float: left;
+  }
+
+  footer {
+    margin: 0 !important;
+    position: absolute;
+    top: 950px;
+  }
+
+  table {
+    margin: 0;
+    padding: 0;
+    td {
+      text-align: center !important;
+    }
+    tr, th, td {
+      padding: 2px 5px !important;
+    }
+    td, th {
+      font-size: 12px !important;
+      padding: 2px;
+    }
+  }
+
+  a, aside, .footContent, .legal, .toggle-topbar, .top-bar-section, .product-menu, #main-slider  {
+    display: none;
+    visibility: hidden;
+  }
+
+  .post-thumbnail img {
+    width: 25%;
+    float: right;
+  }
+
+  .entry-content p {
+    font-size: 12px;
+  }
+
+  .diagram, #print-head,  #print-foot {
+    display: block;
+    visibility: visible;
+  }
+
+
+  #colophon {
+    border: 0
+  }
+
+  #masthead {
+    border-bottom: 0;
+  }
+
+  #print-head {
+    margin-top: 15px;
+  }
+}

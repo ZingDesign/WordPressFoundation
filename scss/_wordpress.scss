@@ -1,0 +1,152 @@
+/* Alignment */
+
+.alignleft {
+  float: left;
+}
+
+.alignright {
+  float: right;
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+blockquote.alignleft,
+img.alignleft {
+  margin: 7px 24px 7px 0;
+}
+
+.wp-caption.alignleft {
+  margin: 7px 14px 7px 0;
+}
+
+blockquote.alignright,
+img.alignright {
+  margin: 7px 0 7px 24px;
+}
+
+.wp-caption.alignright {
+  margin: 7px 0 7px 14px;
+}
+
+blockquote.aligncenter,
+img.aligncenter,
+.wp-caption.aligncenter {
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.site-content blockquote.alignleft,
+.site-content blockquote.alignright {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 17px;
+  width: 50%;
+}
+
+.site-content blockquote.alignleft p,
+.site-content blockquote.alignright p {
+  margin-bottom: 17px;
+}
+
+.wp-caption {
+  margin-bottom: 24px;
+}
+
+.wp-caption img[class*="wp-image-"] {
+  display: block;
+  margin: 0;
+}
+
+.wp-caption {
+  color: #767676;
+}
+
+.wp-caption-text {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 9px 0;
+  padding-right: 10px;
+}
+
+.wp-smiley {
+  border: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+//WordPress icons
+
+//Show tag link icon only on single
+.single {
+  .tag-links {
+    a {
+      @include rem-val(margin-right, 10px);
+      &:before {
+        @extend .genericon;
+        content: '\f302';
+        //      vertical-align: bottom;
+      }
+    }
+  }
+}
+
+.comments-link {
+  @include rem-val(margin-right, 10px);
+  a {
+    &:before {
+      @extend .genericon;
+      margin-right: 5px;
+      content: '\f412';
+    }
+  }
+}
+
+.edit-link {
+  a {
+    &:before {
+      @extend .genericon;
+      content: '\f411';
+    }
+
+    &.comment-edit-link {
+      &:before {
+        vertical-align: baseline;
+      }
+    }
+  }
+}
+
+.nav-links {
+  @include clearfix();
+  a {
+    width: 50%;
+    padding: 0 5px;
+    line-height: 1.5;
+
+    &[rel="prev"] {
+      float:left;
+      &:before {
+        @extend .genericon;
+        content: '\f430';
+        line-height: 1.5;
+      }
+    }
+    &[rel="next"] {
+      float: right;
+      &:after {
+        @extend .genericon;
+        content: '\f429';
+        line-height: 1.5;
+      }
+    }
+  }
+}

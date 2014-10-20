@@ -1,0 +1,15 @@
+//JavaScript detection
+
+.show-if-no-js {
+  display: none;
+}
+
+.no-js {
+  .hide-if-no-js {
+    display: none;
+  }
+
+  .show-if-no-js {
+    display: inherit;
+  }
+}

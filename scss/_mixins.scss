@@ -1,0 +1,364 @@
+// Functions and mixins go in here
+
+// Functions
+
+// Shorthand function
+
+@function shorthand($prop) {
+  @if($prop == "mg") {
+    $prop: margin;
+    @return $prop;
+  }
+  @if($prop == "mb") {
+    $prop: margin-bottom;
+    @return $prop;
+  }
+  @if($prop == "mt") {
+    $prop: margin-top;
+    @return $prop;
+  }
+  @if($prop == "ml") {
+    $prop: margin-left;
+    @return $prop;
+  }
+  @if($prop == "mr") {
+    $prop: margin-right;
+    @return $prop;
+  }
+  @if($prop == "pd") {
+    $prop: padding;
+    @return $prop;
+  }
+  @if($prop == "pb") {
+    $prop: padding-bottom;
+    @return $prop;
+  }
+  @if($prop == "pt") {
+    $prop: padding-top;
+    @return $prop;
+  }
+  @if($prop == "pl") {
+    $prop: padding-left;
+    @return $prop;
+  }
+  @if($prop == "pr") {
+    $prop: padding-right;
+    @return $prop;
+  }
+  @if($prop == "wd") {
+    $prop: width;
+    @return $prop;
+  }
+  @if($prop == "ht") {
+    $prop: height;
+    @return $prop;
+  }
+  @return $prop;
+}
+
+// Mixins
+
+// Custom buttons
+@mixin _btn($font-size:16, $bg-color:$primary-color, $radius:false, $v-padding:10, $h-padding:20, $text-color:#fff, $display:inline-block, $transition:true, $position:false, $border-color:false, $border-width:1){
+  //  font-weight: normal;
+  line-height: normal;
+  text-decoration: none;
+  text-align: center;
+
+  @if $display {
+    display: $display;
+  }
+
+  @if $bg-color {
+    background-color: $bg-color;
+  }
+
+  @if $text-color {
+    color: $text-color;
+  }
+
+  @if $position {
+    position: $position;
+  }
+
+  @if $font-size {
+    @include rem-font($font-size);
+  }
+
+  @if $v-padding and $h-padding {
+    @include rem-val(padding, $v-padding $h-padding);
+  }
+  @else {
+    @if $v-padding {
+      padding-top: $v-padding * 1px;
+      padding-bottom: $v-padding * 1px;
+    }
+
+    @if $h-padding {
+      padding-left: $h-padding * 1px;
+      padding-right: $h-padding * 1px;
+    }
+  }
+
+  @if $radius {
+    @include border-radius(rem-calc($radius));
+  }
+
+  @if $transition {
+    @include transition(background 300ms);
+  }
+
+  @if $border-color {
+    border: ($border-width * 1px) solid $border-color;
+  }
+
+  @if $text-color or $bg-color {
+    &:hover {
+      @if $text-color {
+        color: $text-color;
+      }
+      @if $bg-color {
+        background-color: darken($bg-color, 5%);
+      }
+    }
+  }
+
+  @if $bg-color {
+    &:active {
+      background-color: darken($bg-color, 10%);
+    }
+  }
+
+}
+
+@mixin rem-val($type, $px) {
+  $type: shorthand($type);
+
+  $max: length($px);
+
+  @if $max == 1 {
+    $px: nth($px, 1);
+  }
+
+  @if type_of($px) == "number" {
+    @if unitless($px) {
+      $px: $px * 1px;
+    }
+  }
+
+  $pxValues: ();
+  @for $i from 1 through $max {
+    $_px: nth($px, $i);
+
+    @if unitless($_px) {
+      $_px: $_px * 1px;
+    }
+
+    $pxValues: append($pxValues, $_px);
+  }
+
+  #{$type}: $pxValues;
+  #{$type}: rem-calc($px);
+}
+
+// _r() is an alias for rem-val()
+
+@mixin _r($_type, $_px) {
+  @include rem-val($_type, $_px);
+}
+
+// Full width background and parallax background helpers
+
+@mixin parallax-bg($img, $position:center) {
+  background-image: image-url($img);
+  height: image-height($img);
+  width: 100%;
+  background-attachment: fixed;
+  background-position: center $position;
+  background-repeat: no-repeat;
+  @include background-size(cover);
+}
+
+@mixin full-width-bg($img, $parallax:false, $position:0%) {
+  background-image: image-url($img);
+
+  width: 100%;
+  background-position: center $position;
+  background-repeat: no-repeat;
+  @include background-size(cover);
+
+  @if $parallax {
+    height: image-height($img);
+    background-attachment: fixed;
+  }
+}
+
+@mixin image-dims( $img ) {
+
+  @if $img {
+    width: image-width($img);
+    height: image-height($img);
+  }
+
+}
+
+// Image replacement
+@mixin ir() {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  *text-indent: -9999px;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+  }
+}
+
+@mixin css-animation($property, $from, $to, $duration, $name, $repeat:infinite ) {
+  /* Chrome, Safari, Opera */
+  @-webkit-keyframes #{$name}
+  {
+    from {
+      #{$property}:$from;
+    }
+    to {
+      #{$property}:$to;
+    }
+  }
+
+  /* Standard syntax */
+  @keyframes #{$name}
+  {
+    from {
+      #{$property}:$from;
+    }
+    to {
+      #{$property}:$to;
+    }
+  }
+
+  -webkit-animation: $name $duration $repeat; /* Chrome, Safari, Opera */
+  animation: $name $duration $repeat;
+}
+
+// Media Query mixin
+
+@mixin media($type) {
+  @if $type == mobile or $type == small-only {
+    @media #{$small-only} { @content; }
+  }
+  @else if $type == tablet or $type == medium-up {
+    @media #{$medium-up} { @content; }
+  }
+  @else if $type == desktop or $type == large-up {
+    @media #{$large-up} { @content; }
+  }
+  @else if $type == retina {
+    @media #{$retina} { @content; }
+  }
+  @else if $type == ipad {
+    @media #{$ipad} { @content; }
+  }
+}
+
+// Image-replacement mixins
+
+@mixin ir-image( $img, $display:inline-block ) {
+  background: image-url($img) no-repeat;
+  width: image-width($img);
+  height: image-height($img);
+  display: $display;
+  @include ir();
+}
+
+// Image-replacement mixins
+
+@mixin bg-image($_img, $_display:block, $_full-width:false, $size:false) {
+  background-image: image-url($_img);
+  background-repeat: no-repeat;
+
+  $img_width: image-width($_img);
+  $img_width_value: strip-unit($img_width);
+  $img_height: image-height($_img);
+  $img_height_value: strip-unit($img_height);
+
+  //  $mobile_width: 290;
+
+  @if $_full-width {
+    width: 100%;
+  }
+  @else {
+    width: $img_width;
+  }
+
+  height: $img_height;
+
+  @if $_display {
+    display: $_display;
+  }
+
+  @if $size {
+    @include background-size($size);
+  }
+
+}
+
+@mixin ir-retina( $img, $display:inline-block ) {
+  background: image-url($img) no-repeat;
+  display: $display;
+
+  $width: floor(image-width($img)/2);
+  $height: floor(image_height($img) / 2);
+
+  width: $width;
+  height: $height;
+
+  @include background-size($width $height, 100% 100%);
+  @include ir();
+}
+
+// The direction refers to which way the "nub" is pointing
+// Options are: left, right, up and down
+
+@mixin nub($direction, $color:#fff, $size:5px) {
+  border: solid $size;
+
+  @if $direction == right {
+    border-color: rgba(#000, 0) rgba(#000, 0) rgba(#000, 0) $color;
+  }
+  @else if $direction == left {
+    border-color: rgba(#000, 0) $color rgba(#000, 0) rgba(#000, 0);
+  }
+  @else if $direction == top {
+    border-color: rgba(#000, 0) rgba(#000, 0) $color rgba(#000, 0);
+  }
+  @else if $direction == down {
+    border-color: $color rgba(#000, 0) rgba(#000, 0) rgba(#000, 0);
+  }
+
+  //          top: auto;
+
+}
+
+@mixin ie-nub($direction, $color:#fff, $bg:transparent, $size:5px) {
+  border: solid $size;
+
+  @if $direction == right {
+    border-color: $bg $bg $bg $color;
+  }
+  @else if $direction == left {
+    border-color: $bg $color $bg $bg;
+  }
+  @else if $direction == top {
+    border-color: $bg $bg $color $bg;
+  }
+  @else if $direction == down {
+    border-color: $color $bg $bg $bg;
+  }
+
+  //          top: auto;
+
+}
