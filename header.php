@@ -55,16 +55,16 @@
 	<div id="header-container">
 		<header class="masthead container">
 
-			<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php echo get_bloginfo('name'); ?></a>
+			<a class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo('name'); ?></a>
 			<nav id="cbp-spmenu-s1" class="top-menu cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" role="navigation" aria-label="Main menu">
 				<a class="screen-reader-text skip-link" href="#content"><?php _e( 'Skip to content', 'zingdesign' ); ?></a>
 
 				<!-- Top menu-->
 				<?php wp_nav_menu( array(
 					'theme_location'    => 'primary',
-					'menu'              => 'Header Navigation',
+//					'menu'              => 'Header Navigation',
 					'menu_class'        => 'nav-menu',
-					'walker'            => new Zing_Design_Walker_Nav_Menu()
+					'walker'            => new Zing_Design_Nav_Menu()
 				) ); ?>
 
 			</nav>

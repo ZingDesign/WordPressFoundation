@@ -244,7 +244,8 @@ function zd_scripts() {
 	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.0.2' );
 
     // Load our custom stylesheet manually
-    wp_enqueue_style( 'zd-main', get_template_directory_uri() . '/css/zing.css' );
+	$stylesheet_file = WP_DEBUG ? 'zing.css' : 'zing.min.css';
+    wp_enqueue_style( 'zd-main', get_template_directory_uri() . '/css/' . $stylesheet_file );
 
 	// Load our main stylesheet.
 	// Load the style.css file AFTER the custom stylesheet
@@ -270,9 +271,11 @@ function zd_scripts() {
 
     // --- Custom JS ---
 
+	$javascript_file = WP_DEBUG ? '/src/js/zing-client.js' :'/dist/js/zing-client.min.js';
+
     wp_enqueue_script(
         'zd-client',
-        get_template_directory_uri() . '/dist/js/zing.min.js',
+        get_template_directory_uri() . $javascript_file,
         array('jquery'),
         '1',
         true

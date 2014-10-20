@@ -3,6 +3,8 @@ module.exports = function(grunt) {
 
     var devMode = true;
 
+    var environment = devMode ? 'development' : 'production';
+
     var bowerComponentsPath = './fnd/bower_components/';
 
     var foundationScriptPath = bowerComponentsPath + 'foundation/js/foundation';
@@ -15,6 +17,16 @@ module.exports = function(grunt) {
         bowerComponentsPath + 'slick-carousel/slick/slick.js'
     ];
 
+    var polyfills = [
+        bowerComponentsPath + 'jquery-placeholder/jquery.placeholder.js'
+    ];
+
+    var cssTasks = ['compass'];
+
+    if( ! devMode ) {
+        cssTasks.push('cssmin');
+    }
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -25,7 +37,7 @@ module.exports = function(grunt) {
         jqueryCheck: 'if (typeof jQuery === "undefined") { throw new Error("Foundation requires jQuery") }\n\n',
 
         clean: {
-            dist: ['dist', 'src', '.sass-cache']
+            dist: ['dist', 'src', '.sass-cache', 'css']
         },
 
         jshint: {
@@ -48,10 +60,10 @@ module.exports = function(grunt) {
                 banner: '<%= banner %><%= jqueryCheck %>',
                 stripBanners: false
             }
-            ,foundation: {
+            ,client: {
                 src: [
                     'fnd/bower_components/fastclick/lib/fastclick.js',
-                    //Comment unused scripts out here for extra optimisingness
+                    //Comment out unused scripts here for extra optimisingness
                     foundationScriptPath + '/foundation.js',
                     foundationScriptPath + '/foundation.abide.js',
                     foundationScriptPath + '/foundation.accordian.js',
@@ -72,7 +84,11 @@ module.exports = function(grunt) {
                     plugins,
                     clientScripts
                 ],
-                dest: 'src/js/<%= pkg.name %>.js'
+                dest: 'src/js/<%= pkg.name %>-client.js'
+            }
+            ,polyfill: {
+                src: polyfills,
+                dest: 'src/js/<%= pkg.name %>-polyfill.js'
             }
         },
 
@@ -85,6 +101,10 @@ module.exports = function(grunt) {
                 src: 'src/js/<%= pkg.name %>-client.js',
                 dest: 'dist/js/<%= pkg.name %>-client.min.js'
             }
+            ,buildPolyfill: {
+                src: 'src/js/<%= pkg.name %>-polyfill.js',
+                dest: 'dist/js/<%= pkg.name %>-polyfill.min.js'
+            }
 
         },
 
@@ -95,28 +115,62 @@ module.exports = function(grunt) {
                     cssDir: 'css',
                     javascriptsDir: 'js',
                     imagesDir: 'images',
-                    environment: '<%= pkg.environment %>'
+                    environment: environment
+                }
+            }
+        },
+
+        cssmin: {
+            add_banner: {
+                options: {
+                    banner: '/* <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
+                },
+                files: {
+                    'css/<%= pkg.name %>.min.css': ['css/**/*.css']
                 }
             }
         },
 
         copy: {
-            style: {
+            //style: {
+            //    expand: true,
+            //    cwd: 'css/',
+            //    src: ['zd.css'],
+            //    dest: './style.css'
+            //},
+            fontAwesomeFonts: {
                 expand: true,
-                cwd: 'css/',
-                src: ['zd.css'],
-                dest: './style.css'
+                cwd: bowerComponentsPath + 'font-awesome/fonts/',
+                src: ['*'],
+                dest: './css/fonts'
+            },
+            slickFonts: {
+                expand: true,
+                cwd: bowerComponentsPath + 'slick-carousel/slick/fonts/',
+                src: ['*'],
+                dest: './css/fonts'
             }
         },
 
         watch: {
-            jsWatch: {
+            clientJsWatch: {
                 files: [clientScripts],
-                tasks: ['jshint:client', 'concat', 'uglify']
+                tasks: ['jshint:client', 'concat:client', 'uglify:build']
+            },
+            polyfillJsWatch: {
+                files: [polyfills],
+                tasks: ['concat:polyfill', 'uglify:buildPolyfill']
             },
             sassWatch: {
                 files: [stylesheets],
-                tasks: ['compass']
+                tasks: cssTasks
+            },
+            fontWatch: {
+                files: [
+                    bowerComponentsPath + 'font-awesome/fonts/*',
+                    bowerComponentsPath + 'slick-carousel/slick/fonts/'
+                ],
+                tasks: ['copy:fonts']
             }
         }
     });
@@ -129,7 +183,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['clean', 'jshint', 'concat', 'uglify', 'compass']);
+    grunt.registerTask('default', ['clean', 'jshint:client', 'concat', 'uglify', 'compass', 'copy']);
+    grunt.registerTask('css', cssTasks);
     grunt.registerTask('js', ['jshint:client', 'concat', 'uglify']);
-
+    grunt.registerTask('copyFonts', ['copy:fontAwesomeFonts', 'copy:slickFonts']);
 };

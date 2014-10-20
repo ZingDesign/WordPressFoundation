@@ -1,0 +1,59 @@
+/* line 1, ../scss/zing-admin.scss */
+.zd-help {
+  background-color: #d00;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+  height: 20px;
+  border-radius: 10px;
+  line-height: 20px;
+  color: #FFF;
+  cursor: help;
+}
+
+/* line 13, ../scss/zing-admin.scss */
+.zd-tab {
+  display: none;
+}
+/* line 16, ../scss/zing-admin.scss */
+.zd-tab label {
+  font-weight: 700;
+}
+/* line 20, ../scss/zing-admin.scss */
+.zd-tab input, .zd-tab label {
+  display: inline-block;
+}
+/* line 24, ../scss/zing-admin.scss */
+.zd-tab label.image-label {
+  display: block;
+  margin-bottom: 10px;
+}
+/* line 29, ../scss/zing-admin.scss */
+.zd-tab textarea {
+  display: block;
+}
+/* line 33, ../scss/zing-admin.scss */
+.zd-tab.zd-active-tab {
+  display: block;
+}
+/* line 37, ../scss/zing-admin.scss */
+.zd-tab .input-group {
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+/* line 44, ../scss/zing-admin.scss */
+.zd-image-src-output {
+  width: 50%;
+}
+
+/* line 53, ../scss/zing-admin.scss */
+.zd-hide {
+  display: none;
+}
+
+/* line 57, ../scss/zing-admin.scss */
+.zd-input-group {
+  margin-bottom: 20px;
+}

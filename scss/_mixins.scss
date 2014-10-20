@@ -362,3 +362,14 @@
   //          top: auto;
 
 }
+
+//REM font values
+
+// -------
+@mixin rem-font($pixel-value) {
+  @if $legacy-support {
+    font-size: $pixel-value * 1px;
+  }
+
+  font-size: rem-calc($pixel-value);
+}

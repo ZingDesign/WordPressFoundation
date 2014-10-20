@@ -6,7 +6,7 @@
  * Time: 4:54 PM
  */
 
-class LedaThemeOptions {
+class ZingDesignThemeOptions {
     
     private $tabs;
     private $options;
@@ -20,6 +20,7 @@ class LedaThemeOptions {
         }
         else {
             add_action('wp_head', array($this, 'zd_header_output'));
+            add_action('wp_footer', array($this, 'zd_footer_output'));
         }
 
 //        $this->tabs = array(
@@ -85,7 +86,7 @@ class LedaThemeOptions {
     function zd_theme_options_init() {
         add_menu_page(
             'Theme Options',
-            'Leda Theme Options',
+            'Theme Options',
             'manage_options',
             'zd_theme_options_page',
             array($this, 'zd_theme_options_callback'),
@@ -104,9 +105,6 @@ class LedaThemeOptions {
             $tab_label = str_replace("_", " ", ucfirst($tab) );
             echo "<a href=\"#tab-{$tab}\" class=\"nav-tab{$active}\">{$tab_label}</a>\n";
         }
-        //    echo "<a href=\"#tab-general\" class=\"nav-tab nav-tab-active\">General</a>\n";
-        //    echo "<a href=\"#tab-home\" class=\"nav-tab\">Home</a>\n";
-        //    echo "<a href=\"#tab-sponsors\" class=\"nav-tab\">Sponsors</a>\n";
         echo "</h2>\n";
 
         settings_fields( 'zd_theme_options_page' );
@@ -248,7 +246,7 @@ class LedaThemeOptions {
             $logo_src = wp_get_attachment_image_src( get_option('zd-logo'), 'full' );
 
             $html .= '<style type="text/css">'."\n";
-            $html .= '#masthead h1 a {'."\n";
+            $html .= '.header-logo {'."\n";
             $html .= 'display: block;'."\n";
             $html .= 'background-image: url(' . $logo_src[0] . ');'."\n";
             $html .= 'width: ' . $logo_src[1] . 'px;'."\n";
@@ -261,7 +259,7 @@ class LedaThemeOptions {
             $logo_src = wp_get_attachment_image_src( get_option('zd-logo-footer'), 'full' );
 
             $html .= '<style type="text/css">'."\n";
-            $html .= '.footer-logo a {'."\n";
+            $html .= '.footer-logo {'."\n";
             $html .= 'display: block;'."\n";
             $html .= 'background-image: url(' . $logo_src[0] . ');'."\n";
             $html .= 'width: ' . $logo_src[1] . 'px;'."\n";
@@ -275,7 +273,11 @@ class LedaThemeOptions {
     }
 
     function zd_footer_output() {
+
+	    //if( get_option('zd-enable-mobile-navigation') ) {
+		    echo '<div class="cbp-menu-overlay"></div>'."\n";
+	    //}
     }
 }
 
-new LedaThemeOptions();
+new ZingDesignThemeOptions();

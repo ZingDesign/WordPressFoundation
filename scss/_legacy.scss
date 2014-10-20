@@ -1,105 +1,107 @@
 // Legacy browser styles
 
-// Style overrides for IE8 and earlier
-.no-css-remunit {
+@if $legacy-support {
+  // Style overrides for IE8 and earlier
+  .no-css-remunit {
 
-  // Foundation rem fixes
+    // Foundation rem fixes
 
-  // General
-  blockquote {
-    padding: 9px 20px 0;
-    margin-bottom: 20px;
-  }
+    // General
+    blockquote {
+      padding: 9px 20px 0;
+      margin-bottom: 20px;
+    }
 
-  p {
-    margin-bottom: 20px;
-  }
+    p {
+      margin-bottom: 20px;
+    }
 
-  // Grid
+    // Grid
 
-  .row {
-    max-width: 1000px;
-
-    // Fix embedded row issue in IE8
     .row {
-      max-width: auto;
-    }
-  }
+      max-width: 1000px;
 
-  .column,
-  .columns {
-    //    padding: 0 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  // Block grid
-
-  [class*="block-grid-"] > li {
-    padding-bottom: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  // Inputs
-
-  input[type="text"],
-  input[type="password"],
-  input[type="date"],
-  input[type="datetime"],
-  input[type="datetime-local"],
-  input[type="month"],
-  input[type="week"],
-  input[type="email"],
-  input[type="number"],
-  input[type="search"],
-  input[type="tel"],
-  input[type="time"],
-  input[type="url"],
-  textarea {
-    padding: 8px;
-  }
-
-  // Lists
-
-  ul {
-    li {
-      ul, ol {
-        margin-left: 20px;
+      // Fix embedded row issue in IE8
+      .row {
+        max-width: auto;
       }
     }
-  }
 
-  // Buttons
-  .button {
-    padding: 16px 32px;
-  }
+    .column,
+    .columns {
+      //    padding: 0 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
 
-  // Modal
+    // Block grid
 
-  .reveal-modal {
-    top: 100px;
-    padding: 30px;
-  }
+    [class*="block-grid-"] > li {
+      padding-bottom: 20px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
 
-  .close-reveal-modal {
-    top: 8px;
-    right: 11px;
-    font-size: 40px;
-  }
+    // Inputs
 
-  // Tabs
-  .tabs {
-    .tab-title {
-      & > a {
-        padding: 16px 32px;
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
+    input[type="email"],
+    input[type="number"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="url"],
+    textarea {
+      padding: 8px;
+    }
+
+    // Lists
+
+    ul {
+      li {
+        ul, ol {
+          margin-left: 20px;
+        }
       }
     }
-  }
 
-  .tabs-content {
-    & > .content {
-      padding: 15px 0;
+    // Buttons
+    .button {
+      padding: 16px 32px;
+    }
+
+    // Modal
+
+    .reveal-modal {
+      top: 100px;
+      padding: 30px;
+    }
+
+    .close-reveal-modal {
+      top: 8px;
+      right: 11px;
+      font-size: 40px;
+    }
+
+    // Tabs
+    .tabs {
+      .tab-title {
+        & > a {
+          padding: 16px 32px;
+        }
+      }
+    }
+
+    .tabs-content {
+      & > .content {
+        padding: 15px 0;
+      }
     }
   }
 }

@@ -14,7 +14,9 @@
 
 		<footer id="colophon" class="site-footer" role="contentinfo">
 
-            <p>&copy; <?php echo date('Y'); ?> Zing Design</p>
+			<a class="footer-logo"><?php bloginfo('name'); ?></a>
+
+            <p>Powered by WordPress. Designed by <a href="http://zingdesign.com" target="_blank">Zing Design</a></p>
 
 		</footer><!-- #colophon -->
 	</div><!-- #page -->

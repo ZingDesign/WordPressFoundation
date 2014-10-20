@@ -1,8 +1,21 @@
+body {
+
+  right: 0;
+  overflow-y: visible;
+  
+  @include transition(right 0.3s ease);
+
+  &.cbp-body-open {
+    overflow-y: hidden;
+  }
+}
+
 /* General styles for all menus */
 .cbp-spmenu {
   background-color: $slide-menu-background;
   position: fixed;
   overflow: scroll;
+  overflow-x: hidden;
 
   //  @include transition(box-shadow 250ms);
   @include box-shadow(inset 0 0 transparent);
@@ -12,19 +25,19 @@
 
   }
 
-  h3 {
-    color: #afdefa;
-    font-size: 1.9em;
-    padding: 20px;
-    margin: 0;
-    font-weight: 200;
-    background-color: $slide-menu-background;
-  }
+//  h3 {
+//    color: #afdefa;
+//    font-size: 1.9em;
+//    padding: 20px;
+//    margin: 0;
+//    font-weight: 200;
+//    background-color: $slide-menu-background;
+//  }
 
   a {
     display: block;
     font-weight: 200;
-    color: $slide-menu-background;
+    color: $slide-menu-link-color;
     
     @include rem-font(16);
 
@@ -34,7 +47,7 @@
 
     &:active {
       background-color: darken($slide-menu-background, 10%);
-      color: darken($slide-menu-background, 10%);
+      color: darken($slide-menu-link-color, 10%);
     }
 
 
@@ -55,6 +68,10 @@
     width: 30px;
     height: 30px;
   }
+
+//  .admin-bar & {
+//    padding-top: 46px;
+//  }
 
 }
 
@@ -149,12 +166,55 @@
 
 /* Transitions */
 
+//.cbp-menu-body,
 .cbp-spmenu,
 .cbp-spmenu-push {
 //  -webkit-transition: all 0.3s ease;
 //  -moz-transition: all 0.3s ease;
 //  transition: all 0.3s ease;
   @include transition(all 0.3s ease);
+}
+
+// Toggle button
+
+.burger-icon {
+  padding: 10px 18px;
+  color: $menu-toggle-icon-color;
+  cursor: pointer;
+  background-color: $menu-toggle-bg-color;
+
+  @include rem-font(30);
+
+
+  &:hover {
+    color:$menu-toggle-icon-color-hover;
+  }
+
+  &.active {
+    background-color: $menu-toggle-bg-color-active;
+  }
+}
+
+#showLeft {
+  float: right;
+}
+
+// Menu Overlay
+.cbp-menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  background-color: transparent;
+  display: none;
+
+  .cbp-body-open & {
+    display: block;
+    cursor: pointer;
+  }
 }
 
 /* Example media queries */
@@ -196,3 +256,11 @@
     left: 190px;
   }
 }
+
+//@media only screen and (min-width: 783px) {
+//  .admin-bar {
+//    .cbp-spmenu {
+//      padding-top: 32px;
+//    }
+//  }
+//}

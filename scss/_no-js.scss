@@ -13,3 +13,7 @@
     display: inherit;
   }
 }
+
+@if $no-js-support {
+
+}

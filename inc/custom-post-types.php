@@ -84,7 +84,7 @@ function zd_add_post_type_markets() {
     );
     $args = array(
         'label'               => __( 'zd_markets', 'zingdesign' ),
-        'description'         => __( 'Leda Markets', 'zingdesign' ),
+        'description'         => __( 'Markets', 'zingdesign' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
         'taxonomies'          => array( 'market_category' ),
@@ -136,7 +136,7 @@ function zd_add_post_type_products() {
     );
     $args = array(
         'label'               => __( 'zd_products', 'zingdesign' ),
-        'description'         => __( 'Leda Products', 'zingdesign' ),
+        'description'         => __( 'Products', 'zingdesign' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
         'taxonomies'          => array( 'product_category' ),
@@ -188,7 +188,7 @@ function zd_add_post_type_services() {
     );
     $args = array(
         'label'               => __( 'zd_services', 'zingdesign' ),
-        'description'         => __( 'Leda Services', 'zingdesign' ),
+        'description'         => __( 'Services', 'zingdesign' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
         'taxonomies'          => array( 'service_category' ),
@@ -240,7 +240,7 @@ function zd_add_post_type_resources() {
     );
     $args = array(
         'label'               => __( 'zd_resources', 'zingdesign' ),
-        'description'         => __( 'Leda resources', 'zingdesign' ),
+        'description'         => __( 'resources', 'zingdesign' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
         'taxonomies'          => array(),
@@ -292,7 +292,7 @@ function zd_add_post_type_newsletters() {
     );
     $args = array(
         'label'               => __( 'zd_newsletters', 'zingdesign' ),
-        'description'         => __( 'Leda newsletters', 'zingdesign' ),
+        'description'         => __( 'newsletters', 'zingdesign' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
         'taxonomies'          => array(),

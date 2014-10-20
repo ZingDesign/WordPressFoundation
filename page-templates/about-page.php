@@ -7,7 +7,6 @@
  */
 
 get_header(); ?>
-<!--<div class="row">-->
 
     <div id="main-content" class="main-content medium-8 columns">
 
@@ -26,15 +25,10 @@ get_header(); ?>
 
                         // Include the page content template.
                         get_template_part( 'content', 'page' );
-
-                        // If comments are open or we have at least one comment, load up the comment template.
-    //					if ( comments_open() || get_comments_number() ) {
-    //						comments_template();
-    //					}
                     endwhile;
                 ?>
 
-                <h2>Meet Leda</h2>
+                <h2><?php sprintf(__('About %1$s', 'zingdesign'), get_bloginfo('name') ); ?></h2>
 
                 <div id="about-team-members">
                     <ul class="medium-block-grid-2">
@@ -49,6 +43,4 @@ get_header(); ?>
         <?php get_sidebar( 'sidebar-1' ); ?>
     </div>
 
-<!--</div>-->
-    <!-- End of row -->
 <?php get_footer();

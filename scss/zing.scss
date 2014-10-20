@@ -65,12 +65,14 @@
 
 // Plugins
 @import "../fnd/bower_components/font-awesome/scss/font-awesome";
+
 @import "../fnd/bower_components/slick-carousel/slick/slick";
 
 // General stylesheets
 
 @import "typography";
 @import "mixins";
+@import "helpers";
 @import "general";
 @import "wordpress";
 @import "responsive-navigation";
@@ -85,5 +87,7 @@
 
 // Important: Legacy and No-JS and print always load last
 @import "legacy";
+
 @import "no-js";
+
 @import "print";

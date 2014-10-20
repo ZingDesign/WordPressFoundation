@@ -15,11 +15,13 @@ jQuery(document).ready(function($){
 
             menu = $('#cbp-spmenu-s1'),
 
-            $body = $('body'),
+            $body = $('body').addClass('cbp-menu-body'),
 
             mediumUp = matchMedia(window.ZD.medium).matches,
 
-            largeUp = matchMedia(window.ZD.large).matches;
+            largeUp = matchMedia(window.ZD.large).matches,
+
+            menuOverlay = $('.cbp-menu-overlay');
 
 
         // Private functions
@@ -29,15 +31,17 @@ jQuery(document).ready(function($){
 
             menu.addClass('cbp-spmenu-open');
 
-            $body.css({
-                'right': menu.outerWidth() + 'px',
-                'overflow-y': 'hidden'
-            });
+            $body
+                .addClass('cbp-body-open')
+                .css({
+                    'right': menu.outerWidth() + 'px'
+                });
 
             menuOpen = true;
         };
 
         var closeMenuPrivate = function () {
+            //console.log('overlay clicked');
 
             //var $this = $(this);
 
@@ -47,16 +51,22 @@ jQuery(document).ready(function($){
 
             //$body.removeClass('open');
 
-            $body.css({
-                'right': '0',
-                'overflow-y': 'visible'
-            });
+            $body
+                .removeClass('cbp-body-open')
+                .css({
+                    'right': '0'
+                });
 
             menuOpen = false;
         };
 
 
         var initPrivate = function() {
+
+            //if( $('.cbp-menu-overlay').length === 0 ) {
+            //    menuOverlay.appendTo($body);
+            //}
+
 
 
             // Restrict body width to window width
@@ -91,6 +101,8 @@ jQuery(document).ready(function($){
 
             return false;
         });
+
+        menuOverlay.on( 'click', closeMenuPrivate );
 
 
         // Mobile-only - close the menu when a mobile nav link is 'clicked'

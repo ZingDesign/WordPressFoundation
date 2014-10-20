@@ -7,7 +7,6 @@
  */
 
 get_header(); ?>
-<!--<div class="row">-->
 
     <div id="main-content" class="main-content medium-8 columns">
 
@@ -23,16 +22,17 @@ get_header(); ?>
                 ?>
             </div><!-- #content -->
             <h2>Testimonials:</h2>
+
             <ul id="testimonial-section" class="medium-block-grid-2 small-block-grid-1">
                 <?php get_sidebar('testimonials'); ?>
             </ul>
         </div><!-- #primary -->
+
     </div><!-- #main-content -->
+
     <div class="medium-3 columns">
         <?php get_sidebar( 'sidebar-1' ); ?>
     </div>
-<!--</div>-->
-    <!-- End of Row -->
 <?php
 // get_sidebar( 'home-page' );
 get_footer();
