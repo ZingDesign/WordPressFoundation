@@ -25,11 +25,16 @@
  * @since Zing Design 1.0
  */
 
-include_once get_template_directory() . '/inc/theme-options.php';
-include_once get_template_directory() . '/inc/custom-post-types.php';
-include_once get_template_directory() . '/inc/custom-sidebars.php';
-include_once get_template_directory() . '/inc/custom-shortcodes.php';
-include_once get_template_directory() . '/inc/custom-metaboxes.php';
+define("ZD_TEXT_DOMAIN", "zingdesign");
+
+if( is_admin() ) {
+	include_once get_template_directory() . '/inc/FormHelper.php';
+	include_once get_template_directory() . '/inc/theme-options.php';
+	include_once get_template_directory() . '/inc/custom-post-types.php';
+	include_once get_template_directory() . '/inc/custom-sidebars.php';
+	include_once get_template_directory() . '/inc/custom-shortcodes.php';
+	include_once get_template_directory() . '/inc/custom-metaboxes.php';
+}
 include_once get_template_directory() . '/inc/nav-walker.php';
 
 //add_filter('widget_text', 'do_shortcode');
@@ -83,7 +88,7 @@ function zd_setup() {
 	add_theme_support( 'automatic-feed-links' );
 
 	// Enable support for Post Thumbnails, and declare two sizes.
-//	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'post-thumbnails' );
 //	set_post_thumbnail_size( 672, 372, true );
 //	add_image_size( 'zd-full-width', 1038, 576 );
 

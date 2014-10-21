@@ -12,10 +12,13 @@ class ZingDesignThemeOptions {
     private $options;
     private $page_id;
 	private $text_domain;
+
+	private $form_helper;
     
     function __construct() {
 
-	    $this->text_domain = $this->text_domain;
+	    $this->text_domain = ZD_TEXT_DOMAIN;
+	    $this->form_helper = new FormHelper();
 
         if( is_admin() ) {
             add_action( 'admin_menu', array($this, 'zd_theme_options_init') );
@@ -36,6 +39,20 @@ class ZingDesignThemeOptions {
 //            //        'resources',
 //            //        'contact'
 //        );
+
+	    // Define tabs
+	    // Format: ID => Label
+	    $tabs = array(
+		    'general'       => 'General',
+		    'social-media'  => 'Social Media',
+		    'analytics'     => 'Analytics'
+	    );
+
+	    /*
+	     * Define Options
+	     * Format: ID => array Args
+	     */
+
 
         $options = array(
             'header_logo' => array(
@@ -58,49 +75,60 @@ class ZingDesignThemeOptions {
                 'id'        => 'zd-mobile-navigation-alignment',
                 'type'      => 'select',
                 'section'   => 'general',
-                'dropdown'   => array(
+                'dropdown'  => array(
 	                'left'  => 'Left',
 	                'right' => 'Right'
                 ),
 	            'default'   => 'right'
             ),
+	        'show_search_form-in_header' => array(
+		        'type'      => 'checkbox',
+		        'default'   => true
+	        ),
 	        'google_analytics_code' => array(
-		        'id' => 'google-analytics-code',
-		        'type' => 'text',
 		        'section' => 'analytics',
-		        'default' => 'UA-XXXXXXXX-X'
+		        'placeholder' => 'UA-XXXXXXXX-X'
+	        ),
+	        'test_field' => array(
+		        'type' => 'textarea'
+	        ),
+	        'test_select' => array(
+		        'type' => 'select'
+	        ),
+	        'facebook' => array(
+		        'section'   => 'social-media',
+		        'type'      => 'url'
 	        )
+
         );
 
-        $args = array(
-            'sort_order' => 'ASC',
-            'sort_column' => 'post_date',
-            'hierarchical' => 1,
-            'exclude' => '',
-            'include' => '',
-            'meta_key' => '',
-            'meta_value' => '',
-            'authors' => '',
-            'child_of' => 0,
-            'parent' => 0,
-            'exclude_tree' => '',
-            'number' => '',
-            'offset' => 0,
-            'post_type' => 'page',
-            'post_status' => 'publish'
-        );
-        $pages = get_pages($args);
+//        $args = array(
+//            'sort_order' => 'ASC',
+//            'sort_column' => 'post_date',
+//            'hierarchical' => 1,
+//            'exclude' => '',
+//            'include' => '',
+//            'meta_key' => '',
+//            'meta_value' => '',
+//            'authors' => '',
+//            'child_of' => 0,
+//            'parent' => 0,
+//            'exclude_tree' => '',
+//            'number' => '',
+//            'offset' => 0,
+//            'post_type' => 'page',
+//            'post_status' => 'publish'
+//        );
+//        $pages = get_pages($args);
 
-        $tabs = array( 'general' );
+//        foreach( $pages as $page ) {
+//            if( in_array($page->post_name, $options)) {
+//                $tabs[] = strtolower($page->post_name);
+//            }
+//
+//        }
 
-        foreach( $pages as $page ) {
-            if( in_array($page->post_name, $options)) {
-                $tabs[] = strtolower($page->post_name);
-            }
-
-        }
-
-	    $tabs[] = 'analytics';
+//	    $tabs[] = ;
 
         $this->tabs = $tabs;
 
@@ -127,10 +155,16 @@ class ZingDesignThemeOptions {
         echo '<form id="zd-options-form" method="POST" action="options.php">';
 
         echo "<h2 class=\"nav-tab-wrapper zd-admin-tab-nav\">\n";
-        foreach( $this->tabs as $i => $tab ) {
+
+	    $i = 0;
+
+        foreach( $this->tabs as $tab_id => $tab_label ) {
+	        // Set first tab to active by default
             $active = 0 === $i ? ' nav-tab-active' : '';
-            $tab_label = str_replace("_", " ", ucfirst($tab) );
-            echo "<a href=\"#tab-{$tab}\" class=\"nav-tab{$active}\">{$tab_label}</a>\n";
+
+            echo "<a href=\"#tab-{$tab_id}\" class=\"nav-tab{$active}\">{$tab_label}</a>\n";
+
+	        $i ++;
         }
         echo "</h2>\n";
 
@@ -138,11 +172,15 @@ class ZingDesignThemeOptions {
 
         //do_settings_sections( 'zd_theme_options_page' ); 	//pass slug name of page
 
-        foreach( $this->tabs as $i => $tab ) {
+	    $i = 0;
+        foreach( $this->tabs as $tab_id => $tab_label ) {
             $active = (0 === $i) ? ' zd-active-tab' : '';
-            echo "<div id=\"tab-{$tab}\" class=\"zd-tab{$active}\">\n";
-            do_settings_fields( 'zd_theme_options_page', 'zd-'.$tab.'-section' );
+
+            echo "<div id=\"tab-{$tab_id}\" class=\"zd-tab{$active}\">\n";
+            do_settings_fields( 'zd_theme_options_page', 'zd-'.$tab_id.'-section' );
             echo "</div>\n";
+
+	        $i ++;
         }
 
         submit_button();
@@ -154,11 +192,11 @@ class ZingDesignThemeOptions {
 
     function zd_theme_settings() {
 
-        foreach( $this->tabs as $tab ) {
-            $tab_title = ucfirst($tab);
+        foreach( $this->tabs as $tab_id => $tab_label ) {
+            $tab_title = ucfirst($tab_label);
 
             add_settings_section(
-                'zd-'.$tab.'-section',
+                'zd-'.$tab_id.'-section',
                 __($tab_title, $this->text_domain),
                 array($this, 'zd_section_callback'),
                 $this->page_id,
@@ -170,31 +208,60 @@ class ZingDesignThemeOptions {
 
         // Options
 
-        foreach( $this->options as $key => $option ) {
-            $id = $option['id'];
-            $title = str_replace("_", " ", ucfirst( $key ) );
-            $option_type = $option['type'];
+	    // define option types which don't have a label
+	    $no_label = array('hidden', 'radio');
 
+        foreach( $this->options as $key => $option ) {
+	        $default = $label = false;
+
+	        // Validate options
+
+	        // If ID not explicitly set, replace key underscores with dashes
+            $id = isset($option['id']) ? $option['id'] : str_replace("_", "-", $key );
+
+	        // replace key underscores with spaces to generate a title as a fallback for label
+            $title = str_replace("_", " ", ucfirst( $key ) );
+
+	        // Set option type to text by default (most common input?)
+            $option_type = isset($option['type']) ? $option['type'] : 'text';
+
+	        // Set filter to esc_html by default
             $filter = isset($option['filter']) ? $option['filter'] : 'esc_html';
 
+	        // Set section to general by default
             $section = isset($option['section']) ? $option['section'] : 'general';
 
 	        $dropdown = isset($option['dropdown']) ? $option['dropdown'] : false;
 
+	        $placeholder = isset($option['placeholder']) ? $option['placeholder'] : false;
+
+	        $required = isset($option['required']) ? $option['required'] : false;
+
+	        // Set label if the input is NOT hidden
+
+	        if( ! in_array($option_type, $no_label) ) {
+		        $label = isset($option['label']) ? $option['label'] : $title;
+	        }
+
 	        if( isset($option['default']) ) {
 		        add_option($id, $option['default']);
+		        $default = $option['default'];
 	        }
 
             add_settings_field(
                 $id,
-                '<div class="input-group"><label class="'.$option_type.'-label" for="'.$id.'">' . __($title, $this->text_domain) . '</label>',
-                array($this, 'zd_setting_input'),
+                '',
+                array($this, 'get_setting_input'),
                 $this->page_id,
                 'zd-'.$section.'-section',
                 array(
-                    'id' => $id,
-                    'type' => $option_type,
-	                'dropdown' => $dropdown
+                    'id'            => $id,
+	                'label'         => $label,
+                    'type'          => $option_type,
+	                'dropdown'      => $dropdown,
+	                'default'       => $default,
+	                'placeholder'   => $placeholder,
+	                'required'      => $required
                 )
             );
 
@@ -212,100 +279,11 @@ class ZingDesignThemeOptions {
         echo '<h1>'.$args['tab_title'].'</h1>'."\n";
     }
 
-    function zd_setting_input( $args ) {
-//        echo '<p><textarea class="zd-text" id="zd-physical-address" name="zd-physical-address" rows="3" cols="50">'.get_option('zd-physical-address').'</textarea></p>';
-        $type = $args['type'];
-        $id = $args['id'];
-
-	    $dropdown = isset($args['dropdown']) ? $args['dropdown'] : array();
-
-	    $default = isset($args['default']) ? $args['default'] : '';
-
-	    $is_checkbox = 'checkbox' === $type;
-	    $is_hidden = 'hidden' === $type;
-
-        if( ! $type ) {
-            $type = 'text';
-        }
-
-        if( ! $id ) {
-            echo "<p class=\"error\">Error: ID required when initialising new settings</p>\n";
-            return;
-        }
-
-//        $name = str_replace("-", "_", $id);
-        $current_value = get_option( $id ) ? get_option( $id ) : $default;
-	    $value = ( $is_checkbox || $is_hidden ) ? '1' : $current_value;
-
-	    if( in_array($type, array('text', 'email', 'number', 'checkbox', 'hidden')) ) {
-		    $checked = '';
-
-		    if( $is_checkbox ) {
-			    $checked = (!empty($current_value) && $current_value === "1") ? ' checked="checked"' : '';
-		    }
-
-//		    if( $is_checkbox || $is_hidden ) {
-//			    $value = '1';
-//
-//		    }
-
-		    echo "<input type=\"{$type}\" id=\"{$id}\" name=\"{$id}\" value=\"{$value}\"{$checked} />\n";
-	    }
-
-        else if( 'image' === $type ) {
-            $bg = '';
-            echo "<div>\n";
-            $rand = mt_rand(100, 1000);
-
-            $button_text = empty($value) ? 'Insert image' : 'Change image';
-            echo "<button class=\"zd-insert-image-button button button-default\">".__($button_text, $this->text_domain)."</button>\n";
-
-//            $image_src = array();
-            $image_url = '';
-
-            if( !empty($value) ) {
-                echo '<button class="zd-remove-image-button button button-default">' . __('Remove image') . '</button>'."\n";
-                $image_src = wp_get_attachment_image_src($value);
-
-                $image_url = empty($image_src[0]) ? '' : $image_src[0];
-
-                $bg = ' style="background: url('.$image_url.') no-repeat;width:'.$image_src[1].'px;height:'.$image_src[2].'px;"';
-            }
+	function get_setting_input($_args) {
+		echo $this->form_helper->zd_setting_input($_args);
+	}
 
 
-            echo "<input class=\"zd-image-src-output\" id=\"zd-image-src-{$rand}\" value=\"{$image_url}\"/>\n";
-            echo "<input type=\"hidden\" id=\"zd-image-id-{$rand}\" name=\"{$id}\" value=\"{$value}\" />\n";
-
-            $hide = empty($image_url) ? ' zd-hide' : '';
-
-            echo "<p class=\"image-preview-label{$hide}\"><strong>" . __('Image Preview', $this->text_domain) . "</strong></p>\n";
-
-            echo "<div class=\"zd-image-preview\" id=\"zd-image-preview-{$rand}\"{$bg}>";
-//            echo $value;
-            echo "</div>\n";
-
-            echo "</div>\n";
-        }
-        else if( 'select' === $type ) {
-	        echo "<select id=\"{$id}\" name=\"{$id}\">\n";
-
-	        echo "<option value=\"-1\">" . __('Select an option', $this->text_domain) . "</option>\n";
-
-	        if( !empty($dropdown) ) {
-		        foreach($dropdown as $option_value => $option_label) {
-			        $selected = $value === $option_value ? ' selected' : '';
-
-			        echo "<option value=\"{$option_value}\"{$selected}>" . __($option_label, $this->text_domain) . "</option>\n";
-		        }
-	        }
-
-	        echo "</select>\n";
-        }
-
-        echo "</div><!--.input-group-->\n";
-
-//        echo $args['type'];
-    }
 
     function zd_header_output() {
         $html = '';
