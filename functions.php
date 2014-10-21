@@ -27,14 +27,14 @@
 
 define("ZD_TEXT_DOMAIN", "zingdesign");
 
-if( is_admin() ) {
-	include_once get_template_directory() . '/inc/FormHelper.php';
-	include_once get_template_directory() . '/inc/theme-options.php';
-	include_once get_template_directory() . '/inc/custom-post-types.php';
-	include_once get_template_directory() . '/inc/custom-sidebars.php';
-	include_once get_template_directory() . '/inc/custom-shortcodes.php';
-	include_once get_template_directory() . '/inc/custom-metaboxes.php';
-}
+//if( is_admin() ) {
+include_once get_template_directory() . '/inc/FormHelper.php';
+include_once get_template_directory() . '/inc/theme-options.php';
+include_once get_template_directory() . '/inc/custom-post-types.php';
+include_once get_template_directory() . '/inc/custom-sidebars.php';
+include_once get_template_directory() . '/inc/custom-shortcodes.php';
+include_once get_template_directory() . '/inc/custom-metaboxes.php';
+//}
 include_once get_template_directory() . '/inc/nav-walker.php';
 
 //add_filter('widget_text', 'do_shortcode');
@@ -290,6 +290,11 @@ function zd_scripts() {
 		'templateDirectoryURI' => get_template_directory_uri()
 	));
 
+	$theme_options = new ZingDesignThemeOptions();
+	if( file_exists( $theme_options->custom_css_file ) ) {
+		wp_enqueue_style('zd-generated-theme-css', get_template_directory_uri() . $theme_options->custom_css_file_name );
+	}
+
 }
 add_action( 'wp_enqueue_scripts', 'zd_scripts' );
 
@@ -299,9 +304,17 @@ function zd_admin_setup() {
 
     wp_enqueue_style( 'zd-admin-style', get_template_directory_uri() . '/css/zing-admin.css' );
 
-    wp_enqueue_media();
-	wp_enqueue_script('spectrum', get_template_directory_uri() . '/js/admin/spectrum-min.js', array('jquery'), '1', 1);
-    wp_enqueue_script('zd-admin', get_template_directory_uri() . '/js/admin/zing-admin.js', array('jquery', 'spectrum'), '1', 1);
+
+	wp_enqueue_media();
+
+	// Spectrum colour picker
+	wp_enqueue_style('spectrum-css', get_template_directory_uri() . '/fnd/bower_components/spectrum/spectrum.css');
+	wp_enqueue_script('spectrum-js', get_template_directory_uri() . '/fnd/bower_components/spectrum/spectrum.js', array('jquery'), '1', false);
+
+	//Custom admin script
+	wp_enqueue_script('zd-admin', get_template_directory_uri() . '/js/admin/zing-admin.js', array('jquery', 'spectrum-js'), '1', true);
+
+
 
 }
 

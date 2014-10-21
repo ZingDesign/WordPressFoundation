@@ -10,7 +10,7 @@ class FormHelper {
 
 
 	public function zd_setting_input( $args ) {
-		$html = $before = $after = '';
+		$html = $before = $after = $class = '';
 
 		$type = $args['type'];
 		$id = $args['id'];
@@ -26,9 +26,9 @@ class FormHelper {
 
 		$placeholder = $args['placeholder'] ? ' placeholder="'.$args['placeholder'].'"' : '';
 
-		$required = $args['required'];
+		$required = $args['required'] ? ' required' : '';
 
-		$text_based_inputs = array('text', 'email', 'number', 'checkbox', 'hidden', 'url');
+		$text_based_inputs = array('text', 'email', 'number', 'checkbox', 'hidden', 'url', 'color');
 
 		if( ! $type ) {
 			$type = 'text';
@@ -38,7 +38,9 @@ class FormHelper {
 			return "<p class=\"zd-error\">ZD Error: ID required when initialising new settings</p>\n";
 		}
 
-		$before .= '<div class="input-group">'."\n";
+		if( $args['wrapper'] ) {
+			$before .= '<div class="input-group">'."\n";
+		}
 
 		if( $label ) {
 			$label_html = "<label for=\"{$id}\">{$label}</label>\n";
@@ -51,7 +53,10 @@ class FormHelper {
 			}
 		}
 
-		$after .= "</div><!--input-wrapper-->\n";
+		if( $args['wrapper'] ) {
+			$after .= "</div><!--input-wrapper-->\n";
+		}
+
 
 
 		// Set current value to stored value if a value has been set
@@ -75,7 +80,12 @@ class FormHelper {
 				$checked = (!empty($current_value) && $current_value === "1") ? ' checked="checked"' : '';
 			}
 
-			$html .= "<input type=\"{$type}\" id=\"{$id}\" name=\"{$id}\" value=\"{$value}\" required=\"{$required}\"{$checked}{$placeholder} />\n";
+			if( 'color' === $type ) {
+				$type = 'text';
+				$class = 'zd-color-input';
+			}
+
+			$html .= "<input type=\"{$type}\" id=\"{$id}\" class=\"{$class}\" name=\"{$id}\" value=\"{$value}\" {$required}{$checked}{$placeholder} />\n";
 		}
 
 		/*
@@ -83,7 +93,7 @@ class FormHelper {
 		 */
 
 		else if( 'textarea' === $type ) {
-			$html .= "<textarea id=\"{$id}\" name=\"{$id}\"{$placeholder}>{$value}</textarea>\n";
+			$html .= "<textarea id=\"{$id}\" name=\"{$id}\" rows=\"{$args['rows']}\" cols=\"{$args['cols']}\" {$placeholder}>{$value}</textarea>\n";
 		}
 
 		/*

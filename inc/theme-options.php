@@ -12,20 +12,32 @@ class ZingDesignThemeOptions {
     private $options;
     private $page_id;
 	private $text_domain;
+//	public $zd_theme_options_id;
+	public $custom_css_file;
+	public $custom_css_file_name;
 
 	private $form_helper;
     
     function __construct() {
 
 	    $this->text_domain = ZD_TEXT_DOMAIN;
+//	    $this->zd_theme_options_id = 'zd_theme_options';
 	    $this->form_helper = new FormHelper();
+
+	    $this->custom_css_file_name = '/css/theme.css';
+
+	    $this->custom_css_file = get_template_directory() . $this->custom_css_file_name;
 
         if( is_admin() ) {
             add_action( 'admin_menu', array($this, 'zd_theme_options_init') );
             add_action( 'admin_init', array($this, 'zd_theme_settings') );
         }
         else {
-            add_action('wp_head', array($this, 'zd_header_output'));
+//            add_action('wp_head', array($this, 'zd_header_output'));
+	        if( ! $this->write_css_to_file() ) {
+		        add_action('wp_head', array($this, 'generate_css_in_head'));
+	        }
+
             add_action('wp_footer', array($this, 'zd_footer_output'));
         }
 
@@ -40,101 +52,166 @@ class ZingDesignThemeOptions {
 //            //        'contact'
 //        );
 
-	    // Define tabs
-	    // Format: ID => Label
-	    $tabs = array(
-		    'general'       => 'General',
-		    'social-media'  => 'Social Media',
-		    'analytics'     => 'Analytics'
-	    );
+	    if( is_admin() ) {
+		    // Define tabs
+		    // Format: ID => Label
+		    $tabs = array(
+			    'general'           => 'General',
+			    'contact-details'   => 'Contact details',
+			    'social-media'      => 'Social Media',
+			    'analytics'         => 'Analytics',
+			    'newsletter'        => 'Newsletter',
+			    'design'            => 'Design',
+		    );
 
-	    /*
-	     * Define Options
-	     * Format: ID => array Args
-	     */
+		    /*
+		 * Define Options
+		 * Format: ID => array Args
+		 */
+		    $options_data_file = get_template_directory() . '/data/theme-options.json';
+		    $options = array();
+
+//		    if( file_exists($options_data_file) && filesize($options_data_file) > 0) {
+//			    $handle = fopen($options_data_file, "r");
+//			    $file_contents = fread($handle, filesize($options_data_file));
+//			    $options = json_decode($file_contents, TRUE);
+//			    fclose($handle);
+//		    }
+//		    else {
+			    $options = array(
+				    'header_logo' => array(
+					    'id'        => 'zd-logo-header',
+					    'type'      => 'image',
+					    'section'   => 'general'
+				    ),
+				    'footer_logo' => array(
+					    'id'        => 'zd-logo-footer',
+					    'type'      => 'image',
+					    'section'   => 'general'
+				    ),
+				    'enable_mobile_navigation' => array(
+					    'id'        => 'zd-enable-mobile-navigation',
+					    'type'      => 'checkbox',
+					    'section'   => 'general',
+					    'default'   => true
+				    ),
+				    'mobile_navigation_alignment' => array(
+					    'id'        => 'zd-mobile-navigation-alignment',
+					    'type'      => 'select',
+					    'section'   => 'general',
+					    'dropdown'  => array(
+						    'left'  => 'Left',
+						    'right' => 'Right'
+					    ),
+					    'default'   => 'right'
+				    ),
+				    'show_search_form_in_header' => array(
+					    'type'      => 'checkbox',
+					    'default'   => true
+				    ),
+				    'google_analytics_code' => array(
+					    'section' => 'analytics',
+					    'placeholder' => 'UA-XXXXXXXX-X'
+				    ),
 
 
-        $options = array(
-            'header_logo' => array(
-                'id'        => 'zd-logo-header',
-                'type'      => 'image',
-                'section'   => 'general'
-            ),
-            'footer_logo' => array(
-                'id'        => 'zd-logo-footer',
-                'type'      => 'image',
-                'section'   => 'general'
-            ),
-            'enable_mobile_navigation' => array(
-                'id'        => 'zd-enable-mobile-navigation',
-                'type'      => 'checkbox',
-                'section'   => 'general',
-	            'default'   => true
-            ),
-            'mobile_navigation_alignment' => array(
-                'id'        => 'zd-mobile-navigation-alignment',
-                'type'      => 'select',
-                'section'   => 'general',
-                'dropdown'  => array(
-	                'left'  => 'Left',
-	                'right' => 'Right'
-                ),
-	            'default'   => 'right'
-            ),
-	        'show_search_form-in_header' => array(
-		        'type'      => 'checkbox',
-		        'default'   => true
-	        ),
-	        'google_analytics_code' => array(
-		        'section' => 'analytics',
-		        'placeholder' => 'UA-XXXXXXXX-X'
-	        ),
-	        'test_field' => array(
-		        'type' => 'textarea'
-	        ),
-	        'test_select' => array(
-		        'type' => 'select'
-	        ),
-	        'facebook' => array(
-		        'section'   => 'social-media',
-		        'type'      => 'url'
-	        )
 
-        );
+				    // Contact details
+				    'mailto_email_address' => array(
+					    'label'     => 'Email address',
+					    'section'   => 'contact-details',
+					    'type'      => 'url'
+				    ),
+				    'physical_address' => array(
+					    'label'     => 'Physical address',
+					    'section'   => 'contact-details',
+					    'type'      => 'textarea'
+				    ),
 
-//        $args = array(
-//            'sort_order' => 'ASC',
-//            'sort_column' => 'post_date',
-//            'hierarchical' => 1,
-//            'exclude' => '',
-//            'include' => '',
-//            'meta_key' => '',
-//            'meta_value' => '',
-//            'authors' => '',
-//            'child_of' => 0,
-//            'parent' => 0,
-//            'exclude_tree' => '',
-//            'number' => '',
-//            'offset' => 0,
-//            'post_type' => 'page',
-//            'post_status' => 'publish'
-//        );
-//        $pages = get_pages($args);
+				    // Newsletter
+				    'enable_mailchimp_subscription_form' => array(
+					    'label'     => 'Enable MailChimp subscription form',
+					    'section'   => 'newsletter',
+					    'type'      => 'checkbox'
+				    ),
+				    'mail_chimp_endpoint_url' => array(
+					    'label'     => 'MailChimp endpoint',
+					    'section'   => 'newsletter',
+					    'type'      => 'url'
+				    ),
 
-//        foreach( $pages as $page ) {
-//            if( in_array($page->post_name, $options)) {
-//                $tabs[] = strtolower($page->post_name);
-//            }
-//
-//        }
+				    // Design
+				    'body_background_color' => array(
+					    'label'     => 'Body background color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'body_text_color' => array(
+					    'label'     => 'Body text color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'header_background_color' => array(
+					    'label'     => 'Header background color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'header_text_color' => array(
+					    'label'     => 'Header text color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'footer_background_color' => array(
+					    'label'     => 'Footer background color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'footer_text_color' => array(
+					    'label'     => 'Footer text color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    )
 
-//	    $tabs[] = ;
 
-        $this->tabs = $tabs;
+			    );
 
-        $this->options = $options;
+		        // Add social media outlets
+			    $social_media_outlets = array(
+				    'facebook',
+				    'twitter',
+				    'linkedin',
+				    'google_plus',
+				    'youtube',
+				    'dribbble',
+				    'flickr',
+				    'tumblr'
+			    );
 
-        $this->page_id = 'zd_theme_options_page';
+			    foreach($social_media_outlets as $sm) {
+				    // Social media
+				    $sm_label = str_replace( "_", " ", ucfirst($sm) ) . ' URL';
+
+				    $options[$sm . '_url'] = array(
+					    'label'     => $sm_label,
+					    'section'   => 'social-media',
+					    'type'      => 'url'
+				    );
+			    }
+
+			    $this->write_to_file(json_encode($options), $options_data_file);
+//		    }
+
+
+
+		    $this->tabs = $tabs;
+
+		    //	    var_dump($options);
+
+		    $this->options = $options;
+
+		    $this->page_id = 'zd_theme_options_page';
+	    }
+
 
     }
 
@@ -152,7 +229,7 @@ class ZingDesignThemeOptions {
 
     function zd_theme_options_callback() {
 
-        echo '<form id="zd-options-form" method="POST" action="options.php">';
+        echo '<form id="zd-options-form" method="POST" action="options.php" data-abide>';
 
         echo "<h2 class=\"nav-tab-wrapper zd-admin-tab-nav\">\n";
 
@@ -211,6 +288,8 @@ class ZingDesignThemeOptions {
 	    // define option types which don't have a label
 	    $no_label = array('hidden', 'radio');
 
+	    $theme_options_array = array();
+
         foreach( $this->options as $key => $option ) {
 	        $default = $label = false;
 
@@ -225,6 +304,10 @@ class ZingDesignThemeOptions {
 	        // Set option type to text by default (most common input?)
             $option_type = isset($option['type']) ? $option['type'] : 'text';
 
+	        if( 'url' === $option_type && !isset($option['filter'] ) ) {
+		        $option['filter'] = 'esc_url';
+	        }
+
 	        // Set filter to esc_html by default
             $filter = isset($option['filter']) ? $option['filter'] : 'esc_html';
 
@@ -237,6 +320,14 @@ class ZingDesignThemeOptions {
 
 	        $required = isset($option['required']) ? $option['required'] : false;
 
+	        // Textarea rows and cols
+	        $rows = isset($option['rows']) ? $option['rows'] : '5';
+	        $cols = isset($option['cols']) ? $option['cols'] : '100';
+
+
+	        // Input wrapper - true by default
+	        $wrapper = isset($option['wrapper']) ? $option['wrapper'] : true;
+
 	        // Set label if the input is NOT hidden
 
 	        if( ! in_array($option_type, $no_label) ) {
@@ -248,21 +339,26 @@ class ZingDesignThemeOptions {
 		        $default = $option['default'];
 	        }
 
+	        $input_options_array = array(
+		        'id'            => $id,
+                'label'         => $label,
+                'type'          => $option_type,
+                'dropdown'      => $dropdown,
+                'default'       => $default,
+                'placeholder'   => $placeholder,
+                'required'      => $required,
+		        'rows'          => $rows,
+		        'cols'          => $cols,
+		        'wrapper'       => $wrapper
+	        );
+
             add_settings_field(
                 $id,
                 '',
                 array($this, 'get_setting_input'),
                 $this->page_id,
                 'zd-'.$section.'-section',
-                array(
-                    'id'            => $id,
-	                'label'         => $label,
-                    'type'          => $option_type,
-	                'dropdown'      => $dropdown,
-	                'default'       => $default,
-	                'placeholder'   => $placeholder,
-	                'required'      => $required
-                )
+                $input_options_array
             );
 
             register_setting(
@@ -285,36 +381,87 @@ class ZingDesignThemeOptions {
 
 
 
-    function zd_header_output() {
-        $html = '';
+    function generate_css() {
+        $css = '';
+
+	    $body_background_color = get_option('body-background-color');
+	    $body_text_color = get_option('body-text-color');
+	    $header_background_color = get_option('header-background-color');
+	    $header_text_color = get_option('header-text-color');
+	    $footer_background_color = get_option('footer-background-color');
+	    $footer_text_color = get_option('footer-text-color');
+
+	    $css .= "@charset \"utf-8\";\n";
+	    $css .= "/* --------- Styles generated by ZD theme options --------- */\n";
 
         if( get_option('zd-logo') ) {
             $logo_src = wp_get_attachment_image_src( get_option('zd-logo'), 'full' );
-
-            $html .= '<style type="text/css">'."\n";
-            $html .= '.header-logo {'."\n";
-            $html .= 'display: block;'."\n";
-            $html .= 'background-image: url(' . $logo_src[0] . ');'."\n";
-            $html .= 'width: ' . $logo_src[1] . 'px;'."\n";
-//            $html .= 'height: ' . $logo_src[2] . 'px;'."\n";
-            $html .= '}'."\n";
-            $html .= '</style>'."\n";
+            $css .= '.header-logo {'."\n";
+            $css .= '  display: block;'."\n";
+            $css .= '  background-image: url(' . $logo_src[0] . ');'."\n";
+            $css .= '  width: ' . $logo_src[1] . 'px;'."\n";
+            $css .= '  height: ' . $logo_src[2] . 'px;'."\n";
+            $css .= '}'."\n";
+//            $css .= '</style>'."\n";
         }
 
         if( get_option('zd-logo-footer') ) {
             $logo_src = wp_get_attachment_image_src( get_option('zd-logo-footer'), 'full' );
 
-            $html .= '<style type="text/css">'."\n";
-            $html .= '.footer-logo {'."\n";
-            $html .= 'display: block;'."\n";
-            $html .= 'background-image: url(' . $logo_src[0] . ');'."\n";
-            $html .= 'width: ' . $logo_src[1] . 'px;'."\n";
-            $html .= 'height: ' . $logo_src[2] . 'px;'."\n";
-            $html .= '}'."\n";
-            $html .= '</style>'."\n";
+//            $css .= '<style type="text/css">'."\n";
+            $css .= '.footer-logo {'."\n";
+            $css .= '  display: block;'."\n";
+            $css .= '  background-image: url(' . $logo_src[0] . ');'."\n";
+            $css .= '  width: ' . $logo_src[1] . 'px;'."\n";
+            $css .= '  height: ' . $logo_src[2] . 'px;'."\n";
+            $css .= '}'."\n";
         }
 
-        echo $html;
+	    // Body styles
+	    if( $body_background_color || $body_text_color ) {
+		    $css .= "#page {\n";
+
+		    if( $body_background_color ) {
+			    $css .= "  background-color: {$body_background_color};\n";
+		    }
+		    if( $body_text_color ) {
+			    $css .= "  color: {$body_text_color};\n";
+		    }
+
+		    $css .= "}\n";
+	    }
+
+	    // Header styles
+	    if( $header_background_color || $header_text_color ) {
+		    $css .= "#header-container {\n";
+		    
+		    if( $header_background_color ) {
+			    $css .= "  background-color: {$header_background_color};\n";
+		    }
+		    if( $header_text_color ) {
+			    $css .= "  color: {$header_text_color};\n";
+		    }
+		    
+		    $css .= "}\n";
+	    }
+	    
+
+	    if( $footer_background_color || $footer_text_color ) {
+		    $css .= "#colophon {\n";
+		    
+		    if( $footer_background_color ) {
+			    $css .= "  background-color: {$footer_background_color};\n";
+		    }
+		    if( $footer_text_color ) {
+			    $css .= "  color: {$footer_text_color};\n";
+		    }
+		    
+		    $css .= "}\n";
+	    }
+
+//        echo $css;
+
+	    return $css;
 
     }
 
@@ -324,6 +471,62 @@ class ZingDesignThemeOptions {
 		    echo '<div class="cbp-menu-overlay"></div>'."\n";
 	    }
     }
+
+	function zd_get_option($option_id, $default=false) {
+		$zd_theme_option = get_option( $option_id );
+
+		if( isset($zd_theme_option) ) {
+			return $zd_theme_option;
+		}
+		else if($default) {
+			return $default;
+		}
+		else if(WP_DEBUG) {
+			return "<p>ZD Error: Invalid option ID: {$option_id}</p>\n";
+		}
+	}
+
+	function write_css_to_file() {
+		return $this->write_to_file($this->generate_css(), $this->custom_css_file);
+	}
+
+	function write_to_file($_content, $filename) {
+		// Let's make sure the file exists and is writable first.
+		if (is_writable($filename)) {
+
+			// In our example we're opening $filename in append mode.
+			// The file pointer is at the bottom of the file hence
+			// that's where $somecontent will go when we fwrite() it.
+			if (!$handle = fopen($filename, 'w')) {
+				echo "Cannot open file ($filename)";
+//				exit;
+				return false;
+			}
+
+			// Write $somecontent to our opened file.
+			if (fwrite($handle, $_content) === FALSE) {
+				echo "Cannot write to file ($filename)";
+//				exit;
+				return false;
+			}
+
+//			echo "Success, wrote ($_css) to file ($filename)";
+
+			fclose($handle);
+			return true;
+
+		} else {
+			echo "The file {$filename} is not writable";
+			return false;
+		}
+	}
+
+	function generate_css_in_head() {
+
+		$css = $this->generate_css();
+
+		echo '<style type="text/css">'."\n" . str_replace("\n", "", $css) . '\n</style>'."\n";
+	}
 }
 
 new ZingDesignThemeOptions();
