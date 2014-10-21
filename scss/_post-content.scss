@@ -1,0 +1,45 @@
+.post{
+  header {
+    h1{
+      a{
+        color: $text-black;
+        &:hover{
+          color: $electric-blue;
+        }
+      }
+    }
+  }
+  margin-bottom: 40px;
+  border-bottom: 1px solid #D8D8D8;
+  img{
+    margin-bottom: 1.5rem;
+  }
+  button {
+    margin-bottom: 40px;
+  }
+}
+
+.entry-meta{
+  margin-bottom: 1rem;
+  i{
+    color: $electric-blue;
+    margin-right: 10px;
+  }
+  span {
+    margin-right: 20px;
+    display: inline-block;
+    a {
+      color: $text-black;
+    }
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.comments-link {
+  a:before {
+    display: none;
+  }
+
+}

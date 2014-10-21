@@ -1,3 +1,19 @@
 // General styles
 
 // No classes/IDs, only basic element selectors
+
+a {
+  text-decoration: none;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  font-size: 1rem;
+  color: #222222;
+  line-height: 1.5;
+  max-width: 800px;
+  margin-bottom: 1.5rem;
+}

@@ -65,7 +65,7 @@
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', <?php echo esc_attr($google_analytics_code); ?>, 'auto');
+        ga('create', '<?php echo esc_attr($google_analytics_code); ?>', 'auto');
         ga('send', 'pageview');
 
     </script>
@@ -101,4 +101,4 @@
 		</header>
 	</div>
 
-	<div id="main" class="site-main row">
+	<div id="main" class="site-main">

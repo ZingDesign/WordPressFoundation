@@ -83,7 +83,7 @@ function zd_setup() {
 	add_theme_support( 'automatic-feed-links' );
 
 	// Enable support for Post Thumbnails, and declare two sizes.
-//	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'post-thumbnails' );
 //	set_post_thumbnail_size( 672, 372, true );
 //	add_image_size( 'zd-full-width', 1038, 576 );
 
@@ -122,6 +122,7 @@ function zd_setup() {
 
 	// This theme uses its own gallery styles.
 	add_filter( 'use_default_gallery_style', '__return_false' );
+
 }
 endif; // zd_setup
 add_action( 'after_setup_theme', 'zd_setup' );

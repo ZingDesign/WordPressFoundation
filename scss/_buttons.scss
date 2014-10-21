@@ -1,0 +1,115 @@
+.button{
+  font-size: 1rem;
+  color: $white;
+  background: $black;
+  border:none;
+  border-radius: 3px;
+  padding:0 40px 0 40px;
+  height: 54px;
+
+  transition: background .25s ease-in-out;
+  // apply a 10px margin between font awesome and any text in the button
+  .fa-right-margin{
+    margin-right: 10px;
+  }
+  // blue button
+  &.blue{
+    background: $electric-blue;
+    &:hover{
+      background: darken($electric-blue, 5%);
+    }
+  }
+  // green button
+  &.green{
+    background: $green;
+    &:hover{
+      background: darken($green, 5%);
+    }
+  }
+  // button with facebook's colours
+  &.facebook{
+    background: #3B5998;
+    &:hover{
+      background: darken(#3B5998, 5%);
+    }
+  }
+  // button with twitter's colours
+  &.twitter{
+    background: #55ACEE;
+    &:hover{
+      background: darken(#55ACEE, 5%);
+    }
+  }
+  // button with google plus's colours
+  &.google-plus{
+    background: #DD4B39;
+    &:hover{
+      background: darken(#DD4B39, 5%);
+    }
+  }
+  // button with github's colours
+  &.github{
+    background: #4183C4;
+    &:hover{
+      background: darken(#4183C4, 5%);
+    }
+  }
+  // this button expands to the full width of the element it is nested in
+  &.full-width{
+    width: 100%;
+  }
+  // this is a special button that only appears in the blog navigation
+  &.promo{
+    border-radius: 0;
+    width: 320px;
+    margin: 4px 0 0 0;
+    float: right;
+  }
+}
+.button-nav{
+  display: none;
+}
+.button-search{
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: url("../images/icon-search-white.svg") center no-repeat;
+  width: 40px;
+  height: 40px;
+  border: none;
+}
+
+@media only screen and (min-width : 815px){
+  .button{
+    &.promo{
+      height:72px;
+      width: 270px;
+    }
+  }
+
+  .button-nav{
+    color: $white;
+    text-decoration: none;
+    height: 80px;
+    line-height: 80px;
+    padding: 0 15px 0 15px;
+    display: block;
+    &:hover,&.active{
+      background: darken($dark-blue, 5%);
+    }
+  }
+}
+
+@media only screen and (min-width : 1035px){
+  .button{
+    &.promo{
+      height: 82px;
+      width: 320px;
+    }
+  }
+  .button-nav{
+    height:90px;
+    line-height: 90px;
+    padding: 0 30px 0 30px;
+  }
+}

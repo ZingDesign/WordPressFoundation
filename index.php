@@ -16,7 +16,7 @@
 
 get_header(); ?>
 
-<div id="main-content" class="main-content">
+<div id="main-content" class="content-primary">
 
 <?php
 	if ( is_front_page() && zd_has_featured_posts() ) {
@@ -27,6 +27,7 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
+
 
 		<?php
 			if ( have_posts() ) :
@@ -53,8 +54,10 @@ get_header(); ?>
 
 		</div><!-- #content -->
 	</div><!-- #primary -->
-	<?php get_sidebar( 'content' ); ?>
+
 </div><!-- #main-content -->
+<?php get_sidebar( 'content' ); ?>
+
 
 <?php
 get_sidebar();

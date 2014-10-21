@@ -1,9 +1,18 @@
 // Declare variables
 
-// Colour palette (example)
-//$light-green: #77BD15;
-//$blue: #0071B4;
-//$footer-grey: #4D4D4D;
+// raygun colours
+$white: #fff;
+$black: #000;
+$raygun-red: #e6969e;
+$electric-blue: #158fef;
+$green: #9aca40;
+$yellow: #ffbb42;
+$orange: #fe5723;
+$light-grey: #f0f3f8;
+$light-grey-border: #d7e0e9;
+$dark-blue: #364760;
+
+$text-black: #222;
 
 // Responsive navigation
 $slide-menu-background: #ddd !default;
@@ -17,18 +26,16 @@ $slide-menu-link-color: #666 !default;
 $para-line-height: 1.6;
 $para-base-font-size: 16;
 
+
+
+
 // Fonts
 $helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 //Custom media queries
 
 // Retina mega-query!
-$retina: "only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (min-device-pixel-ratio: 2),
-only screen and (min-resolution: 192dpi),
-only screen and (min-resolution: 2dppx)";
+$retina: "only screen and (-webkit-min-device-pixel-ratio: 2),only screen and (min--moz-device-pixel-ratio: 2),only screen and (-o-min-device-pixel-ratio: 2/1),only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192dpi),only screen and (min-resolution: 2dppx)";
 
 // Common images
 $ajax-loader: image-url('ajax-loader.gif');

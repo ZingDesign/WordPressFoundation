@@ -1,0 +1,47 @@
+.sidebar-features{
+  background: $light-grey;
+  border-radius: 3px;
+  padding: 32px 40px;
+  h3{
+    margin: 0;
+  }
+}
+
+.sidebar-features-item{
+  margin-top: 40px;
+  a {
+    color: $electric-blue;
+    &:hover {
+      color: $text-black;
+    }
+  }
+  i{
+    margin-right: 10px;
+    &:last-child{
+      margin-left: 20px;
+    }
+  }
+}
+
+.widget{
+  margin-top: 40px;
+}
+
+.newsletter {
+  h3 {
+    color: $electric-blue;
+  }
+}
+
+.input-email{
+  background: $light-grey;
+  border-radius: 3px;
+  border: 1px solid $light-grey-border;
+  box-sizing: border-box;
+  height: 54px;
+  padding: 0 24px 0 24px;
+  margin-bottom: 16px;
+  &.full-width{
+    width: 100%;
+  }
+}

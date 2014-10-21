@@ -9,8 +9,8 @@
 
 
 get_header(); ?>
-		<div id="content" class="site-content medium-9 columns" role="main">
-             <?php zd_post_thumbnail();?>
+		<div id="content" class="content-primary" role="main">
+
 			<?php
 				// Start the Loop.
 				while ( have_posts() ) : the_post();
@@ -31,14 +31,10 @@ get_header(); ?>
 					}
 				endwhile;
 			?>
-            <?php get_sidebar( 'market-products' ); ?>
 
 		</div><!-- #content -->
-        <div class="medium-3 columns">
-            <?php get_sidebar(); ?>
-        </div>
+
 <?php
-//get_sidebar();
-//get_sidebar();
+get_sidebar();
 get_footer();
 
