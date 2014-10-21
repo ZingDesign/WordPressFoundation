@@ -12,17 +12,32 @@ class ZingDesignThemeOptions {
     private $options;
     private $page_id;
 	private $text_domain;
+//	public $zd_theme_options_id;
+	public $custom_css_file;
+	public $custom_css_file_name;
+
+	private $form_helper;
     
     function __construct() {
 
-	    $this->text_domain = $this->text_domain;
+	    $this->text_domain = ZD_TEXT_DOMAIN;
+//	    $this->zd_theme_options_id = 'zd_theme_options';
+	    $this->form_helper = new FormHelper();
+
+	    $this->custom_css_file_name = '/css/theme.css';
+
+	    $this->custom_css_file = get_template_directory() . $this->custom_css_file_name;
 
         if( is_admin() ) {
             add_action( 'admin_menu', array($this, 'zd_theme_options_init') );
             add_action( 'admin_init', array($this, 'zd_theme_settings') );
         }
         else {
-            add_action('wp_head', array($this, 'zd_header_output'));
+//            add_action('wp_head', array($this, 'zd_header_output'));
+	        if( ! $this->write_css_to_file() ) {
+		        add_action('wp_head', array($this, 'generate_css_in_head'));
+	        }
+
             add_action('wp_footer', array($this, 'zd_footer_output'));
         }
 
@@ -37,76 +52,166 @@ class ZingDesignThemeOptions {
 //            //        'contact'
 //        );
 
-        $options = array(
-            'header_logo' => array(
-                'id'        => 'zd-logo-header',
-                'type'      => 'image',
-                'section'   => 'general'
-            ),
-            'footer_logo' => array(
-                'id'        => 'zd-logo-footer',
-                'type'      => 'image',
-                'section'   => 'general'
-            ),
-            'enable_mobile_navigation' => array(
-                'id'        => 'zd-enable-mobile-navigation',
-                'type'      => 'checkbox',
-                'section'   => 'general',
-	            'default'   => true
-            ),
-            'mobile_navigation_alignment' => array(
-                'id'        => 'zd-mobile-navigation-alignment',
-                'type'      => 'select',
-                'section'   => 'general',
-                'dropdown'   => array(
-	                'left'  => 'Left',
-	                'right' => 'Right'
-                ),
-	            'default'   => 'right'
-            ),
-	        'google_analytics_code' => array(
-		        'id' => 'google-analytics-code',
-		        'type' => 'text',
-		        'section' => 'analytics',
-		        'default' => 'UA-XXXXXXXX-X'
-	        )
-        );
+	    if( is_admin() ) {
+		    // Define tabs
+		    // Format: ID => Label
+		    $tabs = array(
+			    'general'           => 'General',
+			    'contact-details'   => 'Contact details',
+			    'social-media'      => 'Social Media',
+			    'analytics'         => 'Analytics',
+			    'newsletter'        => 'Newsletter',
+			    'design'            => 'Design',
+		    );
 
-        $args = array(
-            'sort_order' => 'ASC',
-            'sort_column' => 'post_date',
-            'hierarchical' => 1,
-            'exclude' => '',
-            'include' => '',
-            'meta_key' => '',
-            'meta_value' => '',
-            'authors' => '',
-            'child_of' => 0,
-            'parent' => 0,
-            'exclude_tree' => '',
-            'number' => '',
-            'offset' => 0,
-            'post_type' => 'page',
-            'post_status' => 'publish'
-        );
-        $pages = get_pages($args);
+		    /*
+		 * Define Options
+		 * Format: ID => array Args
+		 */
+		    $options_data_file = get_template_directory() . '/data/theme-options.json';
+		    $options = array();
 
-        $tabs = array( 'general' );
+//		    if( file_exists($options_data_file) && filesize($options_data_file) > 0) {
+//			    $handle = fopen($options_data_file, "r");
+//			    $file_contents = fread($handle, filesize($options_data_file));
+//			    $options = json_decode($file_contents, TRUE);
+//			    fclose($handle);
+//		    }
+//		    else {
+			    $options = array(
+				    'header_logo' => array(
+					    'id'        => 'zd-logo-header',
+					    'type'      => 'image',
+					    'section'   => 'general'
+				    ),
+				    'footer_logo' => array(
+					    'id'        => 'zd-logo-footer',
+					    'type'      => 'image',
+					    'section'   => 'general'
+				    ),
+				    'enable_mobile_navigation' => array(
+					    'id'        => 'zd-enable-mobile-navigation',
+					    'type'      => 'checkbox',
+					    'section'   => 'general',
+					    'default'   => true
+				    ),
+				    'mobile_navigation_alignment' => array(
+					    'id'        => 'zd-mobile-navigation-alignment',
+					    'type'      => 'select',
+					    'section'   => 'general',
+					    'dropdown'  => array(
+						    'left'  => 'Left',
+						    'right' => 'Right'
+					    ),
+					    'default'   => 'right'
+				    ),
+				    'show_search_form_in_header' => array(
+					    'type'      => 'checkbox',
+					    'default'   => true
+				    ),
+				    'google_analytics_code' => array(
+					    'section' => 'analytics',
+					    'placeholder' => 'UA-XXXXXXXX-X'
+				    ),
 
-        foreach( $pages as $page ) {
-            if( in_array($page->post_name, $options)) {
-                $tabs[] = strtolower($page->post_name);
-            }
 
-        }
 
-	    $tabs[] = 'analytics';
+				    // Contact details
+				    'mailto_email_address' => array(
+					    'label'     => 'Email address',
+					    'section'   => 'contact-details',
+					    'type'      => 'url'
+				    ),
+				    'physical_address' => array(
+					    'label'     => 'Physical address',
+					    'section'   => 'contact-details',
+					    'type'      => 'textarea'
+				    ),
 
-        $this->tabs = $tabs;
+				    // Newsletter
+				    'enable_mailchimp_subscription_form' => array(
+					    'label'     => 'Enable MailChimp subscription form',
+					    'section'   => 'newsletter',
+					    'type'      => 'checkbox'
+				    ),
+				    'mail_chimp_endpoint_url' => array(
+					    'label'     => 'MailChimp endpoint',
+					    'section'   => 'newsletter',
+					    'type'      => 'url'
+				    ),
 
-        $this->options = $options;
+				    // Design
+				    'body_background_color' => array(
+					    'label'     => 'Body background color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'body_text_color' => array(
+					    'label'     => 'Body text color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'header_background_color' => array(
+					    'label'     => 'Header background color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'header_text_color' => array(
+					    'label'     => 'Header text color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'footer_background_color' => array(
+					    'label'     => 'Footer background color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    ),
+				    'footer_text_color' => array(
+					    'label'     => 'Footer text color',
+					    'section'   => 'design',
+					    'type'      => 'color'
+				    )
 
-        $this->page_id = 'zd_theme_options_page';
+
+			    );
+
+		        // Add social media outlets
+			    $social_media_outlets = array(
+				    'facebook',
+				    'twitter',
+				    'linkedin',
+				    'google_plus',
+				    'youtube',
+				    'dribbble',
+				    'flickr',
+				    'tumblr'
+			    );
+
+			    foreach($social_media_outlets as $sm) {
+				    // Social media
+				    $sm_label = str_replace( "_", " ", ucfirst($sm) ) . ' URL';
+
+				    $options[$sm . '_url'] = array(
+					    'label'     => $sm_label,
+					    'section'   => 'social-media',
+					    'type'      => 'url'
+				    );
+			    }
+
+			    $this->write_to_file(json_encode($options), $options_data_file);
+//		    }
+
+
+
+		    $this->tabs = $tabs;
+
+		    //	    var_dump($options);
+
+		    $this->options = $options;
+
+		    $this->page_id = 'zd_theme_options_page';
+	    }
+
 
     }
 
@@ -124,13 +229,19 @@ class ZingDesignThemeOptions {
 
     function zd_theme_options_callback() {
 
-        echo '<form id="zd-options-form" method="POST" action="options.php">';
+        echo '<form id="zd-options-form" method="POST" action="options.php" data-abide>';
 
         echo "<h2 class=\"nav-tab-wrapper zd-admin-tab-nav\">\n";
-        foreach( $this->tabs as $i => $tab ) {
+
+	    $i = 0;
+
+        foreach( $this->tabs as $tab_id => $tab_label ) {
+	        // Set first tab to active by default
             $active = 0 === $i ? ' nav-tab-active' : '';
-            $tab_label = str_replace("_", " ", ucfirst($tab) );
-            echo "<a href=\"#tab-{$tab}\" class=\"nav-tab{$active}\">{$tab_label}</a>\n";
+
+            echo "<a href=\"#tab-{$tab_id}\" class=\"nav-tab{$active}\">{$tab_label}</a>\n";
+
+	        $i ++;
         }
         echo "</h2>\n";
 
@@ -138,11 +249,15 @@ class ZingDesignThemeOptions {
 
         //do_settings_sections( 'zd_theme_options_page' ); 	//pass slug name of page
 
-        foreach( $this->tabs as $i => $tab ) {
+	    $i = 0;
+        foreach( $this->tabs as $tab_id => $tab_label ) {
             $active = (0 === $i) ? ' zd-active-tab' : '';
-            echo "<div id=\"tab-{$tab}\" class=\"zd-tab{$active}\">\n";
-            do_settings_fields( 'zd_theme_options_page', 'zd-'.$tab.'-section' );
+
+            echo "<div id=\"tab-{$tab_id}\" class=\"zd-tab{$active}\">\n";
+            do_settings_fields( 'zd_theme_options_page', 'zd-'.$tab_id.'-section' );
             echo "</div>\n";
+
+	        $i ++;
         }
 
         submit_button();
@@ -154,11 +269,11 @@ class ZingDesignThemeOptions {
 
     function zd_theme_settings() {
 
-        foreach( $this->tabs as $tab ) {
-            $tab_title = ucfirst($tab);
+        foreach( $this->tabs as $tab_id => $tab_label ) {
+            $tab_title = ucfirst($tab_label);
 
             add_settings_section(
-                'zd-'.$tab.'-section',
+                'zd-'.$tab_id.'-section',
                 __($tab_title, $this->text_domain),
                 array($this, 'zd_section_callback'),
                 $this->page_id,
@@ -170,32 +285,80 @@ class ZingDesignThemeOptions {
 
         // Options
 
-        foreach( $this->options as $key => $option ) {
-            $id = $option['id'];
-            $title = str_replace("_", " ", ucfirst( $key ) );
-            $option_type = $option['type'];
+	    // define option types which don't have a label
+	    $no_label = array('hidden', 'radio');
 
+	    $theme_options_array = array();
+
+        foreach( $this->options as $key => $option ) {
+	        $default = $label = false;
+
+	        // Validate options
+
+	        // If ID not explicitly set, replace key underscores with dashes
+            $id = isset($option['id']) ? $option['id'] : str_replace("_", "-", $key );
+
+	        // replace key underscores with spaces to generate a title as a fallback for label
+            $title = str_replace("_", " ", ucfirst( $key ) );
+
+	        // Set option type to text by default (most common input?)
+            $option_type = isset($option['type']) ? $option['type'] : 'text';
+
+	        if( 'url' === $option_type && !isset($option['filter'] ) ) {
+		        $option['filter'] = 'esc_url';
+	        }
+
+	        // Set filter to esc_html by default
             $filter = isset($option['filter']) ? $option['filter'] : 'esc_html';
 
+	        // Set section to general by default
             $section = isset($option['section']) ? $option['section'] : 'general';
 
 	        $dropdown = isset($option['dropdown']) ? $option['dropdown'] : false;
 
+	        $placeholder = isset($option['placeholder']) ? $option['placeholder'] : false;
+
+	        $required = isset($option['required']) ? $option['required'] : false;
+
+	        // Textarea rows and cols
+	        $rows = isset($option['rows']) ? $option['rows'] : '5';
+	        $cols = isset($option['cols']) ? $option['cols'] : '100';
+
+
+	        // Input wrapper - true by default
+	        $wrapper = isset($option['wrapper']) ? $option['wrapper'] : true;
+
+	        // Set label if the input is NOT hidden
+
+	        if( ! in_array($option_type, $no_label) ) {
+		        $label = isset($option['label']) ? $option['label'] : $title;
+	        }
+
 	        if( isset($option['default']) ) {
 		        add_option($id, $option['default']);
+		        $default = $option['default'];
 	        }
+
+	        $input_options_array = array(
+		        'id'            => $id,
+                'label'         => $label,
+                'type'          => $option_type,
+                'dropdown'      => $dropdown,
+                'default'       => $default,
+                'placeholder'   => $placeholder,
+                'required'      => $required,
+		        'rows'          => $rows,
+		        'cols'          => $cols,
+		        'wrapper'       => $wrapper
+	        );
 
             add_settings_field(
                 $id,
-                '<div class="input-group"><label class="'.$option_type.'-label" for="'.$id.'">' . __($title, $this->text_domain) . '</label>',
-                array($this, 'zd_setting_input'),
+                '',
+                array($this, 'get_setting_input'),
                 $this->page_id,
                 'zd-'.$section.'-section',
-                array(
-                    'id' => $id,
-                    'type' => $option_type,
-	                'dropdown' => $dropdown
-                )
+                $input_options_array
             );
 
             register_setting(
@@ -212,131 +375,93 @@ class ZingDesignThemeOptions {
         echo '<h1>'.$args['tab_title'].'</h1>'."\n";
     }
 
-    function zd_setting_input( $args ) {
-//        echo '<p><textarea class="zd-text" id="zd-physical-address" name="zd-physical-address" rows="3" cols="50">'.get_option('zd-physical-address').'</textarea></p>';
-        $type = $args['type'];
-        $id = $args['id'];
-
-	    $dropdown = isset($args['dropdown']) ? $args['dropdown'] : array();
-
-	    $default = isset($args['default']) ? $args['default'] : '';
-
-	    $is_checkbox = 'checkbox' === $type;
-	    $is_hidden = 'hidden' === $type;
-
-        if( ! $type ) {
-            $type = 'text';
-        }
-
-        if( ! $id ) {
-            echo "<p class=\"error\">Error: ID required when initialising new settings</p>\n";
-            return;
-        }
-
-//        $name = str_replace("-", "_", $id);
-        $current_value = get_option( $id ) ? get_option( $id ) : $default;
-	    $value = ( $is_checkbox || $is_hidden ) ? '1' : $current_value;
-
-	    if( in_array($type, array('text', 'email', 'number', 'checkbox', 'hidden')) ) {
-		    $checked = '';
-
-		    if( $is_checkbox ) {
-			    $checked = (!empty($current_value) && $current_value === "1") ? ' checked="checked"' : '';
-		    }
-
-//		    if( $is_checkbox || $is_hidden ) {
-//			    $value = '1';
-//
-//		    }
-
-		    echo "<input type=\"{$type}\" id=\"{$id}\" name=\"{$id}\" value=\"{$value}\"{$checked} />\n";
-	    }
-
-        else if( 'image' === $type ) {
-            $bg = '';
-            echo "<div>\n";
-            $rand = mt_rand(100, 1000);
-
-            $button_text = empty($value) ? 'Insert image' : 'Change image';
-            echo "<button class=\"zd-insert-image-button button button-default\">".__($button_text, $this->text_domain)."</button>\n";
-
-//            $image_src = array();
-            $image_url = '';
-
-            if( !empty($value) ) {
-                echo '<button class="zd-remove-image-button button button-default">' . __('Remove image') . '</button>'."\n";
-                $image_src = wp_get_attachment_image_src($value);
-
-                $image_url = empty($image_src[0]) ? '' : $image_src[0];
-
-                $bg = ' style="background: url('.$image_url.') no-repeat;width:'.$image_src[1].'px;height:'.$image_src[2].'px;"';
-            }
+	function get_setting_input($_args) {
+		echo $this->form_helper->zd_setting_input($_args);
+	}
 
 
-            echo "<input class=\"zd-image-src-output\" id=\"zd-image-src-{$rand}\" value=\"{$image_url}\"/>\n";
-            echo "<input type=\"hidden\" id=\"zd-image-id-{$rand}\" name=\"{$id}\" value=\"{$value}\" />\n";
 
-            $hide = empty($image_url) ? ' zd-hide' : '';
+    function generate_css() {
+        $css = '';
 
-            echo "<p class=\"image-preview-label{$hide}\"><strong>" . __('Image Preview', $this->text_domain) . "</strong></p>\n";
+	    $body_background_color = get_option('body-background-color');
+	    $body_text_color = get_option('body-text-color');
+	    $header_background_color = get_option('header-background-color');
+	    $header_text_color = get_option('header-text-color');
+	    $footer_background_color = get_option('footer-background-color');
+	    $footer_text_color = get_option('footer-text-color');
 
-            echo "<div class=\"zd-image-preview\" id=\"zd-image-preview-{$rand}\"{$bg}>";
-//            echo $value;
-            echo "</div>\n";
-
-            echo "</div>\n";
-        }
-        else if( 'select' === $type ) {
-	        echo "<select id=\"{$id}\" name=\"{$id}\">\n";
-
-	        echo "<option value=\"-1\">" . __('Select an option', $this->text_domain) . "</option>\n";
-
-	        if( !empty($dropdown) ) {
-		        foreach($dropdown as $option_value => $option_label) {
-			        $selected = $value === $option_value ? ' selected' : '';
-
-			        echo "<option value=\"{$option_value}\"{$selected}>" . __($option_label, $this->text_domain) . "</option>\n";
-		        }
-	        }
-
-	        echo "</select>\n";
-        }
-
-        echo "</div><!--.input-group-->\n";
-
-//        echo $args['type'];
-    }
-
-    function zd_header_output() {
-        $html = '';
+	    $css .= "@charset \"utf-8\";\n";
+	    $css .= "/* --------- Styles generated by ZD theme options --------- */\n";
 
         if( get_option('zd-logo') ) {
             $logo_src = wp_get_attachment_image_src( get_option('zd-logo'), 'full' );
-
-            $html .= '<style type="text/css">'."\n";
-            $html .= '.header-logo {'."\n";
-            $html .= 'display: block;'."\n";
-            $html .= 'background-image: url(' . $logo_src[0] . ');'."\n";
-            $html .= 'width: ' . $logo_src[1] . 'px;'."\n";
-//            $html .= 'height: ' . $logo_src[2] . 'px;'."\n";
-            $html .= '}'."\n";
-            $html .= '</style>'."\n";
+            $css .= '.header-logo {'."\n";
+            $css .= '  display: block;'."\n";
+            $css .= '  background-image: url(' . $logo_src[0] . ');'."\n";
+            $css .= '  width: ' . $logo_src[1] . 'px;'."\n";
+            $css .= '  height: ' . $logo_src[2] . 'px;'."\n";
+            $css .= '}'."\n";
+//            $css .= '</style>'."\n";
         }
 
         if( get_option('zd-logo-footer') ) {
             $logo_src = wp_get_attachment_image_src( get_option('zd-logo-footer'), 'full' );
 
-            $html .= '<style type="text/css">'."\n";
-            $html .= '.footer-logo {'."\n";
-            $html .= 'display: block;'."\n";
-            $html .= 'background-image: url(' . $logo_src[0] . ');'."\n";
-            $html .= 'width: ' . $logo_src[1] . 'px;'."\n";
-            $html .= 'height: ' . $logo_src[2] . 'px;'."\n";
-            $html .= '}'."\n";
-            $html .= '</style>'."\n";
+//            $css .= '<style type="text/css">'."\n";
+            $css .= '.footer-logo {'."\n";
+            $css .= '  display: block;'."\n";
+            $css .= '  background-image: url(' . $logo_src[0] . ');'."\n";
+            $css .= '  width: ' . $logo_src[1] . 'px;'."\n";
+            $css .= '  height: ' . $logo_src[2] . 'px;'."\n";
+            $css .= '}'."\n";
         }
 
-        echo $html;
+	    // Body styles
+	    if( $body_background_color || $body_text_color ) {
+		    $css .= "#page {\n";
+
+		    if( $body_background_color ) {
+			    $css .= "  background-color: {$body_background_color};\n";
+		    }
+		    if( $body_text_color ) {
+			    $css .= "  color: {$body_text_color};\n";
+		    }
+
+		    $css .= "}\n";
+	    }
+
+	    // Header styles
+	    if( $header_background_color || $header_text_color ) {
+		    $css .= "#header-container {\n";
+		    
+		    if( $header_background_color ) {
+			    $css .= "  background-color: {$header_background_color};\n";
+		    }
+		    if( $header_text_color ) {
+			    $css .= "  color: {$header_text_color};\n";
+		    }
+		    
+		    $css .= "}\n";
+	    }
+	    
+
+	    if( $footer_background_color || $footer_text_color ) {
+		    $css .= "#colophon {\n";
+		    
+		    if( $footer_background_color ) {
+			    $css .= "  background-color: {$footer_background_color};\n";
+		    }
+		    if( $footer_text_color ) {
+			    $css .= "  color: {$footer_text_color};\n";
+		    }
+		    
+		    $css .= "}\n";
+	    }
+
+//        echo $css;
+
+	    return $css;
 
     }
 
@@ -346,6 +471,62 @@ class ZingDesignThemeOptions {
 		    echo '<div class="cbp-menu-overlay"></div>'."\n";
 	    }
     }
+
+	function zd_get_option($option_id, $default=false) {
+		$zd_theme_option = get_option( $option_id );
+
+		if( isset($zd_theme_option) ) {
+			return $zd_theme_option;
+		}
+		else if($default) {
+			return $default;
+		}
+		else if(WP_DEBUG) {
+			return "<p>ZD Error: Invalid option ID: {$option_id}</p>\n";
+		}
+	}
+
+	function write_css_to_file() {
+		return $this->write_to_file($this->generate_css(), $this->custom_css_file);
+	}
+
+	function write_to_file($_content, $filename) {
+		// Let's make sure the file exists and is writable first.
+		if (is_writable($filename)) {
+
+			// In our example we're opening $filename in append mode.
+			// The file pointer is at the bottom of the file hence
+			// that's where $somecontent will go when we fwrite() it.
+			if (!$handle = fopen($filename, 'w')) {
+				echo "Cannot open file ($filename)";
+//				exit;
+				return false;
+			}
+
+			// Write $somecontent to our opened file.
+			if (fwrite($handle, $_content) === FALSE) {
+				echo "Cannot write to file ($filename)";
+//				exit;
+				return false;
+			}
+
+//			echo "Success, wrote ($_css) to file ($filename)";
+
+			fclose($handle);
+			return true;
+
+		} else {
+			echo "The file {$filename} is not writable";
+			return false;
+		}
+	}
+
+	function generate_css_in_head() {
+
+		$css = $this->generate_css();
+
+		echo '<style type="text/css">'."\n" . str_replace("\n", "", $css) . '\n</style>'."\n";
+	}
 }
 
 new ZingDesignThemeOptions();

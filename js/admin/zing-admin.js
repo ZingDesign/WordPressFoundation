@@ -3,18 +3,22 @@
  */
 
 jQuery(document).ready(function($) {
-    if( $('input[type="color"]').length ) {
+    if( $('.zd-color-input').length ) {
 
-        $('input[type="color"]').each(function(){
+        $('.zd-color-input').each(function(){
             var $this = $(this),
                 currentColor = $this.val();
 
-            if( typeof window.spectrum !== 'undefined' ) {
-                $this.spectrum({
-                    color:      currentColor,
-                    showInput:  true
-                });
-            }
+            //console.log(spectrum);
+
+            $this.spectrum({
+                preferredFormat: "hex",
+                color:      currentColor,
+                showInput:  true,
+                showInitial: true,
+                allowEmpty: true
+
+            });
 
         });
     }
@@ -25,10 +29,10 @@ jQuery(document).ready(function($) {
         var tabNav = $('.zd-admin-tab-nav'),
             zdTabs = $('.zd-tab'),
             currentTab = '',
-            currentTabInStorage = (typeof localStorage.ledaAdminCurrentTab !== 'undefined' && localStorage.ledaAdminCurrentTab !== null);
+            currentTabInStorage = (typeof localStorage.zdAdminCurrentTab !== 'undefined' && localStorage.zdAdminCurrentTab !== null);
 
 //        if(  ) {
-        currentTab = currentTabInStorage ? localStorage.ledaAdminCurrentTab : '#tab-general';
+        currentTab = currentTabInStorage ? localStorage.zdAdminCurrentTab : '#tab-general';
         tabNav.find('a').removeClass('nav-tab-active');
 
         tabNav.find('a').each(function(){
@@ -53,7 +57,7 @@ jQuery(document).ready(function($) {
             zdTabs.removeClass('zd-active-tab');
             $(currentTab).addClass('zd-active-tab');
 
-            localStorage.ledaAdminCurrentTab = currentTab;
+            localStorage.zdAdminCurrentTab = currentTab;
 
             return false;
         });

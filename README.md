@@ -2,6 +2,12 @@
 
 ## Initial setup
 
+### Install Node Modules
+
+```
+[sudo] npm install
+```
+
 ### Foundation update
 
 ```
@@ -31,4 +37,17 @@ grunt
 
 ```
 grunt watch
+```
+
+
+#### Process Sass
+
+```
+grunt css
+```
+
+#### Copy icon fonts for Font Awesome and Slick
+
+``` 
+grunt copyFonts
 ```

@@ -373,3 +373,10 @@
 
   font-size: rem-calc($pixel-value);
 }
+
+// Error handling
+
+@function throw($log) {
+  @warn $log;
+  @return false;
+}

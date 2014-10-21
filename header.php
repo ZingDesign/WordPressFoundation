@@ -11,7 +11,7 @@
 	$nav_menu_enabled = get_option('zd-enable-mobile-navigation');
 	$nav_menu_direction = get_option('zd-mobile-navigation-alignment');
 
-	$nav_class = 'cbp-spmenu';
+	$nav_class = 'cbp-spmenu cbp-spmenu-vertical';
 
 	if( $nav_menu_enabled ) {
 		$menu_toggle_id = 'showLeft';
@@ -79,23 +79,40 @@
 	<div id="header-container">
 		<header class="masthead container">
 
-			<a class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo('name'); ?></a>
-			<nav id="cbp-spmenu-s1" class="top-menu cbp-spmenu-vertical <?php echo $nav_class; ?>" role="navigation" aria-label="Main menu">
+			<a class="<?php echo get_option('zd-logo-header') ? 'header-logo' : 'page-title'; ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo('name'); ?></a>
+			<nav id="cbp-spmenu-s1" class="top-menu <?php echo $nav_class; ?>" role="navigation" aria-label="Main menu">
 				<a class="screen-reader-text skip-link" href="#content"><?php _e( 'Skip to content', 'zingdesign' ); ?></a>
 
 				<!-- Top menu-->
-				<?php wp_nav_menu( array(
-					'theme_location'    => 'primary',
-//					'menu'              => 'Header Navigation',
-					'menu_class'        => 'nav-menu',
-					'walker'            => new Zing_Design_Nav_Menu()
-				) ); ?>
+				<?php
+				if ( has_nav_menu( 'primary' ) ) {
+
+					wp_nav_menu( array(
+						'theme_location' => 'primary',
+						//					'menu'              => 'Header Navigation',
+						'menu_class'     => 'nav-menu',
+						'walker'         => new Zing_Design_Nav_Menu()
+					) );
+
+				}
+				else if(WP_DEBUG) {
+					printf( '<p class="zd-error">%1$s</p>', __("Please enable a menu in the 'Top primary menu' location", "zingdesign" ) );
+				}
+				?>
 
 			</nav>
 
+			<?php if($nav_menu_enabled) : ?>
+
 			<a id="<?php echo $menu_toggle_id; ?>" class="burger-icon"><i class="fa fa-bars"></i></a>
 
-			<?php echo get_search_form(); ?>
+			<?php endif; ?>
+
+			<?php
+			if( get_option('show-search-form-in-header') ) {
+				echo get_search_form();
+			}
+			?>
 
 
 		</header>
