@@ -17,9 +17,9 @@ $text-black: #222;
 // Responsive navigation
 $slide-menu-background: #ddd !default;
 $menu-toggle-icon-color: #ddd !default;
-$menu-toggle-icon-color-hover: darken($menu-toggle-icon-color, 5%);
+$menu-toggle-icon-color-hover: darken($menu-toggle-icon-color, 5%) !default;
 $menu-toggle-bg-color: #666 !default;
-$menu-toggle-bg-color-active: darken($menu-toggle-bg-color, 5%);
+$menu-toggle-bg-color-active: darken($menu-toggle-bg-color, 5%) !default;
 
 $slide-menu-link-color: #666 !default;
 
