@@ -58,16 +58,24 @@
         ?>
 	<div class="entry-content">
         <?php
-
+        if ( !is_single() ) :
+            the_excerpt();
+            ?> <button class="button blue"><a href="<?php echo get_permalink(); ?>">Continue
+        reading</a></button>
+        <?php else :
 			the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'zingdesign' ) );
 			wp_link_pages( array(
-				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'zingdesign' ) . '</span>',
-				'after'       => '</div>',
-				'link_before' => '<span>',
-				'link_after'  => '</span>',
-			) );
-		?>
-        <button class="button blue">Continue reading</button>
+                'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'zingdesign' ) . '</span>',
+                'after'       => '</div>',
+                'link_before' => '<span>',
+                'link_after'  => '</span>',
+            ) );
+            get_template_part( 'content', "social" );
+        endif;
+        ?>
+
+
+
 	</div><!-- .entry-content -->
 	<?php endif; ?>
 
