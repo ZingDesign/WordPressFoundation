@@ -6,6 +6,9 @@
   border-radius: 3px;
   padding:0 40px 0 40px;
   height: 54px;
+  a {
+    color: $white;
+  }
 
   transition: background .25s ease-in-out;
   // apply a 10px margin between font awesome and any text in the button
@@ -99,7 +102,6 @@
     }
   }
 }
-
 @media only screen and (min-width : 1035px){
   .button{
     &.promo{
