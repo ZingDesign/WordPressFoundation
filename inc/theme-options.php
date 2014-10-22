@@ -62,6 +62,7 @@ class ZingDesignThemeOptions {
 			    'analytics'         => 'Analytics',
 			    'newsletter'        => 'Newsletter',
 			    'design'            => 'Design',
+			    'custom-post-types' => 'Custom post types',
 		    );
 
 		    /*
@@ -182,7 +183,19 @@ class ZingDesignThemeOptions {
 					    'label'     => 'Footer text color',
 					    'section'   => 'design',
 					    'type'      => 'color'
-				    )
+				    ),
+
+				    // custom post types
+//				    'new_custom_post_type' => array(
+//					    'label'     => 'Custom post type name',
+//					    'section'   => 'custom-post-types',
+//					    'arg_name'  => 'zd_custom_post_type'
+//				    ),
+//				    'custom_post_type_icon' => array(
+//					    'label'     => 'Icon',
+//					    'section'   => 'custom-post-types',
+//					    'arg_name'  => 'zd_custom_post_type'
+//				    )
 
 
 			    );

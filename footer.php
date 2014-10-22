@@ -23,7 +23,7 @@
 
 	<?php wp_footer(); ?>
 
-    <script>jQuery(document).foundation();</script>
+<!--    <script>jQuery(document).foundation();</script>-->
 
 </body>
 </html>

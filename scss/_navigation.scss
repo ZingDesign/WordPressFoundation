@@ -1,0 +1,222 @@
+#listener-mobile-navigation,
+#listener-mobile-search {
+  display: none;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.mobile-navigation-toggle,
+.mobile-search-close {
+  position: absolute;
+  top: 0;
+
+  cursor: pointer;
+  float: left;
+  display: inline-block;
+  height: 60px;
+  padding: 0 20px 0 20px;
+  text-align: center;
+  i {
+    line-height: 60px;
+  }
+}
+
+.mobile-navigation-toggle {
+  left: 0;
+  margin-right: 20px;
+}
+
+.mobile-search-toggle {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 60px;
+  width: 64px;
+  background: image-url('icons/icon-search-white.svg') center/24px no-repeat;
+}
+
+.mobile-navigation-draw,
+.mobile-search-draw {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 60px;
+  background: $dark-blue;
+
+  text-align: left;
+
+  overflow: hidden;
+
+  transform: translateY(-10%);
+  opacity: 0;
+  visibility: hidden;
+
+  transition: transform .25s ease-in-out,
+  opacity .25s ease-in-out,
+  visibility .25s ease-in-out;
+  ul {
+    list-style: none;
+    display: block;
+    width: 100%;
+    padding: 0;
+    position: absolute;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  ul::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.mobile-navigation-draw {
+  background: $dark-blue;
+  li {
+    height: 70px;
+    a {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 20px 0 20px;
+      display: block;
+      line-height: 70px;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      &:hover {
+        color: rgba(255, 255, 255, 1);
+        background: darken($dark-blue, 5%);
+        text-decoration: none;
+      }
+    }
+    &:last-child {
+      margin-bottom: 100px;
+    }
+  }
+  .mobile-navigation-promo {
+    height: 100px;
+    a {
+      background: $green;
+      line-height: 100px;
+      color: $white;
+      &:hover {
+        background: darken($green, 5%);
+      }
+    }
+  }
+  .mobile-navigation-active {
+    a {
+      background: darken($dark-blue, 5%);
+      color: $white;
+    }
+  }
+}
+
+// Admin bar fix
+
+.mobile-search-draw,
+.mobile-navigation-draw {
+
+  .admin-bar & {
+    margin-top: 46px;
+
+    @media #{$wp-medium-up} {
+      margin-top: 32px;
+    }
+  }
+
+}
+
+.mobile-navigation-header {
+  width: 100%;
+  height: 60px;
+  text-align: center;
+}
+
+.mobile-navigation-scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.mobile-search-draw {
+  background: $white;
+  h3 {
+    margin-left: 20px;
+    line-height: 70px;
+    margin-bottom: 0;
+  }
+  li {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+  label {
+    cursor: pointer;
+    height: 70px;
+  }
+}
+
+.mobile-search-tick {
+  width: 24px;
+  height: 24px;
+  border: 1px solid $electric-blue;
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+#mobile-search-check-1,
+#mobile-search-check-2,
+#mobile-search-check-3 {
+  display: none;
+}
+
+#mobile-search-check-1:checked + label .mobile-search-tick,
+#mobile-search-check-2:checked + label .mobile-search-tick,
+#mobile-search-check-3:checked + label .mobile-search-tick {
+  background: image-url('icons/icon-tick-white.svg') center no-repeat $electric-blue;
+}
+
+.mobile-search-close {
+  right: 0;
+  margin-left: 20px;
+  i {
+    color: $text-black;
+  }
+}
+
+.mobile-search-input {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  background: $white;
+  height: 60px;
+  box-shadow: none;
+  box-sizing: border-box;
+  padding: 0 65px 0 20px;
+  font-size: 1.5rem;
+  color: $electric-blue;
+}
+
+#listener-mobile-navigation:checked ~ .mobile-navigation-draw,
+#listener-mobile-search:checked ~ .mobile-search-draw {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media only screen and (min-width: 815px) {
+  .mobile-navigation-toggle,
+  .mobile-navigation-draw,
+  #listener-mobile-navigation:checked ~ .mobile-navigation-draw,
+  .mobile-search-toggle,
+  .mobile-search-draw,
+  #listener-mobile-search:checked ~ .mobile-search-draw {
+    display: none;
+  }
+}

@@ -7,6 +7,10 @@
 
 // Style's from static mocks
 
+.header-content {
+  position: relative;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -34,6 +38,10 @@
     margin-right: 10px;
   }
 
+  .admin-bar & {
+    padding-top: 46px;
+  }
+
 }
 
 .header-sub {
@@ -41,7 +49,7 @@
 }
 
 .logo-raygun {
-  background: center url('../images/logos/logo-raygun-white.svg') no-repeat;
+  background: center image-url('logos/logo-raygun-white.svg') no-repeat;
   height: 60px;
   width: 75px;
   display: inline-block;
@@ -49,6 +57,14 @@
 
 .link-back {
   display: none;
+}
+
+@media #{$wp-medium-up}{
+  .admin-bar {
+    .header {
+      padding-top: 32px;
+    }
+  }
 }
 
 @media only screen and (min-width: 815px) {

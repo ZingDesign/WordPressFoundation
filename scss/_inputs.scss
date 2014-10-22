@@ -1,0 +1,49 @@
+.search {
+  float: right;
+  margin-top: 10px;
+  position: relative;
+  display: none;
+}
+
+.input-search {
+  background: darken($electric-blue, 10%);
+  border: none;
+  border-radius: 3px;
+  height: 40px;
+  width: 260px;
+  box-sizing: border-box;
+  padding: 0 48px 0 12px;
+
+  @include input-placeholder {
+    color: darken($electric-blue, 15%);
+//    font-style: italic;
+  }
+}
+
+.input-email {
+  background: $light-grey;
+  border-radius: 3px;
+  border: 1px solid $light-grey-border;
+  box-sizing: border-box;
+  height: 54px;
+  padding: 0 24 0 24px;
+  margin-bottom: 16px;
+  &.full-width {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 815px) {
+  .search {
+    display: block;
+  }
+  .input-search {
+    width: 270px;
+  }
+}
+
+@media only screen and (min-width: 1035px) {
+  .input-search {
+    width: 320px;
+  }
+}

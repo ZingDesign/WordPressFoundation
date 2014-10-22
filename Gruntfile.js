@@ -11,10 +11,10 @@ module.exports = function(grunt) {
 
     var clientScripts = './js/client/**/*.js';
 
-    var stylesheets = './scss/**/*.scss';
+    var stylesheets = './scss/*.scss';
 
     var plugins = [
-        bowerComponentsPath + 'slick-carousel/slick/slick.js'
+        //bowerComponentsPath + 'slick-carousel/slick/slick.js'
     ];
 
     var polyfills = [
@@ -64,23 +64,23 @@ module.exports = function(grunt) {
                 src: [
                     'fnd/bower_components/fastclick/lib/fastclick.js',
                     //Comment out unused scripts here for extra optimisingness
-                    foundationScriptPath + '/foundation.js',
-                    foundationScriptPath + '/foundation.abide.js',
-                    foundationScriptPath + '/foundation.accordian.js',
-                    foundationScriptPath + '/foundation.alert.js',
-                    foundationScriptPath + '/foundation.clearing.js',
-                    foundationScriptPath + '/foundation.dropdown.js',
-                    foundationScriptPath + '/foundation.equalizer.js',
-                    foundationScriptPath + '/foundation.interchange.js',
-                    foundationScriptPath + '/foundation.joyride.js',
-                    foundationScriptPath + '/foundation.magellan.js',
-                    foundationScriptPath + '/foundation.offcanvas.js',
+                    //foundationScriptPath + '/foundation.js',
+                    //foundationScriptPath + '/foundation.abide.js',
+                    //foundationScriptPath + '/foundation.accordian.js',
+                    //foundationScriptPath + '/foundation.alert.js',
+                    //foundationScriptPath + '/foundation.clearing.js',
+                    //foundationScriptPath + '/foundation.dropdown.js',
+                    //foundationScriptPath + '/foundation.equalizer.js',
+                    //foundationScriptPath + '/foundation.interchange.js',
+                    //foundationScriptPath + '/foundation.joyride.js',
+                    //foundationScriptPath + '/foundation.magellan.js',
+                    //foundationScriptPath + '/foundation.offcanvas.js',
                     // ORBIT replaced by Slick
                     //foundationScriptPath + '/foundation.orbit.js',
-                    foundationScriptPath + '/foundation.reveal.js',
-                    foundationScriptPath + '/foundation.tab.js',
-                    foundationScriptPath + '/foundation.tooltip.js',
-                    foundationScriptPath + '/foundation.topbar.js',
+                    //foundationScriptPath + '/foundation.reveal.js',
+                    //foundationScriptPath + '/foundation.tab.js',
+                    //foundationScriptPath + '/foundation.tooltip.js',
+                    //foundationScriptPath + '/foundation.topbar.js',
                     plugins,
                     clientScripts
                 ],

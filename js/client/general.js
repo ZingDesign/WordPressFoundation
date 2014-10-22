@@ -10,6 +10,16 @@ jQuery(document).ready(function($){
 
     // Callback methods
 
+    window.toggleScroll = function() {
+        if (document.getElementById('listener-mobile-navigation').checked || document.getElementById('listener-mobile-search').checked) {
+            $('body').addClass('no-scroll');
+        } else {
+            $('body').removeClass('no-scroll');
+        }
+        //return;
+    }
+
     // Event listeners
+
 
 });
