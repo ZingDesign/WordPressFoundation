@@ -76,46 +76,76 @@
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed site">
 
-	<div id="header-container">
-		<header class="masthead container">
+	<header class="header">
 
-			<a class="<?php echo get_option('zd-logo-header') ? 'header-logo' : 'page-title'; ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo('name'); ?></a>
-			<nav id="cbp-spmenu-s1" class="top-menu <?php echo $nav_class; ?>" role="navigation" aria-label="Main menu">
-				<a class="screen-reader-text skip-link" href="#content"><?php _e( 'Skip to content', 'zingdesign' ); ?></a>
+		<div class="header-content">
 
-				<!-- Top menu-->
+			<input type="checkbox" id="listener-mobile-navigation" onclick="toggleScroll()">
+			<label for="listener-mobile-navigation" class="mobile-navigation-toggle"><i
+					class="fa fa-bars fa-2x"></i></label>
+
+			<div class="mobile-navigation-draw index-1">
+				<label for="listener-mobile-navigation" class="mobile-navigation-toggle"><i
+						class="fa fa-close fa-2x"></i></label>
+
+				<div class="mobile-navigation-header"><a href="/" class="logo-raygun"></a></div>
+				<div class="mobile-navigation-scroll">
+					<!-- primary menu-->
+					<?php zd_get_menu('primary'); ?>
+				</div>
+			</div>
+
+			<input type="checkbox" id="listener-mobile-search" onclick="toggleScroll()">
+			<label for="listener-mobile-search" class="mobile-search-toggle"></label>
+
+			<div class="mobile-search-draw index-1">
+				<label for="listener-mobile-search" class="mobile-search-close"><i class="fa fa-close fa-2x"></i></label>
+				<input class="mobile-search-input" type="text" placeholder="Search our blog">
+
+				<h3>Filter by</h3>
+				<ul>
+					<li><input type="checkbox" id="mobile-search-check-1"><label for="mobile-search-check-1">
+							<div class="mobile-search-tick"></div>
+							Product update</label></li>
+					<li><input type="checkbox" id="mobile-search-check-2"><label for="mobile-search-check-2">
+							<div class="mobile-search-tick"></div>
+							Development</label></li>
+					<li><input type="checkbox" id="mobile-search-check-3"><label for="mobile-search-check-3">
+							<div class="mobile-search-tick"></div>
+							Raygun labs</label></li>
+				</ul>
+			</div>
+
+			<a href="/" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
+
+			<div class="link-back"><i class="fa fa-angle-left fa-lg header-align header-margin-right"></i><a
+					class="header-align" href="">Back to Raygun</a></div>
+
+			<div class="search">
 				<?php
-				if ( has_nav_menu( 'primary' ) ) {
-
-					wp_nav_menu( array(
-						'theme_location' => 'primary',
-						//					'menu'              => 'Header Navigation',
-						'menu_class'     => 'nav-menu',
-						'walker'         => new Zing_Design_Nav_Menu()
-					) );
-
-				}
-				else if(WP_DEBUG) {
-					printf( '<p class="zd-error">%1$s</p>', __("Please enable a menu in the 'Top primary menu' location", "zingdesign" ) );
+				if( get_option('show-search-form-in-header') ) {
+					echo get_search_form();
 				}
 				?>
+			</div>
 
-			</nav>
+		</div>
 
-			<?php if($nav_menu_enabled) : ?>
+	</header>
+	<!-- main header ends -->
 
-			<a id="<?php echo $menu_toggle_id; ?>" class="burger-icon"><i class="fa fa-bars"></i></a>
+	<!-- Sub header that contains all the navigation for the blog except for search -->
+	<nav class="header-sub">
 
-			<?php endif; ?>
+		<div class="header-content">
 
-			<?php
-			if( get_option('show-search-form-in-header') ) {
-				echo get_search_form();
-			}
-			?>
+			<?php zd_get_menu('secondary'); ?>
 
+			<a href="#" class="button green promo">Get started for FREE</a>
 
-		</header>
-	</div>
+		</div>
+
+	</nav>
+	<!-- sub header ends -->
 
 	<div id="main" class="site-main">

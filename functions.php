@@ -745,3 +745,34 @@ function zd_custom_image_sizes( $sizes ) {
         'banner' => __('Banner size'),
     ) );
 }
+
+/*
+ * Raygun-specific functions
+ *
+ */
+
+if( ! function_exists('zd_get_primary_menu') ) :
+
+function zd_get_menu($menu_location='primary', $menu_class='nav-menu', $is_foundation=false) {
+
+	if ( has_nav_menu( $menu_location ) ) {
+
+		$args = array(
+			'theme_location' => $menu_location,
+			'menu_class'     => $menu_class
+		);
+
+		if($is_foundation) {
+			$args['walker'] = new Zing_Design_Nav_Menu();
+		}
+
+		wp_nav_menu( $args );
+
+	}
+	else if(WP_DEBUG) {
+		printf( '<p class="zd-error">%1$s</p>', __("Please enable a menu in the '{$menu_location} menu' location", "zingdesign" ) );
+	}
+
+}
+
+endif;

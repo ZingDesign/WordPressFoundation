@@ -1,4 +1,104 @@
+// Logo image replacement
+
 .header-logo,
 .footer-logo {
   @include ir();
+}
+
+// Style's from static mocks
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background: $electric-blue;
+  text-align: center;
+  a {
+    text-decoration: none;
+    color: $white;
+    &:hover {
+      text-decoration: underline;
+      color: $white;
+    }
+  }
+  i {
+    color: $white;
+    vertical-align: 0;
+  }
+  .header-align {
+    line-height: 60px;
+  }
+  .header-margin-right {
+    margin-right: 10px;
+  }
+
+}
+
+.header-sub {
+  display: none;
+}
+
+.logo-raygun {
+  background: center url("../images/logo-raygun-white.svg") no-repeat;
+  height: 60px;
+  width: 75px;
+  display: inline-block;
+}
+
+.link-back {
+  display: none;
+}
+
+@media only screen and (min-width: 815px) {
+  .link-back {
+    display: inline-block;
+  }
+  .header {
+    text-align: left;
+    .logo-raygun {
+      float: left;
+      margin: 0 20px 0 0;
+    }
+  }
+  .header-sub {
+    position: fixed;
+    top: 60;
+    left: 0;
+    display: block;
+    height: 80px;
+    width: 100%;
+    background: $dark-blue;
+    ul {
+      list-style: none;
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      display: inline-block;
+    }
+    .header-align {
+      line-height: 80px;
+    }
+    a:hover {
+      color: $white;
+    }
+  }
+  .header-sub .header-content {
+    max-width: 800px;
+  }
+}
+
+@media only screen and (min-width: 1035px) {
+  .header-sub {
+    height: 90px;
+    .header-align {
+      line-height: 90px;
+    }
+  }
+  .header-sub .header-content {
+    max-width: 1020px;
+  }
 }

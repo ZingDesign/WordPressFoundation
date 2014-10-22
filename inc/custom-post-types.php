@@ -40,11 +40,11 @@ function zd_register_custom_taxonomies() {
         'rewrite'       => array('slug' => 'service-category')
     ));
 
-    // Resources - category
-//    register_taxonomy('resource_category', 'zd_resources', array(
+    // Research - category
+//    register_taxonomy('research_category', 'zd_research', array(
 //        'hierarchical'      => true,
-//        'label'             => __('Resource Categories'),
-//        'rewrite'           => array('slug' => 'resource-category')
+//        'label'             => __('Research Categories'),
+//        'rewrite'           => array('slug' => 'research-category')
 //    ));
 
     // Newsletter - category
@@ -55,7 +55,7 @@ function zd_register_custom_taxonomies() {
 //    ));
 }
 
-add_action( 'init', 'zd_register_custom_taxonomies' );
+//add_action( 'init', 'zd_register_custom_taxonomies' );
 
 
 // Register Custom Post Type - Markets
@@ -108,7 +108,7 @@ function zd_add_post_type_markets() {
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'zd_add_post_type_markets', 0 );
+//add_action( 'init', 'zd_add_post_type_markets', 0 );
 
 // Register Custom Post Type - Products
 function zd_add_post_type_products() {
@@ -160,7 +160,7 @@ function zd_add_post_type_products() {
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'zd_add_post_type_products', 0 );
+//add_action( 'init', 'zd_add_post_type_products', 0 );
 
 // Register Custom Post Type - Services
 function zd_add_post_type_services() {
@@ -212,35 +212,35 @@ function zd_add_post_type_services() {
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'zd_add_post_type_services', 0 );
+//add_action( 'init', 'zd_add_post_type_services', 0 );
 
 // Register Custom Post Type - Services
-function zd_add_post_type_resources() {
+function zd_add_post_type_research() {
 
     $labels = array(
-        'name'                => _x( 'Resources', 'Post Type General Name', 'zingdesign' ),
-        'singular_name'       => _x( 'Resource', 'Post Type Singular Name', 'zingdesign' ),
-        'menu_name'           => __( 'Resources', 'zingdesign' ),
-        'parent_item_colon'   => __( 'Parent Resource:', 'zingdesign' ),
-        'all_items'           => __( 'All Resources', 'zingdesign' ),
-        'view_item'           => __( 'View Resource', 'zingdesign' ),
-        'add_new_item'        => __( 'Add New Resource', 'zingdesign' ),
+        'name'                => _x( 'Researchs', 'Post Type General Name', 'zingdesign' ),
+        'singular_name'       => _x( 'Research', 'Post Type Singular Name', 'zingdesign' ),
+        'menu_name'           => __( 'Researchs', 'zingdesign' ),
+        'parent_item_colon'   => __( 'Parent Research:', 'zingdesign' ),
+        'all_items'           => __( 'All Researchs', 'zingdesign' ),
+        'view_item'           => __( 'View Research', 'zingdesign' ),
+        'add_new_item'        => __( 'Add New Research', 'zingdesign' ),
         'add_new'             => __( 'Add New', 'zingdesign' ),
-        'edit_item'           => __( 'Edit Resource', 'zingdesign' ),
-        'update_item'         => __( 'Update Resource', 'zingdesign' ),
+        'edit_item'           => __( 'Edit Research', 'zingdesign' ),
+        'update_item'         => __( 'Update Research', 'zingdesign' ),
         'search_items'        => __( 'Search Item', 'zingdesign' ),
-        'not_found'           => __( 'Resource not found', 'zingdesign' ),
-        'not_found_in_trash'  => __( 'Resource not found in Trash', 'zingdesign' ),
+        'not_found'           => __( 'Research not found', 'zingdesign' ),
+        'not_found_in_trash'  => __( 'Research not found in Trash', 'zingdesign' ),
     );
     $rewrite = array(
-        'slug'                => 'resource',
+        'slug'                => 'research',
         'with_front'          => true,
         'pages'               => true,
         'feeds'               => true,
     );
     $args = array(
-        'label'               => __( 'zd_resources', 'zingdesign' ),
-        'description'         => __( 'resources', 'zingdesign' ),
+        'label'               => __( 'zd_research', 'zingdesign' ),
+        'description'         => __( 'research', 'zingdesign' ),
         'labels'              => $labels,
         'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
         'taxonomies'          => array(),
@@ -259,12 +259,12 @@ function zd_add_post_type_resources() {
         'rewrite'             => $rewrite,
         'capability_type'     => 'page',
     );
-    register_post_type( 'zd_resources', $args );
+    register_post_type( 'zd_research', $args );
 
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'zd_add_post_type_resources', 0 );
+add_action( 'init', 'zd_add_post_type_research', 0 );
 
 // Register Custom Post Type - Services
 function zd_add_post_type_newsletters() {
@@ -316,7 +316,7 @@ function zd_add_post_type_newsletters() {
 }
 
 // Hook into the 'init' action
-add_action( 'init', 'zd_add_post_type_newsletters', 0 );
+//add_action( 'init', 'zd_add_post_type_newsletters', 0 );
 
 
 //function zd_rewrite_flush() {

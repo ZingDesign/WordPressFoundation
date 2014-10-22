@@ -141,6 +141,18 @@ class ZingDesignThemeOptions {
 				    ),
 
 				    // Design
+				    'custom_body_id' => array(
+					    'label'     => 'Page content wrapper ID',
+					    'default'   => 'page'
+				    ),
+				    'custom_header_id' => array(
+					    'label'     => 'Header container ID',
+					    'default'   => 'header-container'
+				    ),
+				    'custom_footer_id' => array(
+					    'label'     => 'Footer container ID',
+					    'default'   => 'colophon'
+				    ),
 				    'body_background_color' => array(
 					    'label'     => 'Body background color',
 					    'section'   => 'design',
@@ -384,6 +396,10 @@ class ZingDesignThemeOptions {
     function generate_css() {
         $css = '';
 
+	    $body_id = get_option('custom-body-id');
+	    $header_id = get_option('custom-header-id');
+	    $footer_id = get_option('custom-footer-id');
+
 	    $body_background_color = get_option('body-background-color');
 	    $body_text_color = get_option('body-text-color');
 	    $header_background_color = get_option('header-background-color');
@@ -433,7 +449,7 @@ class ZingDesignThemeOptions {
 
 	    // Header styles
 	    if( $header_background_color || $header_text_color ) {
-		    $css .= "#header-container {\n";
+		    $css .= "#{$header_id} {\n";
 		    
 		    if( $header_background_color ) {
 			    $css .= "  background-color: {$header_background_color};\n";
@@ -447,7 +463,7 @@ class ZingDesignThemeOptions {
 	    
 
 	    if( $footer_background_color || $footer_text_color ) {
-		    $css .= "#colophon {\n";
+		    $css .= "#{$footer_id} {\n";
 		    
 		    if( $footer_background_color ) {
 			    $css .= "  background-color: {$footer_background_color};\n";

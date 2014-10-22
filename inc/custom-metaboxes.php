@@ -10,57 +10,57 @@
  * Calls the class on the post edit screen.
  */
 function call_zd_metabox() {
-    new zd_metabox(
-        'Revolution Slider',
-        'page',
-        'zd',
-        $options = array(
-            array(
-                'label' => 'Show slider',
-                'type' => 'checkbox'
-            ),
-            array(
-                'label' => 'Slider',
-                'type' => 'select',
-                'dropdown' => array(
-                    'home_slider' => 'Home slider',
-                    'about_slider' => 'About slider'
-                )
-            )
-        ),
-        $settings = array(
-            'position' => 'advanced',
-            'priority' => 'low'
-        )
-    );
+//    new zd_metabox(
+//        'Revolution Slider',
+//        'page',
+//        'zd',
+//        $options = array(
+//            array(
+//                'label' => 'Show slider',
+//                'type' => 'checkbox'
+//            ),
+//            array(
+//                'label' => 'Slider',
+//                'type' => 'select',
+//                'dropdown' => array(
+//                    'home_slider' => 'Home slider',
+//                    'about_slider' => 'About slider'
+//                )
+//            )
+//        ),
+//        $settings = array(
+//            'position' => 'advanced',
+//            'priority' => 'low'
+//        )
+//    );
 
     // Products in market metabox
 
-    $products = get_posts( array(
-        'posts_per_page'    => -1,
-        'post_type'         => 'zd_products') );
+//    $products = get_posts( array(
+//        'posts_per_page'    => -1,
+//        'post_type'         => 'zd_products') );
+//
+//    $product_options = array();
+//
+//    foreach( $products as $p ) {
+//        $product_options[] = array(
+//            'label'     => $p->post_title,
+//            'name'      => $p->ID,
+//            'type'      => 'checkbox',
+//            'filter'    => 'sanitize_checkbox'
+//        );
+//    }
 
-    $product_options = array();
-
-    foreach( $products as $p ) {
-        $product_options[] = array(
-            'label'     => $p->post_title,
-            'name'      => $p->ID,
-            'type'      => 'checkbox',
-            'filter'    => 'sanitize_checkbox'
-        );
-    }
-
-    new zd_metabox(
-        'Products in this market',  // Title
-        'zd_markets',             // Post type
-        'pitm',                     // Prefix
-        $product_options,
-        $settings = array(
-            'position' => 'side',
-            'priority' => 'low'
-        )
-    );
+//    new zd_metabox(
+//        'Products in this market',  // Title
+//        'zd_markets',             // Post type
+//        'pitm',                     // Prefix
+//        $product_options,
+//        $settings = array(
+//            'position' => 'side',
+//            'priority' => 'low'
+//        )
+//    );
 
     // Banner example
     // Things to fix:
