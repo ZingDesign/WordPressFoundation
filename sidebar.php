@@ -17,7 +17,11 @@
                 <h3>Featured articles</h3>
 
                     <?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
+
                         <?php
+                        // Display blogs with the Category Raygun labs
+                        rewind_posts();
+                        query_posts('&cat=3');
                         if ( have_posts() ) :
                             // Start the Loop.
                             while ( have_posts() ) : the_post();
@@ -46,6 +50,9 @@
 
                         endif;
                         ?>
+
+                        <?php wp_reset_query(); // reset the query ?>
+
                     <?php endif; ?>
             </div>
             <?php the_tags( '<footer class="entry-meta"><span class="tag-links">', '', '</span></footer>' ); ?>
