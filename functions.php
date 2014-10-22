@@ -94,8 +94,8 @@ function zd_setup() {
 
 	// This theme uses wp_nav_menu() in two locations.
 	register_nav_menus( array(
-		'primary'   => __( 'Top primary menu', 'zingdesign' ),
-		'secondary' => __( 'Secondary menu in left sidebar', 'zingdesign' ),
+		'primary'   => __( 'Mobile menu', 'zingdesign' ),
+		'secondary' => __( 'Menu in sub-header', 'zingdesign' ),
 	) );
 
 	/*

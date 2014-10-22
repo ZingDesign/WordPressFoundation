@@ -6,6 +6,28 @@
  * @since Zing Design 1.0
  */
 
+$post_id = get_the_ID();
+
+$post_type = 'post';
+
+$custom_meta = zd_metabox::zd_get_custom_meta($post_id, 'zd_posts');
+
+//echo "<pre>";
+//print_r( $custom_meta );
+//echo "</pre>";
+
+//if( get_post_meta($post_id, '') ) {
+//	$post_type = zd_metabox::zd_get_custom_option($post_id);
+//}
+
+if( isset($custom_meta['post_container']) ) {
+	$post_type = $custom_meta['post_type'];
+}
+
+$the_query = new WP_Query( array(
+	'post_type' => $post_type
+) );
+
 get_header(); ?>
 
 <div id="main-content" class="content-primary">
@@ -15,7 +37,9 @@ get_header(); ?>
 
 
 		<?php
-			if ( have_posts() ) :
+
+		var_dump($post_type);
+			if ( $the_query->have_posts() ) :
 				// Start the Loop.
 				while ( have_posts() ) : the_post();
 

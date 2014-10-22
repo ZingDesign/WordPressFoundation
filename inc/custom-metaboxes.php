@@ -9,99 +9,39 @@
 /**
  * Calls the class on the post edit screen.
  */
+
+
 function call_zd_metabox() {
-//    new zd_metabox(
-//        'Revolution Slider',
-//        'page',
-//        'zd',
-//        $options = array(
-//            array(
-//                'label' => 'Show slider',
-//                'type' => 'checkbox'
-//            ),
-//            array(
-//                'label' => 'Slider',
-//                'type' => 'select',
-//                'dropdown' => array(
-//                    'home_slider' => 'Home slider',
-//                    'about_slider' => 'About slider'
-//                )
-//            )
-//        ),
-//        $settings = array(
-//            'position' => 'advanced',
-//            'priority' => 'low'
-//        )
-//    );
 
-    // Products in market metabox
+	$custom_post_types = get_post_types( array(
+		'public'   => true,
+		'_builtin' => false
+	), 'names');
 
-//    $products = get_posts( array(
-//        'posts_per_page'    => -1,
-//        'post_type'         => 'zd_products') );
-//
-//    $product_options = array();
-//
-//    foreach( $products as $p ) {
-//        $product_options[] = array(
-//            'label'     => $p->post_title,
-//            'name'      => $p->ID,
-//            'type'      => 'checkbox',
-//            'filter'    => 'sanitize_checkbox'
-//        );
-//    }
+//	$custom_post_types[] = 'post';
 
-//    new zd_metabox(
-//        'Products in this market',  // Title
-//        'zd_markets',             // Post type
-//        'pitm',                     // Prefix
-//        $product_options,
-//        $settings = array(
-//            'position' => 'side',
-//            'priority' => 'low'
-//        )
-//    );
+    new zd_metabox(
+        'Posts to display',
+        'page',
+        'zd_posts',
+        $options = array(
+	        array(
+		        'label' => 'Post container',
+		        'type' => 'checkbox'
+	        ),
+            array(
+                'label' => 'Post type',
+                'type' => 'select',
+                'dropdown' => $custom_post_types
+            )
+        ),
+        $settings = array(
+            'position' => 'advanced',
+            'priority' => 'low'
+        )
+    );
 
-    // Banner example
-    // Things to fix:
-    // Don't show preview if no image
-    // Increase the size of the textarea, make block
-    // Add color input type
 
-//    new zd_metabox(
-//        'Banner',  // Title
-//        'zd_markets',             // Post type
-//        'test',                     // Prefix
-//        $options = array(
-//            array(
-//                'label' => 'Banner title',
-//                'type' => 'textarea'
-//            ),
-//            array(
-//                'label' => 'Background image',
-//                'type' => 'image'
-//            ),
-//            array(
-//                'label' => 'Background repeat',
-//                'type' => 'select',
-//                'dropdown' => array(
-//                    0 => 'no-repeat'
-//                )
-//            ),
-//            array(
-//                'label' => 'Background colour',
-//                'type' => 'text'
-//            ),
-//            array(
-//                'label' => 'Foreground image',
-//                'type' => 'image'
-//            )
-//        ),
-//        $settings = array(
-//            'position' => 'advanced',
-//            'priority' => 'high'
-//        )
-//    );
 
 }
 
@@ -135,6 +75,10 @@ class zd_metabox {
     private $position;
     private $priority;
 
+	private $form_helper;
+
+	static $_metadata_name;
+
 
 
     /**
@@ -147,8 +91,13 @@ class zd_metabox {
         $this->post_type = $post_type;
         $this->args_name = $prefix . '_args';
         $this->metadata_name = '_' . $prefix . '_data';
+
+	    self::$_metadata_name = $this->metadata_name;
+
         $this->nonce_name = $prefix . '_nonce';
         $this->nonce_id = $prefix . '_nonce_id';
+
+	    $this->form_helper = new FormHelper();
 
         $default_settings = array(
             'position' => 'side',
@@ -227,38 +176,19 @@ class zd_metabox {
         }
 
         /* OK, its safe for us to save the data now. */
-//        var_dump(isset($_POST[$this->args_name]));
+
 
         if( isset($_POST[$this->args_name]) ) {
             // Sanitize the user input.
             $data = array();
-
-//            $data['test'] = 'testing';
-
-//            $data['zd_show_call_to_action'] = isset($_POST[$this->args_name]['zd_show_call_to_action']) ? sanitize_text_field($_POST['zdsa']['zd_show_call_to_action']) : '';
-            //
-            //            $data['zd_call_to_action'] = isset($_POST[$this->args_name]['zd_call_to_action']) ? esc_url($_POST['zdsa']['zd_call_to_action']) : '';
-            //
-            //            $data['zd_call_to_action_text'] = isset($_POST[$this->args_name]['zd_call_to_action_text']) ? sanitize_text_field($_POST['zdsa']['zd_call_to_action_text']) : '';
-            //
-            //            $data['zd_new_window'] = isset($_POST[$this->args_name]['zd_new_window']) ? sanitize_text_field($_POST['zdsa']['zd_new_window']) : '';
-//            echo "<pre>";
-//            print_r($_POST[$this->args_name]);
-//            echo "</pre>";
 
             foreach($this->options as $option) {
                 $filter = isset($option['filter']) ? $option['filter'] : 'sanitize_text_field';
 
                 $name = isset($option['name']) ? $option['name'] : str_replace( ' ', '_', strtolower($option['label']) );
 
-//                var_dump($name);
-
                 $data[$name] = isset($_POST[$this->args_name][$name]) ? call_user_func($filter, $_POST[$this->args_name][$name]) : '';
              }
-//            echo "<pre>";
-//            print_r($data);
-//            echo "</pre>";
-
 
             // Update the meta field.
             update_post_meta( $post_id, $this->metadata_name, $data);
@@ -279,154 +209,45 @@ class zd_metabox {
         // Add an nonce field so we can check for it later.
         wp_nonce_field( $this->nonce_id, $this->nonce_name );
 
-        // Use get_post_meta to retrieve an existing value from the database.
-//        $data = get_post_meta( $post->ID, $this->metadata_name, true );
-
-//        $show_checked = isset($data['zd_show_call_to_action']) ? ' checked' : '';
-//        $new_window_checked = isset($data['zd_new_window']) ? ' checked' : '';
-//        $link = isset($data['zd_call_to_action']) ? $data['zd_call_to_action'] : '';
-//        $text = isset($data['zd_call_to_action_text']) ? $data['zd_call_to_action_text'] : '';
-
-//        $name_base = $this->args_name;
-
-//        print_r($this->options);
-
         foreach( $this->options as $option ) {
             $label = $option['label'];
             $id = isset($option['id']) ? $option['id'] : str_replace( ' ', '-', strtolower( $label ) );
             $name = isset($option['name']) ? $option['name'] : str_replace( '-', '_', $id );
             $dropdown_list = isset($option['dropdown']) ? $option['dropdown'] : false;
-
-            $this->setting_input(array(
-                'label' => $label,
-                'id' => $this->prefix . '-' . $id,
-                'name' => $name,
-                'type' => $option['type'],
-                'dropdown' => $dropdown_list,
-                'post_id' => $post->ID
-            ));
+	        echo $this->form_helper->zd_setting_input(array(
+		        'label'         => $label,
+		        'id'            => $this->prefix . '-' . $id,
+		        'name'          => $name,
+		        'type'          => $option['type'],
+		        'dropdown'      => $dropdown_list,
+		        'post_id'       => $post->ID,
+		        'metadata_name' => $this->metadata_name,
+		        'arg_name'      => $this->args_name
+	        ));
         }
         unset($option, $label, $id, $name);
 
-        $this->setting_input(array(
-            'label' => false,
-            'type' => 'hidden',
-            'id'    => $this->prefix . '-force-save',
-            'name' => $this->prefix . '_force_save',
-            'post_id' => $post->ID
-        ));
+
+	    echo $this->form_helper->zd_setting_input(array(
+		    'label'     => false,
+            'type'      => 'hidden',
+            'id'        => $this->prefix . '-force-save',
+            'name'      => $this->prefix . '_force_save',
+            'post_id'   => $post->ID,
+            'metadata_name' => $this->metadata_name
+	    ));
 //
         echo '<input class="button button-primary button-large" type="submit" value="'.__('Save', $this->text_domain).'" />'."\n";
     }
-    
-    public function setting_input( $args ) {
 
-        $label = $args['label'];
-        $type = isset($args['type']) ? $args['type'] : 'text';
-        $id = $args['id'];
-        $name = $args['name'];
-        $post_id = $args['post_id'];
+	public static function zd_get_custom_meta($post_id, $meta_name) {
 
-        $base_name = $this->args_name;
+		$data = get_post_meta($post_id, self::$_metadata_name, true);
 
-//        if( ! $type ) {
-//            $type = 'text';
-//        }
+		return unserialize($data['_' . $meta_name . '_data'][0]);
 
-        $is_checkbox = 'checkbox' === $type;
-        $is_hidden = 'hidden' === $type;
-
-        if( ! $id ) {
-            echo "<p class=\"error\">Error: ID required when initialising new settings</p>\n";
-            return;
-        }
-
-//        $value = get_option( $name );
-        $data = get_post_meta( $post_id, $this->metadata_name, true );
-
-//        print_r($data);
-//        var_dump($name);
-
-        $value = !empty($data[$name]) ? esc_attr($data[$name]) : '';
-
-        if( ! $is_hidden ) {
-
-            echo "<div class=\"zd-input-group\">\n";
-            echo "<label for=\"{$id}\">{$label}</label>\n";
-        }
-
-        if( in_array($type, array('text', 'email', 'number', 'checkbox', 'hidden')) ) {
-            $checked = '';
-
-            if( $is_checkbox || $is_hidden ) {
-                $value = '1';
-
-                if( $is_checkbox ) {
-                    $checked = (!empty($data[$name]) && $data[$name] === "1") ? ' checked="checked"' : '';
-                }
-                
-//                $checked = checked( $value, true, false );
-            }
-
-            echo "<input type=\"{$type}\" id=\"{$id}\" name=\"{$base_name}[{$name}]\" value=\"{$value}\"{$checked} />\n";
-        }
-
-        else if( 'textarea' === $type ) {
-            echo "<textarea id=\"{$id}\" name=\"{$base_name}[{$name}]\">{$value}</textarea>";
-        }
-
-        else if( 'image' === $type ) {
-            $bg = '';
-            echo "<div>\n";
-            $rand = mt_rand(100, 1000);
-
-            $button_text = empty($value) ? 'Insert image' : 'Change image';
-            echo "<button class=\"zd-insert-image-button button button-default\">".__($button_text, $this->text_domain)."</button>\n";
-
-            $image_url = '';
-
-            if( !empty($value) ) {
-                echo '<button class="zd-remove-image-button button button-default">' . __('Remove image') . '</button>'."\n";
-                $image_src = wp_get_attachment_image_src($value);
-
-                $image_url = empty($image_src[0]) ? '' : $image_src[0];
-
-                $bg = ' style="background: url('.$image_url.') no-repeat;width:'.$image_src[1].'px;height:'.$image_src[2].'px;"';
-            }
-
-
-            echo "<input class=\"zd-image-src-output\" id=\"zd-image-src-{$rand}\" value=\"{$image_url}\"/>\n";
-            echo "<input type=\"hidden\" id=\"zd-image-id-{$rand}\" name=\"{$base_name}[{$name}]\" value=\"{$value}\" />\n";
-
-            $hide = empty($image_url) ? ' zd-hide' : '';
-
-            echo "<p class=\"image-preview-label{$hide}\"><strong>" . __('Image Preview', $this->text_domain) . "</strong></p>\n";
-
-            echo "<div class=\"zd-image-preview\" id=\"zd-image-preview-{$rand}\"{$bg}>";
-            echo "</div>\n";
-
-            echo "</div>\n";
-        }
-
-        else if( 'select' === $type ) {
-            echo "<select id=\"{$id}\" name=\"{$name}\">\n";
-
-            echo "<option value=\"-1\">" . __('Select an option', $this->text_domain) . "</option>\n";
-
-            if( $args['dropdown'] ) {
-                foreach($args['dropdown'] as $option_value => $option_label) {
-                    $selected = $value === $option_value ? ' selected' : '';
-
-                    echo "<option value=\"{$option_value}\"{$selected}>" . __($option_label, $this->text_domain) . "</option>\n";
-                }
-            }
-
-            echo "</select>\n";
-        }
-
-        if( ! $is_hidden ) {
-            echo "</div><!--.zd-input-group-->\n";
-        }
-
-    }
+//		print_r($data);
+//
+//		return $data['_' . $data_id . '_data'][$option_id];
+	}
 }

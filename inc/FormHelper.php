@@ -10,12 +10,23 @@ class FormHelper {
 
 
 	public function zd_setting_input( $args ) {
-		$html = $before = $after = $class = '';
-
-		$type = $args['type'];
 		$id = $args['id'];
 
-		$label = $args['label'];
+		if( ! $id ) {
+			return "<p class=\"zd-error\">ZD Error: ID required when initialising new settings</p>\n";
+		}
+
+		$html = $before = $after = $class = '';
+
+		$name = isset($args['name']) ? $args['name'] : $id;
+
+		$option_name = $name;
+
+		if( isset($args['arg_name']) ) {
+			$name = $args['arg_name'] . '[' . $name . ']';
+		}
+		$type = isset($args['type']) ? $args['type'] : 'text';
+		$label = isset($args['label']) ? $args['label'] : $id;
 
 		$dropdown = isset($args['dropdown']) ? $args['dropdown'] : array();
 
@@ -24,21 +35,23 @@ class FormHelper {
 		$is_checkbox = 'checkbox' === $type;
 		$is_hidden = 'hidden' === $type;
 
-		$placeholder = $args['placeholder'] ? ' placeholder="'.$args['placeholder'].'"' : '';
+		$has_placeholder = isset($args['placeholder']) ? $args['placeholder'] : false;
 
-		$required = $args['required'] ? ' required' : '';
+		$placeholder = $has_placeholder ? ' placeholder="'.$args['placeholder'].'"' : '';
+
+		$is_required = isset($args['required']) ? $args['required'] : false;
+		$required = $is_required ? ' required' : '';
 
 		$text_based_inputs = array('text', 'email', 'number', 'checkbox', 'hidden', 'url', 'color');
 
-		if( ! $type ) {
-			$type = 'text';
+		$wrapper = isset($args['wrapper']) ? $args['wrapper'] : true;
+
+		if( 'hidden' === $type ) {
+			$wrapper = false;
 		}
 
-		if( ! $id ) {
-			return "<p class=\"zd-error\">ZD Error: ID required when initialising new settings</p>\n";
-		}
 
-		if( $args['wrapper'] ) {
+		if( $wrapper ) {
 			$before .= '<div class="input-group">'."\n";
 		}
 
@@ -53,7 +66,7 @@ class FormHelper {
 			}
 		}
 
-		if( $args['wrapper'] ) {
+		if( $wrapper ) {
 			$after .= "</div><!--input-wrapper-->\n";
 		}
 
@@ -61,7 +74,22 @@ class FormHelper {
 
 		// Set current value to stored value if a value has been set
 		// Or set to default if not
-		$current_value = get_option( $id ) ? get_option( $id ) : $default;
+
+		// Get value from post meta if the post_id and metadata name is set
+//		var_dump($args['metadata_name']);
+		if( isset($args['post_id']) && isset($args['metadata_name']) ) {
+			$post_id = $args['post_id'];
+			$data = get_post_meta( $post_id, $args['metadata_name'], true );
+
+//			print_r($data[$option_name]);
+			$current_value = isset($data[$option_name]) ? esc_attr($data[$option_name]) : '';
+
+//			var_dump($current_value);
+		}
+		else {
+			$current_value = get_option( $id ) ? get_option( $id ) : $default;
+		}
+
 
 		// Set display value to 1 if checkbox or hidden, otherwise whatever the current value
 		$value = ( $is_checkbox || $is_hidden ) ? '1' : $current_value;
@@ -85,7 +113,7 @@ class FormHelper {
 				$class = 'zd-color-input';
 			}
 
-			$html .= "<input type=\"{$type}\" id=\"{$id}\" class=\"{$class}\" name=\"{$id}\" value=\"{$value}\" {$required}{$checked}{$placeholder} />\n";
+			$html .= "<input type=\"{$type}\" id=\"{$id}\" class=\"{$class}\" name=\"{$name}\" value=\"{$value}\" {$required}{$checked}{$placeholder} />\n";
 		}
 
 		/*
@@ -93,7 +121,7 @@ class FormHelper {
 		 */
 
 		else if( 'textarea' === $type ) {
-			$html .= "<textarea id=\"{$id}\" name=\"{$id}\" rows=\"{$args['rows']}\" cols=\"{$args['cols']}\" {$placeholder}>{$value}</textarea>\n";
+			$html .= "<textarea id=\"{$id}\" name=\"{$name}\" rows=\"{$args['rows']}\" cols=\"{$args['cols']}\" {$placeholder}>{$value}</textarea>\n";
 		}
 
 		/*
@@ -102,7 +130,7 @@ class FormHelper {
 		 */
 
 		else if( 'image' === $type ) {
-			$html .= $this->get_image_input($id, $value);
+			$html .= $this->get_image_input($name, $value);
 		}
 
 		/*
@@ -110,7 +138,7 @@ class FormHelper {
 		 * Requires the dropdown property
 		 */
 		else if( 'select' === $type ) {
-			$html .= $this->get_select_input($id, $value, $dropdown);
+			$html .= $this->get_select_input($id, $name, $value, $dropdown);
 		}
 
 		/*
@@ -118,7 +146,7 @@ class FormHelper {
 		*/
 
 		else if( 'radio' === $type ) {
-			$html .= $this->get_radio_input($id, $value, $args['options']);
+			$html .= $this->get_radio_input($name, $value, $args['options']);
 		}
 
 		else {
@@ -131,14 +159,14 @@ class FormHelper {
 		return $html;
 	}
 
-	public function get_radio_input($id, $value=null, $options=null) {
+	public function get_radio_input($name, $value=null, $options=null) {
 		$html = '';
 
 		if( is_array($options) ) {
 			foreach($options as $option_id => $option_label) {
 				$selected = $option_id === $value ? ' checked' : '';
 				$html .= "<label for=\"{$option_id}\">{$option_label}</label>";
-				$html .= "<input type=\"radio\" id=\"{$option_id}\" name=\"{$id}\"{$selected}/>\n";
+				$html .= "<input type=\"radio\" id=\"{$option_id}\" name=\"{$name}\"{$selected}/>\n";
 			}
 		}
 		else {
@@ -149,10 +177,10 @@ class FormHelper {
 	}
 
 
-	public function get_select_input($id, $value=null, $dropdown=null) {
+	public function get_select_input($id, $name, $value=null, $dropdown=null) {
 		$html = '';
 
-		$html .= "<select id=\"{$id}\" name=\"{$id}\">\n";
+		$html .= "<select id=\"{$id}\" name=\"{$name}\">\n";
 
 		$html .= "<option value=\"-1\">" . __('Select an option', ZD_TEXT_DOMAIN) . "</option>\n";
 
@@ -172,7 +200,7 @@ class FormHelper {
 		return $html;
 	}
 
-	public function get_image_input($id, $value=null) {
+	public function get_image_input($name, $value=null) {
 		$html = '';
 		$bg = '';
 		$html .= "<div>\n";
@@ -195,7 +223,7 @@ class FormHelper {
 
 
 		$html .= "<input class=\"zd-image-src-output\" id=\"zd-image-src-{$rand}\" value=\"{$image_url}\"/>\n";
-		$html .= "<input type=\"hidden\" id=\"zd-image-id-{$rand}\" name=\"{$id}\" value=\"{$value}\" />\n";
+		$html .= "<input type=\"hidden\" id=\"zd-image-id-{$rand}\" name=\"{$name}\" value=\"{$value}\" />\n";
 
 		$hide = empty($image_url) ? ' zd-hide' : '';
 

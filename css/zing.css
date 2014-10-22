@@ -3225,6 +3225,55 @@ th {
   *display: inline;
 }
 
+/* line 94, ../scss/_helpers.scss */
+.margin-top-1 {
+  margin-top: 8px;
+}
+
+/* line 98, ../scss/_helpers.scss */
+.margin-top-2 {
+  margin-top: 16px;
+}
+
+/* line 102, ../scss/_helpers.scss */
+.margin-top-3 {
+  margin-top: 24px;
+}
+
+/* line 106, ../scss/_helpers.scss */
+.margin-top-4 {
+  margin-top: 32px;
+}
+
+/* line 110, ../scss/_helpers.scss */
+.margin-top-5 {
+  margin-top: 40px;
+}
+
+/* line 114, ../scss/_helpers.scss */
+.link {
+  margin-right: 40px;
+}
+/* line 116, ../scss/_helpers.scss */
+.link.blue {
+  color: #158fef;
+  opacity: 1;
+}
+/* line 120, ../scss/_helpers.scss */
+.link:last-child {
+  margin-right: 0;
+}
+
+/* line 125, ../scss/_helpers.scss */
+.index-1 {
+  z-index: 100;
+}
+
+/* line 129, ../scss/_helpers.scss */
+.index-2 {
+  z-index: 200;
+}
+
 /* line 5, ../scss/_general.scss */
 a {
   text-decoration: none;
@@ -3242,6 +3291,23 @@ p {
   line-height: 1.5;
   max-width: 800px;
   margin-bottom: 1.5rem;
+}
+
+/* line 21, ../scss/_general.scss */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+/* line 26, ../scss/_general.scss */
+body {
+  font-size: 16px;
+}
+
+/* line 30, ../scss/_general.scss */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Alignment */
@@ -3783,7 +3849,7 @@ body.cbp-body-open {
 
 /* line 43, ../scss/_header.scss */
 .logo-raygun {
-  background: center url("../images/logo-raygun-white.svg") no-repeat;
+  background: center url('../images/logo-raygun-white.svg') no-repeat;
   height: 60px;
   width: 75px;
   display: inline-block;

@@ -7,319 +7,128 @@
  */
 
 /*
- * Custom taxonomies
+ * Custom post types
  */
 
-function zd_register_custom_taxonomies() {
-
-    // Markets - category
-    register_taxonomy('market_category', 'zd_markets', array(
-        'hierarchical'  => true,
-        'label'         => __('Market Categories'),
-        'rewrite'       => array('slug' => 'market-category')
-    ));
-
-    // Products - category
-    register_taxonomy('product_category', 'zd_products', array(
-        'hierarchical'      => true,
-        'label'             => __('Product Categories'),
-        'rewrite'           => array('slug' => 'product-category')
-    ));
-
-    // Products - tag
-    register_taxonomy('product_tag', 'zd_products', array(
-        'hierarchical'      => false,
-        'label'             => __('Product Tags'),
-        'rewrite'           => array('slug' => 'product-tag')
-    ));
-
-    //Services - category
-    register_taxonomy('service_category', 'zd_services', array(
-        'hierarchical'  => true,
-        'label'         => __('Service Categories'),
-        'rewrite'       => array('slug' => 'service-category')
-    ));
-
-    // Research - category
-//    register_taxonomy('research_category', 'zd_research', array(
-//        'hierarchical'      => true,
-//        'label'             => __('Research Categories'),
-//        'rewrite'           => array('slug' => 'research-category')
-//    ));
-
-    // Newsletter - category
-//    register_taxonomy('newsletter_category', 'zd_newsletters', array(
-//        'hierarchical'      => true,
-//        'label'             => __('Newsletter Categories'),
-//        'rewrite'           => array('slug' => 'newsletter-category')
-//    ));
+function get_title($str) {
+	return ucfirst( str_replace("_", " ", $str) );
 }
-
-//add_action( 'init', 'zd_register_custom_taxonomies' );
-
-
-// Register Custom Post Type - Markets
-function zd_add_post_type_markets() {
-
-    $labels = array(
-        'name'                => _x( 'Markets', 'Post Type General Name', 'zingdesign' ),
-        'singular_name'       => _x( 'Market', 'Post Type Singular Name', 'zingdesign' ),
-        'menu_name'           => __( 'Markets', 'zingdesign' ),
-        'parent_item_colon'   => __( 'Parent Market:', 'zingdesign' ),
-        'all_items'           => __( 'All Markets', 'zingdesign' ),
-        'view_item'           => __( 'View Market', 'zingdesign' ),
-        'add_new_item'        => __( 'Add New Market', 'zingdesign' ),
-        'add_new'             => __( 'Add New', 'zingdesign' ),
-        'edit_item'           => __( 'Edit Market', 'zingdesign' ),
-        'update_item'         => __( 'Update Market', 'zingdesign' ),
-        'search_items'        => __( 'Search Item', 'zingdesign' ),
-        'not_found'           => __( 'Market not found', 'zingdesign' ),
-        'not_found_in_trash'  => __( 'Market not found in Trash', 'zingdesign' ),
-    );
-    $rewrite = array(
-        'slug'                => 'market',
-        'with_front'          => true,
-        'pages'               => true,
-        'feeds'               => true,
-    );
-    $args = array(
-        'label'               => __( 'zd_markets', 'zingdesign' ),
-        'description'         => __( 'Markets', 'zingdesign' ),
-        'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
-        'taxonomies'          => array( 'market_category' ),
-        'hierarchical'        => false,
-        'public'              => true,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'show_in_nav_menus'   => true,
-        'show_in_admin_bar'   => true,
-        'menu_position'       => 20,
-        'menu_icon'           => 'dashicons-admin-site',
-        'can_export'          => true,
-        'has_archive'         => true,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => true,
-        'rewrite'             => $rewrite,
-        'capability_type'     => 'page',
-    );
-    register_post_type( 'zd_markets', $args );
-
-}
-
-// Hook into the 'init' action
-//add_action( 'init', 'zd_add_post_type_markets', 0 );
-
-// Register Custom Post Type - Products
-function zd_add_post_type_products() {
-
-    $labels = array(
-        'name'                => _x( 'Products', 'Post Type General Name', 'zingdesign' ),
-        'singular_name'       => _x( 'Product', 'Post Type Singular Name', 'zingdesign' ),
-        'menu_name'           => __( 'Products', 'zingdesign' ),
-        'parent_item_colon'   => __( 'Parent Product:', 'zingdesign' ),
-        'all_items'           => __( 'All Products', 'zingdesign' ),
-        'view_item'           => __( 'View Product', 'zingdesign' ),
-        'add_new_item'        => __( 'Add New Product', 'zingdesign' ),
-        'add_new'             => __( 'Add New', 'zingdesign' ),
-        'edit_item'           => __( 'Edit Product', 'zingdesign' ),
-        'update_item'         => __( 'Update Product', 'zingdesign' ),
-        'search_items'        => __( 'Search Item', 'zingdesign' ),
-        'not_found'           => __( 'Product not found', 'zingdesign' ),
-        'not_found_in_trash'  => __( 'Product not found in Trash', 'zingdesign' ),
-    );
-    $rewrite = array(
-        'slug'                => 'product',
-        'with_front'          => true,
-        'pages'               => true,
-        'feeds'               => true,
-    );
-    $args = array(
-        'label'               => __( 'zd_products', 'zingdesign' ),
-        'description'         => __( 'Products', 'zingdesign' ),
-        'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
-        'taxonomies'          => array( 'product_category' ),
-        'hierarchical'        => false,
-        'public'              => true,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'show_in_nav_menus'   => true,
-        'show_in_admin_bar'   => true,
-        'menu_position'       => 20,
-        'menu_icon'           => 'dashicons-cart',
-        'can_export'          => true,
-        'has_archive'         => true,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => true,
-        'rewrite'             => $rewrite,
-        'capability_type'     => 'page',
-    );
-    register_post_type( 'zd_products', $args );
-
-}
-
-// Hook into the 'init' action
-//add_action( 'init', 'zd_add_post_type_products', 0 );
 
 // Register Custom Post Type - Services
-function zd_add_post_type_services() {
+function zd_add_custom_post_types() {
 
-    $labels = array(
-        'name'                => _x( 'Services', 'Post Type General Name', 'zingdesign' ),
-        'singular_name'       => _x( 'Service', 'Post Type Singular Name', 'zingdesign' ),
-        'menu_name'           => __( 'Services', 'zingdesign' ),
-        'parent_item_colon'   => __( 'Parent Service:', 'zingdesign' ),
-        'all_items'           => __( 'All Services', 'zingdesign' ),
-        'view_item'           => __( 'View Service', 'zingdesign' ),
-        'add_new_item'        => __( 'Add New Service', 'zingdesign' ),
-        'add_new'             => __( 'Add New', 'zingdesign' ),
-        'edit_item'           => __( 'Edit Service', 'zingdesign' ),
-        'update_item'         => __( 'Update Service', 'zingdesign' ),
-        'search_items'        => __( 'Search Item', 'zingdesign' ),
-        'not_found'           => __( 'Service not found', 'zingdesign' ),
-        'not_found_in_trash'  => __( 'Service not found in Trash', 'zingdesign' ),
-    );
-    $rewrite = array(
-        'slug'                => 'service',
-        'with_front'          => true,
-        'pages'               => true,
-        'feeds'               => true,
-    );
-    $args = array(
-        'label'               => __( 'zd_services', 'zingdesign' ),
-        'description'         => __( 'Services', 'zingdesign' ),
-        'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
-        'taxonomies'          => array( 'service_category' ),
-        'hierarchical'        => true,
-        'public'              => true,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'show_in_nav_menus'   => true,
-        'show_in_admin_bar'   => true,
-        'menu_position'       => 20,
-        'menu_icon'           => 'dashicons-admin-tools',
-        'can_export'          => true,
-        'has_archive'         => true,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => true,
-        'rewrite'             => $rewrite,
-        'capability_type'     => 'page',
-    );
-    register_post_type( 'zd_services', $args );
+//	global $post;
+
+//	$post_id = isset($_POST['post']) ? $_POST['post'] : $_GET['post'];
+
+
+	// Manually define post types
+	// Format: ID => Options
+
+	$custom_post_types = array(
+		'research' => array(
+			'icon' => 'category'
+		),
+
+	);
+
+//	if( $custom_meta = zd_metabox::zd_get_custom_meta($post_id, 'zd_add_custom_post_type') ) {
+//		if( $custom_meta['add_custom_post_type'] ) {
+//			$custom_post_types[$custom_meta['post_type_id']] = array(
+//				'icon' => $custom_meta['post_type_icon']
+//			);
+//		}
+//	}
+
+	$defaults = array(
+		'icon'                  => 'media-document',
+		'hierarchical'          => false,
+		'public'                => true,
+		'show_ui'               => true,
+		'show_in_menu'          => true,
+		'show_in_nav_menus'     => true,
+		'show_in_admin_bar'     => true,
+		'menu_position'         => 20,
+		'supports'              => array(
+									'title',
+									'editor',
+									'excerpt',
+									'thumbnail',
+									'revisions',
+									'custom-fields',
+									'page-attributes',
+								),
+		'taxonomies'            => array(),
+		'can_export'            => true,
+		'has_archive'           => true,
+		'exclude_from_search'   => false,
+		'publicly_queryable'    => true,
+		'capability_type'       => 'page'
+
+
+
+	);
+
+	foreach($custom_post_types as $post_type_id => $options) {
+
+		$singular_title = get_title( $post_type_id );
+
+		$plural = isset($options['plural']) ? $options['plural'] : $post_type_id;
+
+		$plural_title = get_title($plural);
+
+		extract(wp_parse_args($options, $defaults));
+
+		$labels = array(
+			'name'                => _x( $singular_title, 'Post Type General Name', 'zingdesign' ),
+			'singular_name'       => _x( $singular_title, 'Post Type Singular Name', 'zingdesign' ),
+			'menu_name'           => __( $plural_title, 'zingdesign' ),
+			'parent_item_colon'   => __( 'Parent '.$singular_title.':', 'zingdesign' ),
+			'all_items'           => __( 'All '.$plural_title, 'zingdesign' ),
+			'view_item'           => __( 'View ' . $singular_title, 'zingdesign' ),
+			'add_new_item'        => __( 'Add New ' . $singular_title, 'zingdesign' ),
+			'add_new'             => __( 'Add New', 'zingdesign' ),
+			'edit_item'           => __( 'Edit ' . $singular_title, 'zingdesign' ),
+			'update_item'         => __( 'Update ' . $singular_title, 'zingdesign' ),
+			'search_items'        => __( 'Search Item', 'zingdesign' ),
+			'not_found'           => __( $singular_title. ' not found', 'zingdesign' ),
+			'not_found_in_trash'  => __( $singular_title . ' not found in Trash', 'zingdesign' ),
+		);
+		$rewrite = array(
+			'slug'                => $post_type_id,
+			'with_front'          => true,
+			'pages'               => true,
+			'feeds'               => true,
+		);
+		$args = array(
+			'label'               => __( $post_type_id, 'zingdesign' ),
+			'description'         => __( $post_type_id, 'zingdesign' ),
+			'labels'              => $labels,
+			'supports'            => $supports,
+			'taxonomies'          => $taxonomies,
+			'hierarchical'        => $hierarchical,
+			'public'              => $public,
+			'show_ui'             => $show_ui,
+			'show_in_menu'        => $show_in_menu,
+			'show_in_nav_menus'   => $show_in_nav_menus,
+			'show_in_admin_bar'   => $show_in_admin_bar,
+			'menu_position'       => $menu_position,
+			'menu_icon'           => 'dashicons-' . $icon,
+			'can_export'          => $can_export,
+			'has_archive'         => $has_archive,
+			'exclude_from_search' => $exclude_from_search,
+			'publicly_queryable'  => $publicly_queryable,
+			'rewrite'             => $rewrite,
+			'capability_type'     => $capability_type,
+		);
+		register_post_type( $post_type_id, $args );
+
+	}
+
+
+
 
 }
 
 // Hook into the 'init' action
-//add_action( 'init', 'zd_add_post_type_services', 0 );
-
-// Register Custom Post Type - Services
-function zd_add_post_type_research() {
-
-    $labels = array(
-        'name'                => _x( 'Researchs', 'Post Type General Name', 'zingdesign' ),
-        'singular_name'       => _x( 'Research', 'Post Type Singular Name', 'zingdesign' ),
-        'menu_name'           => __( 'Researchs', 'zingdesign' ),
-        'parent_item_colon'   => __( 'Parent Research:', 'zingdesign' ),
-        'all_items'           => __( 'All Researchs', 'zingdesign' ),
-        'view_item'           => __( 'View Research', 'zingdesign' ),
-        'add_new_item'        => __( 'Add New Research', 'zingdesign' ),
-        'add_new'             => __( 'Add New', 'zingdesign' ),
-        'edit_item'           => __( 'Edit Research', 'zingdesign' ),
-        'update_item'         => __( 'Update Research', 'zingdesign' ),
-        'search_items'        => __( 'Search Item', 'zingdesign' ),
-        'not_found'           => __( 'Research not found', 'zingdesign' ),
-        'not_found_in_trash'  => __( 'Research not found in Trash', 'zingdesign' ),
-    );
-    $rewrite = array(
-        'slug'                => 'research',
-        'with_front'          => true,
-        'pages'               => true,
-        'feeds'               => true,
-    );
-    $args = array(
-        'label'               => __( 'zd_research', 'zingdesign' ),
-        'description'         => __( 'research', 'zingdesign' ),
-        'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
-        'taxonomies'          => array(),
-        'hierarchical'        => false,
-        'public'              => true,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'show_in_nav_menus'   => true,
-        'show_in_admin_bar'   => true,
-        'menu_position'       => 20,
-        'menu_icon'           => 'dashicons-category',
-        'can_export'          => true,
-        'has_archive'         => true,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => true,
-        'rewrite'             => $rewrite,
-        'capability_type'     => 'page',
-    );
-    register_post_type( 'zd_research', $args );
-
-}
-
-// Hook into the 'init' action
-add_action( 'init', 'zd_add_post_type_research', 0 );
-
-// Register Custom Post Type - Services
-function zd_add_post_type_newsletters() {
-
-    $labels = array(
-        'name'                => _x( 'Newsletters', 'Post Type General Name', 'zingdesign' ),
-        'singular_name'       => _x( 'Newsletter', 'Post Type Singular Name', 'zingdesign' ),
-        'menu_name'           => __( 'Newsletters', 'zingdesign' ),
-        'parent_item_colon'   => __( 'Parent Newsletter:', 'zingdesign' ),
-        'all_items'           => __( 'All Newsletters', 'zingdesign' ),
-        'view_item'           => __( 'View Newsletter', 'zingdesign' ),
-        'add_new_item'        => __( 'Add New Newsletter', 'zingdesign' ),
-        'add_new'             => __( 'Add New', 'zingdesign' ),
-        'edit_item'           => __( 'Edit Newsletter', 'zingdesign' ),
-        'update_item'         => __( 'Update Newsletter', 'zingdesign' ),
-        'search_items'        => __( 'Search Item', 'zingdesign' ),
-        'not_found'           => __( 'Newsletter not found', 'zingdesign' ),
-        'not_found_in_trash'  => __( 'Newsletter not found in Trash', 'zingdesign' ),
-    );
-    $rewrite = array(
-        'slug'                => 'newsletter',
-        'with_front'          => true,
-        'pages'               => true,
-        'feeds'               => true,
-    );
-    $args = array(
-        'label'               => __( 'zd_newsletters', 'zingdesign' ),
-        'description'         => __( 'newsletters', 'zingdesign' ),
-        'labels'              => $labels,
-        'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', ),
-        'taxonomies'          => array(),
-        'hierarchical'        => false,
-        'public'              => true,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'show_in_nav_menus'   => true,
-        'show_in_admin_bar'   => true,
-        'menu_position'       => 80,
-        'menu_icon'           => 'dashicons-media-document',
-        'can_export'          => true,
-        'has_archive'         => true,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => true,
-        'rewrite'             => $rewrite,
-        'capability_type'     => 'page',
-    );
-    register_post_type( 'zd_newsletters', $args );
-
-}
-
-// Hook into the 'init' action
-//add_action( 'init', 'zd_add_post_type_newsletters', 0 );
-
-
-//function zd_rewrite_flush() {
-//    flush_rewrite_rules();
-//}
-//add_action( 'after_switch_theme', 'zd_rewrite_flush' );
+add_action( 'init', 'zd_add_custom_post_types', 0 );

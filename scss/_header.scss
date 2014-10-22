@@ -41,7 +41,7 @@
 }
 
 .logo-raygun {
-  background: center url("../images/logo-raygun-white.svg") no-repeat;
+  background: center image-url($header-logo) no-repeat;
   height: 60px;
   width: 75px;
   display: inline-block;

@@ -8,27 +8,27 @@
  * @subpackage Zing_Design
  * @since Zing Design 1.0
  */
-	$nav_menu_enabled = get_option('zd-enable-mobile-navigation');
-	$nav_menu_direction = get_option('zd-mobile-navigation-alignment');
-
-	$nav_class = 'cbp-spmenu cbp-spmenu-vertical';
-
-	if( $nav_menu_enabled ) {
-		$menu_toggle_id = 'showLeft';
-
-		if( $nav_menu_direction === 'left') {
-			$nav_class .= ' cbp-spmenu-left';
-			$menu_toggle_id = 'showRight';
-		}
-		else {
-
-			$nav_class .= ' cbp-spmenu-right';
-		}
-	}
-	else {
-		$nav_class = 'cbp-spmenu-disabled';
-		$menu_toggle_id = 'menu-disabled';
-	}
+//	$nav_menu_enabled = get_option('zd-enable-mobile-navigation');
+//	$nav_menu_direction = get_option('zd-mobile-navigation-alignment');
+//
+//	$nav_class = 'cbp-spmenu cbp-spmenu-vertical';
+//
+//	if( $nav_menu_enabled ) {
+//		$menu_toggle_id = 'showLeft';
+//
+//		if( $nav_menu_direction === 'left') {
+//			$nav_class .= ' cbp-spmenu-left';
+//			$menu_toggle_id = 'showRight';
+//		}
+//		else {
+//
+//			$nav_class .= ' cbp-spmenu-right';
+//		}
+//	}
+//	else {
+//		$nav_class = 'cbp-spmenu-disabled';
+//		$menu_toggle_id = 'menu-disabled';
+//	}
 
 
 
@@ -88,7 +88,7 @@
 				<label for="listener-mobile-navigation" class="mobile-navigation-toggle"><i
 						class="fa fa-close fa-2x"></i></label>
 
-				<div class="mobile-navigation-header"><a href="/" class="logo-raygun"></a></div>
+				<div class="mobile-navigation-header"><a href="<?php echo site_url(); ?>" class="logo-raygun"></a></div>
 				<div class="mobile-navigation-scroll">
 					<!-- primary menu-->
 					<?php zd_get_menu('primary'); ?>
@@ -104,19 +104,27 @@
 
 				<h3>Filter by</h3>
 				<ul>
-					<li><input type="checkbox" id="mobile-search-check-1"><label for="mobile-search-check-1">
-							<div class="mobile-search-tick"></div>
-							Product update</label></li>
-					<li><input type="checkbox" id="mobile-search-check-2"><label for="mobile-search-check-2">
-							<div class="mobile-search-tick"></div>
-							Development</label></li>
-					<li><input type="checkbox" id="mobile-search-check-3"><label for="mobile-search-check-3">
-							<div class="mobile-search-tick"></div>
-							Raygun labs</label></li>
+					<li>
+						<input type="checkbox" id="mobile-search-check-1">
+						<label for="mobile-search-check-1">
+							<span class="mobile-search-tick"></span>
+							Product update</label>
+					</li>
+					<li>
+						<input type="checkbox" id="mobile-search-check-2"><label for="mobile-search-check-2">
+							<span class="mobile-search-tick"></span>
+							Development</label>
+					</li>
+					<li>
+						<input type="checkbox" id="mobile-search-check-3">
+						<label for="mobile-search-check-3">
+						<span class="mobile-search-tick"></span>
+							Raygun labs</label>
+					</li>
 				</ul>
 			</div>
 
-			<a href="/" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
+			<a href="<?php echo site_url(); ?>" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
 
 			<div class="link-back"><i class="fa fa-angle-left fa-lg header-align header-margin-right"></i><a
 					class="header-align" href="">Back to Raygun</a></div>
