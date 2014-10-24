@@ -1,28 +1,32 @@
 <?php
 /**
- * The template for displaying Search Results pages
- *
+ * Template Name: Recent Posts
  * @package WordPress
  * @subpackage Zing_Design
  * @since Zing Design 1.0
  */
+$args = array(
+	'post_type' => 'any'
+);
+
+$recent_posts = wp_get_recent_posts($args, OBJECT);
+
+//_d($recent_posts);
 
 get_header(); ?>
 
-<div id="main">
+	<div id="main-content" class="content-primary">
 
-	<section id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content" role="main">
 
-			<?php if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'zingdesign' ), get_search_query() ); ?></h1>
-			</header><!-- .page-header -->
 
 				<?php
+
+				if ( !empty($recent_posts) ) :
 					// Start the Loop.
-					while ( have_posts() ) : the_post();
+					foreach($recent_posts as $the_post) :
+						setup_postdata($the_post);
 
 						/*
 						 * Include the post format-specific template for the content. If you want to
@@ -31,7 +35,10 @@ get_header(); ?>
 						 */
 						get_template_part( 'content', get_post_format() );
 
-					endwhile;
+					endforeach;
+
+					wp_reset_postdata();
+
 					// Previous/next post navigation.
 					zd_paging_nav();
 
@@ -40,13 +47,13 @@ get_header(); ?>
 					get_template_part( 'content', 'none' );
 
 				endif;
-			?>
+				?>
 
-		</div><!-- #content -->
-	</section><!-- #primary -->
+			</div><!-- #content -->
+		</div><!-- #primary -->
 
-<?php get_sidebar( 'content' ); ?>
-</div><!-- #main -->
+	</div><!-- #main-content -->
+
+
 <?php
-get_sidebar();
 get_footer();

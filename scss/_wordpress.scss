@@ -112,9 +112,13 @@ img.aligncenter,
 
 .edit-link {
   a {
+    @extend .fa-edit;
     &:before {
-      @extend .genericon;
-      content: '\f411';
+//      @extend .genericon;
+//      content: '\f411';
+      @extend .fa;
+      margin-right: 10px;
+      color: $electric-blue;
     }
 
     &.comment-edit-link {

@@ -88,10 +88,12 @@
 				<label for="listener-mobile-navigation" class="mobile-navigation-toggle"><i
 						class="fa fa-close fa-2x"></i></label>
 
-				<div class="mobile-navigation-header"><a href="<?php echo site_url(); ?>" class="logo-raygun"></a></div>
+				<div class="mobile-navigation-header"><a href="<?php echo site_url('/'); ?>" class="logo-raygun"></a></div>
 				<div class="mobile-navigation-scroll">
-					<!-- primary menu-->
-					<?php zd_get_menu('primary'); ?>
+					<!-- primary (mobile) menu-->
+					<?php
+					zd_get_menu('primary');
+					 ?>
 				</div>
 			</div>
 
@@ -127,15 +129,13 @@
 			<a href="<?php echo site_url(); ?>" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
 
 			<div class="link-back"><i class="fa fa-angle-left fa-lg header-align header-margin-right"></i><a
-					class="header-align" href="">Back to Raygun</a></div>
+					class="header-align" href="http://raygun.io">Back to Raygun</a></div>
 
-			<div class="search">
-				<?php
-				if( get_option('show-search-form-in-header') ) {
-					echo get_search_form();
-				}
-				?>
-			</div>
+			<?php
+			if( get_option('show-search-form-in-header') ) {
+				echo get_search_form();
+			}
+			?>
 
 		</div>
 
@@ -147,13 +147,20 @@
 
 		<div class="header-content">
 
-			<?php zd_get_menu('secondary'); ?>
+			<?php
 
-			<a href="#" class="button green promo">Get started for FREE</a>
+			if( is_page(array('Resources', 'resources', 41)) || is_tax('resource_category') ) {
+				zd_get_menu('resources');
+			}
+			else {
+				zd_get_menu('secondary');
+			} ?>
+
+			<a href="https://app.raygun.io/signup" class="button green promo" target="_blank">Get started for FREE</a>
 
 		</div>
 
 	</nav>
 	<!-- sub header ends -->
 
-	<div id="main" class="site-main">
+	<div id="main-wrapper" class="site-main">

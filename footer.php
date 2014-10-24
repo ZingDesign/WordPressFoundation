@@ -10,15 +10,57 @@
  */
 ?>
 <!--            </div><!-- .small-12 columns -->
-		</div><!-- #main -->
+		</div><!-- #main-wrapper -->
 
-		<footer id="colophon" class="site-footer" role="contentinfo">
+		<!-- footer starts here -->
+		<footer id="colophon" class="footer">
 
-			<a class="footer-logo"><?php bloginfo('name'); ?></a>
+			<div class="footer-content">
 
-            <p>Powered by WordPress. Designed by <a href="http://zingdesign.com" target="_blank">Zing Design</a></p>
+				<?php if(has_nav_menu('footer')) :
 
-		</footer><!-- #colophon -->
+				wp_nav_menu(array(
+					'menu_location'     => 'footer',
+					'container'         => false,
+					'menu_class'        => 'footer-links'
+				));
+
+				else : ?>
+				<ul class="footer-links">
+					<li><a href="https://raygun.io/about" target="_blank">About</a></li>
+					<li><a href="<?php get_permalink( get_page_by_title('resources') ); ?>">Resources</a></li>
+					<li><a href="https://raygun.io/faq" target="_blank">Support</a></li>
+					<li><a href="https://raygun.io/forums" target="_blank">Community</a></li>
+					<li><a href="https://raygun.io/about/contact" target="_blank">Contact</a></li>
+					<li><a href="<?php echo site_url('/'); ?>">Blog</a></li>
+				</ul>
+
+				<?php endif; ?>
+
+				<div class="footer-icons footer-right">
+					<a class="icon-footer colour-github" href="/"><i class="fa fa-github fa-fw"></i></a>
+					<a class="icon-footer colour-facebook" href="/"><i class="fa fa-facebook fa-fw"></i></a>
+					<a class="icon-footer colour-twitter" href="/"><i class="fa fa-twitter fa-fw"></i></a>
+					<a class="icon-footer colour-google-plus" href="/"><i class="fa fa-google-plus fa-fw"></i></a>
+				</div>
+
+			</div>
+
+			<div class="footer-content">
+
+				<div class="footer-credit">
+					<a href="http://mindscape.co.nz" target="_blank"><?php _e('Made by', 'zingdesign'); ?> Mindscape &copy; <?php echo date('Y'); ?></a>
+				</div>
+
+				<div class="link-terms footer-right">
+					<a href="https://raygun.io/privacy" class="link blue" target="_blank"><?php _e('Privacy policy', 'zingdesign'); ?></a>
+					<a href="https://raygun.io/terms" class="link blue" target="_blank"><?php _e('Terms and conditions', 'zingdesign'); ?></a>
+				</div>
+
+			</div>
+
+		</footer>
+		<!-- footer ends here -->
 	</div><!-- #page -->
 
 	<?php wp_footer(); ?>

@@ -11,13 +11,14 @@
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
+<div id="main">
+	<section id="primary" class="content-area content-primary">
 		<div id="content" class="site-content" role="main">
 
 			<?php if ( have_posts() ) : ?>
 
 			<header class="archive-header">
-				<h1 class="archive-title"><?php printf( __( 'Category Archives: %s', 'zingdesign' ), single_cat_title( '', false ) ); ?></h1>
+				<h1 class="archive-title"><?php printf( __( '%s', 'zingdesign' ), single_cat_title( '', false ) ); ?></h1>
 
 				<?php
 					// Show an optional term description.
@@ -52,7 +53,10 @@ get_header(); ?>
 		</div><!-- #content -->
 	</section><!-- #primary -->
 
+	<?php get_sidebar( 'content' ); ?>
+
+</div>
+
 <?php
-get_sidebar( 'content' );
 get_sidebar();
 get_footer();

@@ -5,20 +5,29 @@
 
 .content-resources {
   width: 100%;
-  margin: 60 auto 0 auto;
+  margin: 60px auto 0;
   box-sizing: border-box;
   padding: 40px 20px;
   overflow: auto;
 }
 
 .resources-card {
-  background: $white;
+  background: #fff;
   border: 1px solid $light-grey-border;
   width: 100%;
   border-radius: 3px;
   float: left;
   margin: 0 0 20px 0;
   box-sizing: border-box;
+
+  .entry-content {
+    @include restrict-height-by-lines(4);
+    margin-bottom: 20px;
+
+    p {
+      margin-top: 0;
+    }
+  }
 }
 
 .resources-card-image {
@@ -33,8 +42,35 @@
   width: 100%;
   padding: 32px;
   box-sizing: border-box;
+  position: relative;
+  
   h3 {
     margin: 0.25rem 0;
+  }
+
+  .edit-link {
+    position: absolute;
+    text-align: center;
+    margin: 0;
+    bottom: 0;
+    display: block;
+    left: 0;
+    right: 0;
+
+    a {
+      display: block;
+      padding: 10px 0;
+      color: #fff;
+      background-color: $green;
+
+      &:before {
+        color: #fff;
+      }
+
+      &:hover {
+        background-color: darken($green, 5%);
+      }
+    }
   }
 }
 
@@ -43,32 +79,53 @@
     margin-left: 20px;
     margin-right: 10px;
     color: $electric-blue;
+
     &:first-child {
       margin-left: 0;
     }
   }
 }
 
-@media only screen and (min-width: 815px) {
+// Flex box
+
+//.flexbox {
+//  .content-resources {
+//    display: flex;
+//
+//    .resources-card {
+//      &:first-child {
+//        flex-grow: 2;
+//      }
+//    }
+//  }
+//}
+
+@media #{$medium-up} {
   .content-resources {
-    margin: 140 auto 0 auto;
+//    margin: 140px auto 0;
     width: 680px;
     padding: 80px 0;
   }
   .resources-card {
     margin: 0 10px 20px 10px;
     width: 320px;
-    height: 500px;
+    min-height: 500px;
+
     &.large {
       width: 660px;
     }
+
+//    &:first-child,
+//    &:nth-child(4){
+//      width: 660px;
+//    }
   }
 }
 
-@media only screen and (min-width: 1035px) {
+@media #{$large-up} {
   .content-resources {
-    margin: 150 auto 0 auto;
+//    margin: 60px auto 0;
     width: 1040px;
-    padding: 80px 10;
+    padding: 80px 10px;
   }
 }

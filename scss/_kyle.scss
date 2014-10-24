@@ -1,0 +1,113 @@
+// NOTES:
+/*
+
+- pre tag sits above overlay
+- font sizes in the footer (can either move to my mixin or just fix up the footer font)
+- text decoration on footer links
+- icons in the footer social media buttons
+
+
+- the footer is no longer sticky, can either add the padding to the body tag, or make the body background dark and leave as is
+
+*/
+
+// apply box layout model to all elements
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// clearfix
+.clearfix {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+// font size mixin (for footer)
+@mixin font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+// font-size variables -- rem , 1.6 = 16px
+$type-micro: 0.8;
+$type-smallest: 1.0;
+$type-smaller: 1.2;
+$type-small: 1.4;
+$type-base: 1.6;
+$type-large: 1.8;
+$type-larger: 2.4;
+$type-largest: 3.2;
+$type-jumbo: 4.8;
+
+// form outlines
+button,
+input {
+  outline: none;
+}
+
+// header
+$header-height: 60px;
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  position: relative;
+//  padding: $header-height 0 0;
+}
+
+header.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  // when switched to mobile / static (scrolls with page)
+  &.is-static {
+    position: absolute;
+  }
+}
+
+// sub nav
+//.header-sub {
+//  height: 80px;
+//  position: static !important;
+//}
+
+.button-nav {
+  height: 80px;
+  line-height: 20px;
+  padding: 30px;
+}
+
+// content container
+.content {
+  margin: 0 auto;
+  padding: 80px 0;
+}
+
+// button "get started"
+/*
+.button.promo {
+  height: 64px;
+  padding: 20px;
+  line-height: 24px;
+  border-radius: 3px;
+  margin: 8px 0;
+  font-weight: bold;
+}*/
+.button.promo {
+  height: 56px;
+  padding: 16px;
+  line-height: 24px;
+  border-radius: 3px;
+  margin: 12px 0;
+  font-weight: bold;
+}

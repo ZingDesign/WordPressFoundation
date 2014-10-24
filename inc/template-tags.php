@@ -196,3 +196,52 @@ function zd_post_thumbnail() {
 
 	<?php endif; // End is_singular()
 }
+
+/*---
+ * Get category icons
+---*/
+
+if( ! function_exists('get_category_icons') ) :
+
+	function get_category_icons($post_id=false, $exclude=null, $echo = true) {
+		if( ! zd_categorized_blog() )
+			return false;
+
+		global $post;
+		if( ! $post_id ) {
+			if( !isset($post->ID) ) {
+				return false;
+			}
+			$post_id = $post->ID;
+		}
+
+		$html = '';
+
+		$post_type = get_post_type($post_id);
+
+		$categories = array();
+
+		if( is_string($exclude) ) {
+			$exclude = explode(",", $exclude);
+		}
+
+		if( 'post' === $post_type ) {
+			$categories = get_the_category();
+		}
+		else if( 'resource' === $post_type ) {
+			$categories = get_the_terms($post_id, 'resource_category');
+		}
+		foreach($categories as $cat) {
+			// Exclude featured
+			if(is_array($exclude) && in_array($cat->name, $exclude)) continue;
+
+			$html .= "<span class=\"category-icon-{$cat->slug}\">{$cat->name}</span>";
+		}
+
+		if( ! $echo ) {
+			return $html;
+		}
+		echo $html;
+	}
+
+endif;

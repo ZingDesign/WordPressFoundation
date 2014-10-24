@@ -13,36 +13,39 @@
 
 get_header(); ?>
 
-<div id="main-content" class="main-content">
+<div id="main">
 
-<?php
-	if ( is_front_page() && zd_has_featured_posts() ) {
-		// Include the featured content template.
-		get_template_part( 'featured-content' );
-	}
-?>
-	<div id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
+	<div id="main-content" class="main-content">
 
-			<?php
-				// Start the Loop.
-				while ( have_posts() ) : the_post();
+	<?php
+		if ( is_front_page() && zd_has_featured_posts() ) {
+			// Include the featured content template.
+			get_template_part( 'featured-content' );
+		}
+	?>
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content" role="main">
 
-					// Include the page content template.
-					get_template_part( 'content', 'page' );
+				<?php
+					// Start the Loop.
+					while ( have_posts() ) : the_post();
 
-					// If comments are open or we have at least one comment, load up the comment template.
-					if ( comments_open() || get_comments_number() ) {
-						comments_template();
-					}
-				endwhile;
-			?>
+						// Include the page content template.
+						get_template_part( 'content', 'page' );
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
-	<?php get_sidebar( 'content' ); ?>
-</div><!-- #main-content -->
+						// If comments are open or we have at least one comment, load up the comment template.
+						if ( comments_open() || get_comments_number() ) {
+							comments_template();
+						}
+					endwhile;
+				?>
 
+			</div><!-- #content -->
+		</div><!-- #primary -->
+		<?php get_sidebar( 'content' ); ?>
+	</div><!-- #main-content -->
+
+</div><!-- #main -->
 <?php
 get_sidebar();
 get_footer();

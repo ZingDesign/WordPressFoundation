@@ -13,6 +13,8 @@ $metadata = wp_get_attachment_metadata();
 get_header();
 ?>
 
+<div id="main">
+
 	<section id="primary" class="content-area image-attachment">
 		<div id="content" class="site-content" role="main">
 
@@ -74,6 +76,8 @@ get_header();
 		</div><!-- #content -->
 	</section><!-- #primary -->
 
+<?php get_sidebar(); ?>
+
+</div> <!-- #main-->
 <?php
-get_sidebar();
 get_footer();

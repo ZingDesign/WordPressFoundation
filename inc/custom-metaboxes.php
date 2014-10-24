@@ -13,33 +13,33 @@
 
 function call_zd_metabox() {
 
-	$custom_post_types = get_post_types( array(
-		'public'   => true,
-		'_builtin' => false
-	), 'names');
+//	$custom_post_types = get_post_types( array(
+//		'public'   => true,
+//		'_builtin' => false
+//	), 'names');
 
 //	$custom_post_types[] = 'post';
 
-    new zd_metabox(
-        'Posts to display',
-        'page',
-        'zd_posts',
-        $options = array(
-	        array(
-		        'label' => 'Post container',
-		        'type' => 'checkbox'
-	        ),
-            array(
-                'label' => 'Post type',
-                'type' => 'select',
-                'dropdown' => $custom_post_types
-            )
-        ),
-        $settings = array(
-            'position' => 'advanced',
-            'priority' => 'low'
-        )
-    );
+//    new zd_metabox(
+//        'Posts to display',
+//        'page',
+//        'zd_posts',
+//        $options = array(
+//	        array(
+//		        'label' => 'Post container',
+//		        'type' => 'checkbox'
+//	        ),
+//            array(
+//                'label' => 'Post type',
+//                'type' => 'select',
+//                'dropdown' => $custom_post_types
+//            )
+//        ),
+//        $settings = array(
+//            'position' => 'advanced',
+//            'priority' => 'low'
+//        )
+//    );
 
 
 

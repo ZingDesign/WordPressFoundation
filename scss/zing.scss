@@ -2,7 +2,7 @@
 // Foundation
 @import "../fnd/bower_components/foundation/scss/normalize";
 //@import "../fnd/bower_components/foundation/scss/foundation";
-//@import "../fnd/bower_components/foundation/scss/foundation/functions";
+@import "../fnd/bower_components/foundation/scss/foundation/functions";
 
 @import "globals";
 
@@ -80,7 +80,7 @@
 
 
 @import "layout";
-@import "responsive-navigation";
+//@import "responsive-navigation";
 @import "header";
 @import "footer";
 @import "sidebars";
@@ -96,6 +96,9 @@
 @import "inputs";
 @import "resources";
 @import "navigation";
+
+// Kyle's stylesheets
+@import "kyle";
 
 // Important: Legacy and No-JS and print always load last
 @import "legacy";

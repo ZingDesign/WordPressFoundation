@@ -10,6 +10,11 @@
   cursor: help;
 }
 
+.zd-help-text {
+  font-style: italic;
+  color: #999;
+}
+
 .zd-admin-tab-nav {
   margin-bottom: 0;
 
@@ -71,6 +76,15 @@
 
 .zd-input-group {
   margin-bottom: 20px;
+
+  .widget-content & {
+    label {
+      display: inline-block;
+      margin: 5px 0;
+    }
+
+    margin-bottom: 10px;
+  }
 
   .postbox & {
     margin-bottom: 10px;

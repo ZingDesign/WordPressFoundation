@@ -28,14 +28,18 @@
 define("ZD_TEXT_DOMAIN", "zingdesign");
 
 //if( is_admin() ) {
+//
+//}
+
 include_once get_template_directory() . '/inc/FormHelper.php';
 include_once get_template_directory() . '/inc/theme-options.php';
 include_once get_template_directory() . '/inc/custom-post-types.php';
-include_once get_template_directory() . '/inc/custom-sidebars.php';
 include_once get_template_directory() . '/inc/custom-shortcodes.php';
 include_once get_template_directory() . '/inc/custom-metaboxes.php';
+//include_once get_template_directory() . '/inc/custom-widgets.php';
+//include_once get_template_directory() . '/inc/custom-sidebars.php';
 //}
-include_once get_template_directory() . '/inc/nav-walker.php';
+//include_once get_template_directory() . '/inc/nav-walker.php';
 
 //add_filter('widget_text', 'do_shortcode');
 
@@ -96,6 +100,8 @@ function zd_setup() {
 	register_nav_menus( array(
 		'primary'   => __( 'Mobile menu', 'zingdesign' ),
 		'secondary' => __( 'Menu in sub-header', 'zingdesign' ),
+		'resources' => __( 'Menu for the Resources page', 'zingdesign' ),
+		'footer' => __( 'Footer menu', 'zingdesign' ),
 	) );
 
 	/*
@@ -179,18 +185,24 @@ function zd_has_featured_posts() {
  * @since Zing Design 1.0
  */
 function zd_widgets_init() {
-	require get_template_directory() . '/inc/widgets.php';
+//	require get_template_directory() . '/inc/widgets.php';
 //	register_widget( 'Zing_Design_Ephemera_Widget' );
 //
-//	register_sidebar( array(
-//		'name'          => __( 'Primary Sidebar', 'zingdesign' ),
-//		'id'            => 'sidebar-1',
-//		'description'   => __( 'Main sidebar that appears on the left.', 'zingdesign' ),
-//		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-//		'after_widget'  => '</aside>',
-//		'before_title'  => '<h1 class="widget-title">',
-//		'after_title'   => '</h1>',
-//	) );
+
+	require get_template_directory() . '/inc/custom-widgets.php';
+	register_widget('ZD_Widget_Featured_Posts');
+
+	register_widget('ZD_Widget_Newsletter_Subscribe');
+
+	register_sidebar( array(
+		'name'          => __( 'Primary Sidebar', 'zingdesign' ),
+		'id'            => 'sidebar-1',
+		'description'   => __( 'Main sidebar that appears on the home page.', 'zingdesign' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
 //	register_sidebar( array(
 //		'name'          => __( 'Content Sidebar', 'zingdesign' ),
 //		'id'            => 'sidebar-2',
@@ -247,7 +259,7 @@ function zd_scripts() {
     //wp_enqueue_style( 'open-sans', 'http://fonts.googleapis.com/css?family=Open+Sans:200,400,600,700');
 
 	// Add Genericons font, used in the main stylesheet.
-	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.0.2' );
+//	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.0.2' );
 
     // Load our custom stylesheet manually
 	$stylesheet_file = WP_DEBUG ? 'zing.css' : 'zing.min.css';
@@ -560,7 +572,7 @@ require get_template_directory() . '/inc/custom-header.php';
 require get_template_directory() . '/inc/template-tags.php';
 
 // Add Theme Customizer functionality.
-require get_template_directory() . '/inc/customizer.php';
+//require get_template_directory() . '/inc/customizer.php';
 
 /*
  * Add Featured Content functionality.
@@ -759,7 +771,8 @@ function zd_get_menu($menu_location='primary', $menu_class='nav-menu', $is_found
 
 		$args = array(
 			'theme_location' => $menu_location,
-			'menu_class'     => $menu_class
+			'menu_class'     => $menu_class,
+			'container_class' => 'zd-nav-menu zd-nav-menu-' . $menu_location
 		);
 
 		if($is_foundation) {
@@ -790,3 +803,36 @@ endif;
 //}
 //
 //add_filter( 'get_search_form', 'zd_search_form' );
+
+
+if( !function_exists('_d') ) :
+	function _d($to_debug=null) {
+
+		if( true === WP_DEBUG ) {
+
+			if( is_array($to_debug) || is_object($to_debug) ) {
+				echo "<pre>\n";
+				print_r($to_debug);
+				echo "</pre>\n";
+			}
+			else {
+				var_dump($to_debug);
+			}
+
+		}
+
+	}
+endif;
+
+//if( ! function_exists('get_author_by_id') ) :
+//
+//	function get_author_by_id($id) {
+//		$userinfo = get_userdata($id);
+//		return $userinfo->first_name;
+//	}
+//endif;
+
+//function zd_custom_excerpt_length( $length ) {
+//	return 10;
+//}
+//add_filter( 'excerpt_length', 'zd_custom_excerpt_length', 999 );

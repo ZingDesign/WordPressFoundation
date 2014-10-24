@@ -15,18 +15,18 @@ $dark-blue: #364760;
 $text-black: #222;
 
 // Responsive navigation
-$slide-menu-background: #ddd !default;
-$menu-toggle-icon-color: #ddd !default;
-$menu-toggle-icon-color-hover: darken($menu-toggle-icon-color, 5%) !default;
-$menu-toggle-bg-color: #666 !default;
-$menu-toggle-bg-color-active: darken($menu-toggle-bg-color, 5%) !default;
+//$slide-menu-background: #ddd !default;
+//$menu-toggle-icon-color: #ddd !default;
+//$menu-toggle-icon-color-hover: darken($menu-toggle-icon-color, 5%) !default;
+//$menu-toggle-bg-color: #666 !default;
+//$menu-toggle-bg-color-active: darken($menu-toggle-bg-color, 5%) !default;
+//
+//$slide-menu-link-color: #666 !default;
 
-$slide-menu-link-color: #666 !default;
+$para-line-height: 1.5;
+$para-base-font-size: 16px;
 
-$para-line-height: 1.6;
-$para-base-font-size: 16;
-
-
+$footer-height: 170px;
 
 
 // Fonts
@@ -37,14 +37,19 @@ $helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
 // Retina mega-query!
 $retina: "only screen and (-webkit-min-device-pixel-ratio: 2),only screen and (min--moz-device-pixel-ratio: 2),only screen and (-o-min-device-pixel-ratio: 2/1),only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192dpi),only screen and (min-resolution: 2dppx)";
 
+// WordPress' tablet breakpoint
 $wp-medium-up: 'only screen and (min-width: 783px)';
+
+// Custom breakpoints for Raygun
+$medium-up: 'only screen and (min-width: 815px)';
+$large-up: 'only screen and (min-width: 1035px)';
 
   // Common images
 $ajax-loader: image-url('ajax-loader.gif');
 $header-logo: "logo-raygun-white.svg";
 
 // Enable CSS support
-$legacy-support: true;
+$legacy-support: false;
 $no-js-support: true;
 $use-font-awesome: true;
 $use-slick-slider: true;

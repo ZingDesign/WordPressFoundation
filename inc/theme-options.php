@@ -61,8 +61,8 @@ class ZingDesignThemeOptions {
 			    'social-media'      => 'Social Media',
 			    'analytics'         => 'Analytics',
 			    'newsletter'        => 'Newsletter',
-			    'design'            => 'Design',
-			    'custom-post-types' => 'Custom post types',
+//			    'design'            => 'Design',
+//			    'custom-post-types' => 'Custom post types',
 		    );
 
 		    /*
@@ -186,10 +186,13 @@ class ZingDesignThemeOptions {
 				    ),
 
 				    // custom post types
-//				    'new_custom_post_type' => array(
-//					    'label'     => 'Custom post type name',
+//				    'new_custom_post_types' => array(
+//					    'label'     => 'Custom post type names',
 //					    'section'   => 'custom-post-types',
-//					    'arg_name'  => 'zd_custom_post_type'
+//					    'type'      => 'textarea',
+//					    'help'      => __('List custom post types, separated by commas', ZD_TEXT_DOMAIN)
+////					    'arg_name'  => 'zd_custom_post_type',
+////					    'add_multiple' => true
 //				    ),
 //				    'custom_post_type_icon' => array(
 //					    'label'     => 'Icon',
@@ -334,7 +337,7 @@ class ZingDesignThemeOptions {
 	        }
 
 	        // Set filter to esc_html by default
-            $filter = isset($option['filter']) ? $option['filter'] : 'esc_html';
+//            $filter = isset($option['filter']) ? $option['filter'] : 'esc_html';
 
 	        // Set section to general by default
             $section = isset($option['section']) ? $option['section'] : 'general';
@@ -345,13 +348,27 @@ class ZingDesignThemeOptions {
 
 	        $required = isset($option['required']) ? $option['required'] : false;
 
+	        $help = isset($option['help']) ? $option['help'] : false;
+
 	        // Textarea rows and cols
 	        $rows = isset($option['rows']) ? $option['rows'] : '5';
 	        $cols = isset($option['cols']) ? $option['cols'] : '100';
 
+	        if( isset($option['filter']) ) {
+		        $filter = $option['filter'];
+	        }
+	        else if( 'textarea' === $option_type ) {
+		        $filter = 'sanitize_textfield';
+	        }
+	        else {
+		        $filter = 'esc_html';
+	        }
+
 
 	        // Input wrapper - true by default
 	        $wrapper = isset($option['wrapper']) ? $option['wrapper'] : true;
+
+//	        $add_multiple = isset($option['add_multiple']) ? $option['add_multiple'] : false;
 
 	        // Set label if the input is NOT hidden
 
@@ -374,7 +391,9 @@ class ZingDesignThemeOptions {
                 'required'      => $required,
 		        'rows'          => $rows,
 		        'cols'          => $cols,
-		        'wrapper'       => $wrapper
+		        'wrapper'       => $wrapper,
+		        'help'          => $help
+//		        'add_multiple'  => $add_multiple
 	        );
 
             add_settings_field(

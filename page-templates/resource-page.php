@@ -1,54 +1,42 @@
 <?php
 /**
- * Template Name: Resource Page
+ * Template Name: Resources Page
  * @package WordPress
  * @subpackage Zing_Design
  * @since Zing Design 1.0
  */
 
-$post_id = get_the_ID();
-
-$post_type = 'post';
-
-$custom_meta = zd_metabox::zd_get_custom_meta($post_id, 'zd_posts');
-
-//echo "<pre>";
-//print_r( $custom_meta );
-//echo "</pre>";
-
-//if( get_post_meta($post_id, '') ) {
-//	$post_type = zd_metabox::zd_get_custom_option($post_id);
-//}
-
-if( isset($custom_meta['post_container']) ) {
-	$post_type = $custom_meta['post_type'];
-}
-
-$the_query = new WP_Query( array(
-	'post_type' => $post_type
-) );
 
 get_header(); ?>
+	<div class="content-wrapper" role="main">
 
-<div id="main-content" class="content-primary">
+		<div class="content-resources">
+			<?php
 
-	<div id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
+			$resource_post_query = new WP_Query( array(
+				'post_type' => 'resource'
+			) );
 
-
-		<?php
-
-		var_dump($post_type);
-			if ( $the_query->have_posts() ) :
+			if ( $resource_post_query->have_posts() ) :
 				// Start the Loop.
-				while ( have_posts() ) : the_post();
+				$i = 0;
+				$display_large = array(0,3);
+				while ( $resource_post_query->have_posts() ) : $resource_post_query->the_post();
 
 					/*
 					 * Include the post format-specific template for the content. If you want to
 					 * use this in a child theme, then include a file called called content-___.php
 					 * (where ___ is the post format) and that will be used instead.
 					 */
+					$class = 'resources-card';
+					if( in_array($i, $display_large) ) {
+						$class .= ' large';
+					}
+					echo "<div class=\"{$class}\">\n";
 					get_template_part( 'content', 'resource' );
+					echo "</div><!--.resources-card-->\n";
+
+					$i ++;
 
 				endwhile;
 				// Previous/next post navigation.
@@ -59,12 +47,13 @@ get_header(); ?>
 				get_template_part( 'content', 'none' );
 
 			endif;
-		?>
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
+			/* Restore original Post Data */
+			wp_reset_postdata();
+			?>
+		</div><!-- .resources-container -->
 
-</div><!-- #main-content -->
+	</div><!-- .content-wrapper -->
 
 
 <?php

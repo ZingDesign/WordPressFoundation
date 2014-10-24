@@ -18,6 +18,7 @@
 
 get_header(); ?>
 
+<div id="main">
 	<section id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
@@ -80,6 +81,9 @@ get_header(); ?>
 	</section><!-- #primary -->
 
 <?php
-get_sidebar( 'content' );
+get_sidebar( 'content' ); ?>
+
+</div><!-- #main -->
+<?php
 get_sidebar();
 get_footer();

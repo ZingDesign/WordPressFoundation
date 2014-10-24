@@ -1,0 +1,152 @@
+//body {
+//  margin: 0 0 355px 0; /* Footer height */
+//}
+
+.footer-links {
+  display: none;
+}
+
+.footer {
+  width: 100%;
+  padding: 40px 0;
+  background: $dark-blue;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  li {
+    display: inline-block;
+    margin-right: 40px;
+    line-height: 32px;
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+  a {
+    color: $white;
+    text-decoration: none;
+    opacity: 0.7;
+    &:hover {
+      opacity: 1;
+      color: $white;
+    }
+  }
+  .icon-footer {
+    opacity: 1;
+  }
+}
+
+.icon-footer {
+  width: 50%;
+  height: 90px;
+  display: block;
+  text-align: center;
+  float: left;
+  background: $dark-blue;
+  i {
+    line-height: 90px;
+    font-size: 2rem;
+  }
+  &.colour-github {
+    background: #4183C4;
+    &:hover {
+      background: darken(#4183C4, 5%);
+    }
+  }
+  &.colour-facebook {
+    background: #3B5998;
+    &:hover {
+      background: darken(#3B5998, 5%);
+    }
+  }
+  &.colour-twitter {
+    background: #55ACEE;
+    &:hover {
+      background: darken(#55ACEE, 5%);
+    }
+  }
+  &.colour-google-plus {
+    background: #DD4B39;
+    &:hover {
+      background: darken(#DD4B39, 5%);
+    }
+  }
+}
+
+.footer-content {
+  overflow: auto;
+  text-align: center;
+
+  &:first-child {
+    margin-bottom: 40px;
+  }
+}
+
+.link-terms {
+  margin-top: 16px;
+}
+
+@media #{$medium-up} {
+  body {
+    margin: 0 0 170px 0; /* Footer height */
+  }
+  .footer-right {
+    float: right;
+  }
+  .footer-links,
+  .footer-credit {
+    display: block;
+    float: left;
+  }
+  .footer-content {
+    text-align: left;
+  }
+  .footer {
+    .icon-footer {
+      opacity: 0.7;
+    }
+    ul {
+      list-style: none;
+      display: inline-block;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  .icon-footer {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 3px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 8px;
+    float: none;
+    i {
+      font-size: 1rem;
+      line-height: 32px;
+      color: $dark-blue;
+    }
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+    &.colour-twitter,
+    &.colour-facebook,
+    &.colour-github,
+    &.colour-google-plus {
+      background: rgba(255, 255, 255, 0.7);
+      &:hover {
+        background: rgba(255, 255, 255, 1);
+      }
+    }
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+  .link-terms {
+    margin-top: 0;
+  }
+}
+
+@media #{$large-up} {
+
+}

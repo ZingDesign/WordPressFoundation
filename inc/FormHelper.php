@@ -18,7 +18,22 @@ class FormHelper {
 
 		$html = $before = $after = $class = '';
 
-		$name = isset($args['name']) ? $args['name'] : $id;
+//		$name = isset($args['name']) ? $args['name'] : $id;
+
+		$name = '';
+
+//		$add_multiple = isset($args['add_multiple']) ? $args['add_multiple'] : false;
+
+		if( isset($args['name']) ) {
+			$name = $args['name'];
+		}
+		else {
+			$name = $id;
+		}
+
+//		if($add_multiple) {
+//			$name = $name . '[]';
+//		}
 
 		$option_name = $name;
 
@@ -27,6 +42,8 @@ class FormHelper {
 		}
 		$type = isset($args['type']) ? $args['type'] : 'text';
 		$label = isset($args['label']) ? $args['label'] : $id;
+
+		$class = isset($args['class']) ? $args['class'] : '';
 
 		$dropdown = isset($args['dropdown']) ? $args['dropdown'] : array();
 
@@ -46,13 +63,18 @@ class FormHelper {
 
 		$wrapper = isset($args['wrapper']) ? $args['wrapper'] : true;
 
+		$help = isset($args['help']) ? $args['help'] : false;
+
+		$rows = isset($args['rows']) ? $args['rows'] : '';
+		$cols = isset($args['cols']) ? $args['cols'] : '';
+
 		if( 'hidden' === $type ) {
 			$wrapper = false;
 		}
 
 
 		if( $wrapper ) {
-			$before .= '<div class="input-group">'."\n";
+			$before .= '<div class="input-group zd-input-group">'."\n";
 		}
 
 		if( $label ) {
@@ -66,6 +88,10 @@ class FormHelper {
 			}
 		}
 
+		if( $help ) {
+			$after .= "<span class=\"zd-help-text\">{$help}</span>\n";
+		}
+
 		if( $wrapper ) {
 			$after .= "</div><!--input-wrapper-->\n";
 		}
@@ -77,14 +103,13 @@ class FormHelper {
 
 		// Get value from post meta if the post_id and metadata name is set
 //		var_dump($args['metadata_name']);
-		if( isset($args['post_id']) && isset($args['metadata_name']) ) {
+		if( isset($args['value']) ) {
+			$current_value = $args['value'];
+		}
+		else if( isset($args['post_id']) && isset($args['metadata_name']) ) {
 			$post_id = $args['post_id'];
 			$data = get_post_meta( $post_id, $args['metadata_name'], true );
-
-//			print_r($data[$option_name]);
 			$current_value = isset($data[$option_name]) ? esc_attr($data[$option_name]) : '';
-
-//			var_dump($current_value);
 		}
 		else {
 			$current_value = get_option( $id ) ? get_option( $id ) : $default;
@@ -110,7 +135,7 @@ class FormHelper {
 
 			if( 'color' === $type ) {
 				$type = 'text';
-				$class = 'zd-color-input';
+				$class .= ' zd-color-input';
 			}
 
 			$html .= "<input type=\"{$type}\" id=\"{$id}\" class=\"{$class}\" name=\"{$name}\" value=\"{$value}\" {$required}{$checked}{$placeholder} />\n";
@@ -121,7 +146,7 @@ class FormHelper {
 		 */
 
 		else if( 'textarea' === $type ) {
-			$html .= "<textarea id=\"{$id}\" name=\"{$name}\" rows=\"{$args['rows']}\" cols=\"{$args['cols']}\" {$placeholder}>{$value}</textarea>\n";
+			$html .= "<textarea id=\"{$id}\" class=\"{$class}\" name=\"{$name}\" rows=\"{$rows}\" cols=\"{$cols}\" {$placeholder}>{$value}</textarea>\n";
 		}
 
 		/*

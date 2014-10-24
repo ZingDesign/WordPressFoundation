@@ -67,6 +67,7 @@
     width: 320px;
     margin: 4px 0 0 0;
     float: right;
+    text-align: center;
   }
 }
 .button-nav{
@@ -90,17 +91,25 @@
     }
   }
 
-  .button-nav{
-    color: $white;
-    text-decoration: none;
-    height: 80px;
-    line-height: 80px;
-    padding: 0 15px 0 15px;
-    display: block;
-    &:hover,&.active{
-      background: darken($dark-blue, 5%);
+  // replace button-nav with specificity selector
+  .header-sub {
+    .nav-menu {
+      a {
+        color: #fff;
+        text-decoration: none;
+        height: 80px;
+        line-height: 80px;
+        padding: 0 15px;
+        display: block;
+
+        &:hover,
+        &.active{
+          background: darken($dark-blue, 5%);
+        }
+      }
     }
   }
+
 }
 @media only screen and (min-width : 1035px){
   .button{
@@ -109,9 +118,19 @@
       width: 320px;
     }
   }
-  .button-nav{
-    height:90px;
-    line-height: 90px;
-    padding: 0 30px 0 30px;
+//  .button-nav{
+//    height:90px;
+//    line-height: 90px;
+//    padding: 0 30px 0 30px;
+//  }
+
+  .header-sub {
+    .nav-menu {
+      a {
+//        height:90px;
+        line-height: 80px;
+        padding: 0 30px;
+      }
+    }
   }
 }

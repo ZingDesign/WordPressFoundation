@@ -1,19 +1,35 @@
+.entry-title {
+  a {
+    color: inherit;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
 .post{
+  margin-bottom: 40px;
+  border-bottom: 1px solid #D8D8D8;
+
   header {
     h1{
+
       a{
         color: $text-black;
+
         &:hover{
           color: $electric-blue;
         }
+
       }
     }
   }
-  margin-bottom: 40px;
-  border-bottom: 1px solid #D8D8D8;
+
   img{
     margin-bottom: 1.5rem;
   }
+
   button {
     margin-bottom: 40px;
   }
@@ -21,20 +37,26 @@
 
 .entry-meta{
   margin-bottom: 1rem;
+  line-height: 1.5;
+
   i{
     color: $electric-blue;
     margin-right: 10px;
   }
+
   span {
     margin-right: 20px;
     display: inline-block;
+
     a {
       color: $text-black;
     }
   }
+
   &:last-child {
     margin-right: 0;
   }
+
 }
 
 .comments-link {
@@ -46,6 +68,7 @@
 
 blockquote {
   margin-left: 0;
+
   p {
     font-size: 1.25rem;
     line-height: 1.5;
@@ -62,42 +85,50 @@ blockquote {
   border: 1px solid $light-grey-border;
   margin-bottom: 1rem;
   overflow-x: auto;
+
   ol{
     counter-reset: li;
     margin-left: 0;
     padding-left: 0;
     min-width: 618px;
     box-sizing: border-box;
+
+    & > li{
+      position: relative;
+      margin: 0 0 0 60px;
+      padding: 0.25rem 0;
+      list-style: none;
+
+      &:before{
+        content: counter(li);
+        counter-increment: li;
+        position: absolute;
+        left: -60px;
+        top: 0;
+        box-sizing: border-box;
+        width: 40px;
+        text-align: center;
+        padding: 0.25rem 0;
+        border-right: 1px solid $light-grey-border;
+      }
+    }
   }
-  ol > li{
-    position: relative;
-    margin: 0 0 0 60px;
-    padding: 0.25rem 0;
-    list-style: none;
-  }
-  ol > li:before{
-    content: counter(li);
-    counter-increment: li;
-    position: absolute;
-    left: -60px;
-    top: 0;
-    box-sizing: border-box;
-    width: 40px;
-    text-align: center;
-    padding: 0.25rem 0;
-    border-right: 1px solid $light-grey-border;
-  }
+
   .blue{
     color: $electric-blue;
   }
+
   .green{
     color: $green;
   }
+
   .red{
     color: $raygun-red;
   }
+
 }
 .post-share{
+
   button,
   a{
     margin-right: 20px;
@@ -105,6 +136,36 @@ blockquote {
       margin-right: 0;
     }
   }
+
+}
+
+// Category icons
+[class*="category-icon"] {
+
+  @extend .fa-file-text-o;
+
+  &:before {
+    @extend .fa;
+    color: $electric-blue;
+    margin-right: 5px;
+  }
+
+}
+
+.category-icon-development {
+  @extend .fa-code;
+}
+
+.category-icon-research {
+  @extend .fa-lightbulb-o;
+}
+
+.category-icon-raygun-labs {
+  @extend .fa-flask;
+}
+
+.category-icon-case-studies {
+  @extend .fa-flask;
 }
 
 @media only screen and (min-width : 815px){

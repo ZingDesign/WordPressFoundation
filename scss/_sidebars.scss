@@ -23,8 +23,8 @@
   }
 }
 
-.newsletter {
-  margin-top: 40px;
+.sidebar-newsletter {
+//  margin-top: 40px;
   h3 {
     color: $electric-blue;
   }
@@ -40,5 +40,13 @@
   margin-bottom: 16px;
   &.full-width{
     width: 100%;
+  }
+}
+
+.widget {
+  margin-top: 40px;
+
+  &:first-child {
+    margin-top: 0;
   }
 }

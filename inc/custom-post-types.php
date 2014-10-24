@@ -14,6 +14,17 @@ function get_title($str) {
 	return ucfirst( str_replace("_", " ", $str) );
 }
 
+function zd_custom_taxonomies() {
+	// Resources - category
+	register_taxonomy('resource_category', 'resource', array(
+		'hierarchical'  => true,
+		'label'         => __('Resource Categories'),
+		'rewrite'       => array('slug' => 'resource-category')
+	));
+}
+
+add_action('init', 'zd_custom_taxonomies');
+
 // Register Custom Post Type - Services
 function zd_add_custom_post_types() {
 
@@ -23,11 +34,14 @@ function zd_add_custom_post_types() {
 
 
 	// Manually define post types
-	// Format: ID => Options
+	// Format: ID (singular form) => (array)Options
 
 	$custom_post_types = array(
-		'research' => array(
-			'icon' => 'category'
+		'resource' => array(
+			'plural'        => 'resources',
+			'icon'          => 'category',
+			'hierarchical'  => true,
+			'taxonomies'    => array('category', 'resource_category')
 		),
 
 	);
@@ -58,7 +72,7 @@ function zd_add_custom_post_types() {
 									'custom-fields',
 									'page-attributes',
 								),
-		'taxonomies'            => array(),
+		'taxonomies'            => array('category'),
 		'can_export'            => true,
 		'has_archive'           => true,
 		'exclude_from_search'   => false,
@@ -80,7 +94,7 @@ function zd_add_custom_post_types() {
 		extract(wp_parse_args($options, $defaults));
 
 		$labels = array(
-			'name'                => _x( $singular_title, 'Post Type General Name', 'zingdesign' ),
+			'name'                => _x( $plural_title, 'Post Type General Name', 'zingdesign' ),
 			'singular_name'       => _x( $singular_title, 'Post Type Singular Name', 'zingdesign' ),
 			'menu_name'           => __( $plural_title, 'zingdesign' ),
 			'parent_item_colon'   => __( 'Parent '.$singular_title.':', 'zingdesign' ),

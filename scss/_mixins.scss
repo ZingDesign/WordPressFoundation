@@ -381,20 +381,24 @@
   @return false;
 }
 
+//Cross-browser input placeholders
+
 @mixin input-placeholder() {
-  ::-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
     @content;
   }
 
-  :-moz-placeholder { // Firefox 18-
+  &::-moz-placeholder {  // Firefox 19+
     @content;
   }
 
-  ::-moz-placeholder {  // Firefox 19+
+  &:-ms-input-placeholder {
     @content;
   }
 
-  :-ms-input-placeholder {
-    @content;
+  @if $legacy-support {
+    &:-moz-placeholder { // Firefox 18-
+      @content;
+    }
   }
 }
