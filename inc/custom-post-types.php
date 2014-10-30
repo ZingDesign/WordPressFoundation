@@ -10,7 +10,7 @@
  * Custom post types
  */
 
-function get_title($str) {
+function get_custom_post_type_title($str) {
 	return ucfirst( str_replace("_", " ", $str) );
 }
 
@@ -38,10 +38,11 @@ function zd_add_custom_post_types() {
 
 	$custom_post_types = array(
 		'resource' => array(
+			'menu_position' => 5,
 			'plural'        => 'resources',
 			'icon'          => 'category',
 			'hierarchical'  => true,
-			'taxonomies'    => array('category', 'resource_category')
+			'taxonomies'    => array('resource_category')
 		),
 
 	);
@@ -71,6 +72,7 @@ function zd_add_custom_post_types() {
 									'revisions',
 									'custom-fields',
 									'page-attributes',
+									'author'
 								),
 		'taxonomies'            => array('category'),
 		'can_export'            => true,
@@ -85,11 +87,11 @@ function zd_add_custom_post_types() {
 
 	foreach($custom_post_types as $post_type_id => $options) {
 
-		$singular_title = get_title( $post_type_id );
+		$singular_title = ucfirst( str_replace("_", " ", $post_type_id ) );
 
 		$plural = isset($options['plural']) ? $options['plural'] : $post_type_id;
 
-		$plural_title = get_title($plural);
+		$plural_title = ucfirst( str_replace("_", " ", $plural) );
 
 		extract(wp_parse_args($options, $defaults));
 
@@ -97,7 +99,7 @@ function zd_add_custom_post_types() {
 			'name'                => _x( $plural_title, 'Post Type General Name', 'zingdesign' ),
 			'singular_name'       => _x( $singular_title, 'Post Type Singular Name', 'zingdesign' ),
 			'menu_name'           => __( $plural_title, 'zingdesign' ),
-			'parent_item_colon'   => __( 'Parent '.$singular_title.':', 'zingdesign' ),
+			'parent_item_colon'   => __( 'Parent ' . $singular_title.':', 'zingdesign' ),
 			'all_items'           => __( 'All '.$plural_title, 'zingdesign' ),
 			'view_item'           => __( 'View ' . $singular_title, 'zingdesign' ),
 			'add_new_item'        => __( 'Add New ' . $singular_title, 'zingdesign' ),

@@ -1,3 +1,6 @@
+// WordPress-specific overrides
+// Alignment, default post content styles
+
 /* Alignment */
 
 .alignleft {
@@ -113,6 +116,7 @@ img.aligncenter,
 .edit-link {
   a {
     @extend .fa-edit;
+
     &:before {
 //      @extend .genericon;
 //      content: '\f411';
@@ -153,4 +157,39 @@ img.aligncenter,
       }
     }
   }
+}
+
+
+// Comments
+
+#comments {
+  .comment-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .reply {
+    .comment-reply-link {
+      @extend .button;
+
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background-color: $orange;
+    }
+  }
+
+
+
+  .avatar {
+    margin-bottom: 0;
+  }
+
+  article {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.form-allowed-tags {
+  font-size: 0.8rem;
 }

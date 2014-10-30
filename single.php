@@ -10,7 +10,7 @@
 
 get_header(); ?>
 <div id="main">
-	<div id="content" class="content-primary" role="main">
+	<div id="primary" class="content-primary" role="main">
 
 		<?php
 		// Start the Loop.
@@ -26,10 +26,10 @@ get_header(); ?>
 			// Previous/next post navigation.
 			//					zd_post_nav();
 
-			//					// If comments are open or we have at least one comment, load up the comment template.
-			//					if ( comments_open() || get_comments_number() ) {
-			//						comments_template();
-			//					}
+			// If comments are open or we have at least one comment, load up the comment template.
+			if ( comments_open() || get_comments_number() ) {
+				comments_template();
+			}
 		endwhile;
 		?>
 

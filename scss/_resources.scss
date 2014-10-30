@@ -34,8 +34,37 @@
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   width: 100%;
-  height: 220px;
   background: $electric-blue;
+  overflow: hidden;
+  position: relative;
+
+  @extend .fa-file-image-o;
+
+  &:before {
+    @extend .fa;
+
+    position: absolute;
+    top: 65px;
+    z-index: 0;
+    font-size: 90px;
+    color: darken($electric-blue, 5%);
+    width: 100%;
+    text-align: center;
+  }
+
+  &:empty {
+    height: 220px;
+  }
+
+  a {
+    display: block;
+  }
+
+  img {
+    z-index: 1;
+    position: relative;
+    width: 100%;
+  }
 }
 
 .resources-card-content {
@@ -46,6 +75,10 @@
   
   h3 {
     margin: 0.25rem 0;
+
+    a {
+      color: inherit;
+    }
   }
 
   .edit-link {
@@ -109,7 +142,7 @@
   .resources-card {
     margin: 0 10px 20px 10px;
     width: 320px;
-    min-height: 500px;
+//    min-height: 500px;
 
     &.large {
       width: 660px;
@@ -118,6 +151,15 @@
 //    &:first-child,
 //    &:nth-child(4){
 //      width: 660px;
+//    }
+  }
+
+  .resources-card-image {
+
+    height: 220px;
+
+//    img {
+//      width: auto;
 //    }
   }
 }

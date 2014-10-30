@@ -49,10 +49,14 @@ h4 {
 p {
   font-size: 1rem;
   color: $text-black;
-  line-height: 1.5;
+//  line-height: 1.5;
   // max-width might not be needed but all paragraphs should not excede 800px for readablity
   max-width: 800px;
   margin-bottom: 1.5rem;
+}
+
+li, p {
+  line-height: 1.5;
 }
 
 a {
@@ -65,4 +69,9 @@ a {
   &:hover {
     color: lighten($electric-blue, 5%);
   }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }

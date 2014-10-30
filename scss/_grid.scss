@@ -1,16 +1,26 @@
-.content-primary,
-.content-secondary {
+#main{
+  width: 100%;
+  max-width: $medium;
+  padding: 40px 0;
+  box-sizing: border-box;
+  margin: 60px auto 0;
+  display: block;
+  overflow: auto;
+}
+
+#primary,
+#content-secondary {
   box-sizing: border-box;
   padding: 0 20px;
 }
 
-.content-secondary {
+#content-secondary {
   display: none;
 }
 
 .content {
   width: 100%;
-  max-width: 660px;
+  max-width: $medium;
   padding: 40px 0;
   box-sizing: border-box;
   margin: 60px auto 0 auto;
@@ -36,37 +46,53 @@
   display: block;
 }
 
-@media only screen and (min-width: 815px) {
-  .content-primary {
-    width: 500px;
+@media #{$medium-up} {
+  #primary {
+//    width: 500px;
+    width: 65%;
     display: block;
     float: left;
     padding-right: 10px;
+
+    .main-full-width & {
+      width: 100%;
+    }
   }
-  .content-secondary {
-    width: 300px;
+  #content-secondary {
+    width: 35%;
     display: block;
     float: right;
     padding-left: 10px;
   }
   .content {
-    width: 800px;
+//    width: 800px;
+    width: 100%;
     max-width: none;
     margin-top: 150px; /* Spacing for the fixed header */
     padding: 80px 0;
   }
   .header-content {
-    max-width: 800px;
+    max-width: $medium;
   }
 }
 
-@media only screen and (min-width: 1035px) {
-  .content-primary {
-    width: 660px;
+@media #{$large-up} {
+  #main {
+    max-width: $large;
+
+    .main-full-width & {
+      max-width: none;
+    }
+  }
+
+  #primary {
+//    width: 660px;
+    width: (660 / strip-unit($large) ) * 100%;
     padding-right: 20px;
   }
-  .content-secondary {
-    width: 360px;
+  #content-secondary {
+//    width: 360px;
+    width: (360 / strip-unit($large) ) * 100%;
     padding-left: 20px;
   }
   .content {

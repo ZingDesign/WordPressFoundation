@@ -37,6 +37,10 @@ get_header(); ?>
 						elseif ( is_year() ) :
 							printf( __( 'Yearly Archives: %s', 'zingdesign' ), get_the_date( _x( 'Y', 'yearly archives date format', 'zingdesign' ) ) );
 
+						elseif ( 'resource' === get_post_type() ) :
+//							_e( 'Resource', 'zingdesign' );
+							printf( __( '%s', 'zingdesign' ), single_cat_title( '', false ) );
+
 						else :
 							_e( 'Archives', 'zingdesign' );
 

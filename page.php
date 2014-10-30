@@ -23,7 +23,7 @@ get_header(); ?>
 			get_template_part( 'featured-content' );
 		}
 	?>
-		<div id="primary" class="content-area">
+		<div id="primary" class="content-primary">
 			<div id="content" class="site-content" role="main">
 
 				<?php

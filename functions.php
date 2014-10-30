@@ -93,8 +93,9 @@ function zd_setup() {
 
 	// Enable support for Post Thumbnails, and declare two sizes.
 	add_theme_support( 'post-thumbnails' );
-//	set_post_thumbnail_size( 672, 372, true );
-//	add_image_size( 'zd-full-width', 1038, 576 );
+	set_post_thumbnail_size( 620, 465, true );
+	add_image_size( 'resource-thumb', 318, 220, true );
+	add_image_size( 'resource-large', 658, 220, true );
 
 	// This theme uses wp_nav_menu() in two locations.
 	register_nav_menus( array(
@@ -262,8 +263,8 @@ function zd_scripts() {
 //	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.0.2' );
 
     // Load our custom stylesheet manually
-	$stylesheet_file = WP_DEBUG ? 'zing.css' : 'zing.min.css';
-    wp_enqueue_style( 'zd-main', get_template_directory_uri() . '/css/' . $stylesheet_file );
+//	$stylesheet_file = WP_DEBUG ? 'zing.css' : 'zing.min.css';
+    wp_enqueue_style( 'zd-main', get_template_directory_uri() . '/css/zing.css');
 
 	// Load our main stylesheet.
 	// Load the style.css file AFTER the custom stylesheet
@@ -740,25 +741,6 @@ if( ! function_exists('empty_r') ) {
 }
 
 /*
- * Add custom image sizes
- */
-
-if ( function_exists( 'add_image_size' ) ) {
-    add_image_size( 'product-thumb', 310, 300, array('center', 'top') ); //(width, height, is_cropped)
-    add_image_size( 'resource-thumb', 212, 250, array('center', 'top') ); //(width, height, is_cropped)
-    add_image_size( 'banner', 1440 );
-}
-
-add_filter( 'image_size_names_choose', 'zd_custom_image_sizes' );
-
-function zd_custom_image_sizes( $sizes ) {
-    return array_merge( $sizes, array(
-        'product-thumb' => __('Product thumbnail'),
-        'banner' => __('Banner size'),
-    ) );
-}
-
-/*
  * Raygun-specific functions
  *
  */
@@ -836,3 +818,12 @@ endif;
 //	return 10;
 //}
 //add_filter( 'excerpt_length', 'zd_custom_excerpt_length', 999 );
+
+add_filter( 'image_size_names_choose', 'zd_custom_sizes' );
+
+function zd_custom_sizes( $sizes ) {
+	return array_merge( $sizes, array(
+		'resource-thumb' => __( 'Default small image to display on Resource index page', 'zingdesign' ),
+		'resource-large' => __( 'Large image to display for featured posts on Resource index page', 'zingdesign' ),
+	) );
+}

@@ -8,17 +8,33 @@
 }
 
 .sidebar-features-item{
-  margin-top: 40px;
+  margin-top: 20px;
   a {
     color: $electric-blue;
     &:hover {
       color: $text-black;
     }
   }
-  i{
-    margin-right: 10px;
-    &:last-child{
-      margin-left: 20px;
+//  i{
+//    margin-right: 10px;
+//    &:last-child{
+//      margin-left: 20px;
+//    }
+//  }
+
+  .sidebar-features-meta {
+    span {
+      margin-right: 5px;
+      line-height: 1.5;
+      display: inline-block;
+
+      &:before {
+        margin-right: 5px;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 }

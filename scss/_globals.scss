@@ -41,8 +41,10 @@ $retina: "only screen and (-webkit-min-device-pixel-ratio: 2),only screen and (m
 $wp-medium-up: 'only screen and (min-width: 783px)';
 
 // Custom breakpoints for Raygun
-$medium-up: 'only screen and (min-width: 815px)';
-$large-up: 'only screen and (min-width: 1035px)';
+$medium: 768px;
+$large: 1035px;
+$medium-up: 'only screen and (min-width: #{$medium})';
+$large-up: 'only screen and (min-width: #{$large})';
 
   // Common images
 $ajax-loader: image-url('ajax-loader.gif');

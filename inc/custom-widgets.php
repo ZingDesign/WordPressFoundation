@@ -100,14 +100,19 @@ class ZD_Widget_Featured_Posts extends WP_Widget {
 							<a href="<?php the_permalink(); ?>"><?php get_the_title() ? the_title() : the_ID(); ?></a>
 						</h4>
 
-						<?php if ( $show_date ) : ?>
-							<span class="post-date"><?php echo get_the_date(); ?></span>
-						<?php endif; ?>
+						<div class="sidebar-features-meta">
+							<?php if ( $show_date ) : ?>
+								<span class="post-date"><?php echo get_the_date(); ?></span>
+							<?php endif; ?>
 
-						<?php
-						get_category_icons($r->post->ID, "Featured");?>
+							<?php
+//							get_category_icons($r->post->ID, "Featured");?>
 
-						<i class="fa fa-user"></i><?php echo get_the_author();  ?>
+<!--							<span class="author vcard">-->
+								<?php //echo get_the_author();  ?>
+<!--							</span>-->
+						</div>
+
 					</div>
 				<?php //_d($r->post);
 				endwhile; ?>

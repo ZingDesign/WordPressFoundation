@@ -2,6 +2,13 @@
 //  margin: 0 0 355px 0; /* Footer height */
 //}
 
+$footer-height-mobile: 352px;
+$footer-height-desktop: 170px;
+
+body {
+  padding-bottom: $footer-height-mobile;
+}
+
 .footer-links {
   display: none;
 }
@@ -18,17 +25,18 @@
     display: inline-block;
     margin-right: 40px;
     line-height: 32px;
+
     &:last-child {
       margin-right: 0px;
     }
   }
   a {
-    color: $white;
+    color: rgba(#fff, 0.7);
     text-decoration: none;
-    opacity: 0.7;
+//    opacity: 0.7;
     &:hover {
-      opacity: 1;
-      color: $white;
+//      opacity: 1;
+      color: #fff;
     }
   }
   .icon-footer {
@@ -43,28 +51,34 @@
   text-align: center;
   float: left;
   background: $dark-blue;
+  @include transition(background 250ms ease-out);
+
   i {
     line-height: 90px;
     font-size: 2rem;
   }
+
   &.colour-github {
     background: #4183C4;
     &:hover {
       background: darken(#4183C4, 5%);
     }
   }
+
   &.colour-facebook {
     background: #3B5998;
     &:hover {
       background: darken(#3B5998, 5%);
     }
   }
+
   &.colour-twitter {
     background: #55ACEE;
     &:hover {
       background: darken(#55ACEE, 5%);
     }
   }
+
   &.colour-google-plus {
     background: #DD4B39;
     &:hover {
@@ -88,29 +102,41 @@
 
 @media #{$medium-up} {
   body {
-    margin: 0 0 170px 0; /* Footer height */
+//    margin: 0 0 170px 0; /* Footer height */
+    padding-bottom: $footer-height-desktop;
   }
+
   .footer-right {
     float: right;
   }
+
   .footer-links,
   .footer-credit {
     display: block;
     float: left;
   }
+
   .footer-content {
     text-align: left;
   }
+
   .footer {
+
     .icon-footer {
-      opacity: 0.7;
+//      opacity: 0.7;
     }
+
     ul {
       list-style: none;
       display: inline-block;
       padding: 0;
       margin: 0;
     }
+
+    a {
+      @include rem-font(14);
+    }
+
   }
   .icon-footer {
     width: 32px;
@@ -121,14 +147,17 @@
     display: inline-block;
     margin-right: 8px;
     float: none;
+
     i {
       font-size: 1rem;
       line-height: 32px;
       color: $dark-blue;
     }
+
     &:hover {
       background: rgba(255, 255, 255, 1);
     }
+
     &.colour-twitter,
     &.colour-facebook,
     &.colour-github,
@@ -138,9 +167,11 @@
         background: rgba(255, 255, 255, 1);
       }
     }
+
     &:last-child {
       margin-right: 0px;
     }
+
   }
   .link-terms {
     margin-top: 0;
@@ -148,5 +179,9 @@
 }
 
 @media #{$large-up} {
-
+  .footer {
+    a {
+      @include rem-font(16);
+    }
+  }
 }

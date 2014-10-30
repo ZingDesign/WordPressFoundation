@@ -101,35 +101,39 @@
 			<label for="listener-mobile-search" class="mobile-search-toggle"></label>
 
 			<div class="mobile-search-draw index-1">
-				<label for="listener-mobile-search" class="mobile-search-close"><i class="fa fa-close fa-2x"></i></label>
-				<input class="mobile-search-input" type="text" placeholder="Search our blog">
+				<form id="mobile-search-form" method="get" action="<?php echo home_url( '/' ); ?>">
+					<label for="listener-mobile-search" class="mobile-search-close"><i class="fa fa-close fa-2x"></i></label>
+					<input name="s" class="mobile-search-input" type="text" placeholder="Search our blog">
 
-				<h3>Filter by</h3>
-				<ul>
-					<li>
-						<input type="checkbox" id="mobile-search-check-1">
-						<label for="mobile-search-check-1">
-							<span class="mobile-search-tick"></span>
-							Product update</label>
-					</li>
-					<li>
-						<input type="checkbox" id="mobile-search-check-2"><label for="mobile-search-check-2">
-							<span class="mobile-search-tick"></span>
-							Development</label>
-					</li>
-					<li>
-						<input type="checkbox" id="mobile-search-check-3">
-						<label for="mobile-search-check-3">
-						<span class="mobile-search-tick"></span>
-							Raygun labs</label>
-					</li>
-				</ul>
+					<h3><?php _e( 'Filter by category', 'zingdesign' ); ?></h3>
+
+					<ul>
+						<?php
+						$categories = get_terms(
+							array('category', 'resource_category'),
+							array('exclude' => get_cat_ID('Uncategorised') )
+						);
+
+						foreach($categories as $cat) : ?>
+							<li>
+								<input type="radio" class="mobile-search-category" id="mobile-search-check-<?php echo $cat->term_id; ?>" name="category_name" value="<?php echo esc_attr($cat->slug); ?>">
+								<label for="mobile-search-check-<?php echo $cat->term_id; ?>">
+									<span class="mobile-search-tick"></span>
+									<span class="mobile-search-label-text"><?php echo esc_attr($cat->name); ?></span>
+								</label>
+							</li>
+
+							<?php endforeach; ?>
+					</ul>
+
+					<button id="mobile-search-submit" type="submit"><?php _e( 'Search', 'zingdesign' ); ?></button>
+				</form>
+
 			</div>
 
 			<a href="<?php echo site_url(); ?>" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
 
-			<div class="link-back"><i class="fa fa-angle-left fa-lg header-align header-margin-right"></i><a
-					class="header-align" href="http://raygun.io">Back to Raygun</a></div>
+			<div class="link-back"><i class="fa fa-angle-left fa-lg header-align header-margin-right"></i><a class="header-align" href="http://raygun.io">Back to Raygun</a></div>
 
 			<?php
 			if( get_option('show-search-form-in-header') ) {

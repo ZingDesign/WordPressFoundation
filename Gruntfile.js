@@ -1,7 +1,15 @@
 module.exports = function(grunt) {
     "use strict";
 
-    var devMode = true;
+    var wpConfig = grunt.file.read('../../../wp-config.php');
+
+    var devMode = (wpConfig.indexOf("'WP_DEBUG', true") > -1);
+
+    if( devMode ) {
+        console.log('-----------------------------------');
+        console.log('Dev mode enabled');
+        console.log('-----------------------------------');
+    }
 
     var environment = devMode ? 'development' : 'production';
 
@@ -23,9 +31,9 @@ module.exports = function(grunt) {
 
     var cssTasks = ['compass'];
 
-    if( ! devMode ) {
-        cssTasks.push('cssmin');
-    }
+    //if( ! devMode ) {
+    //    cssTasks.push('cssmin');
+    //}
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -182,6 +190,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     grunt.registerTask('default', ['clean', 'jshint:client', 'concat', 'uglify', 'compass', 'copy']);
     grunt.registerTask('css', cssTasks);

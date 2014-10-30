@@ -1,3 +1,6 @@
+$admin-bar-height-mobile: 46px;
+$admin-bar-height-tablet: 32px;
+
 // Logo image replacement
 
 .header-logo,
@@ -13,7 +16,7 @@
 
 .header {
   position: fixed;
-  top: 0;
+  top: $admin-bar-height-mobile;
   left: 0;
   height: 60px;
   width: 100%;
@@ -40,9 +43,9 @@
     margin-right: 10px;
   }
 
-  .admin-bar & {
-    margin-top: 46px;
-  }
+//  .admin-bar & {
+//    margin-top: 46px;
+//  }
 
 }
 
@@ -61,17 +64,33 @@
   display: none;
 }
 
+.admin-bar {
+
+  .header {
+    top: $admin-bar-height-mobile;
+  }
+
+  #wpadminbar {
+    position:fixed;
+  }
+
+}
 
 // WordPress admin-bar fix
 @media #{$wp-medium-up}{
   .admin-bar {
     .header {
-      margin-top: 32px;
+      top: $admin-bar-height-tablet;
     }
   }
 }
 
 @media #{$medium-up} {
+  .header-sub {
+  }
+}
+
+@media #{$large-up} {
   .link-back {
     display: inline-block;
   }
@@ -82,6 +101,7 @@
       margin: 0 20px 0 0;
     }
   }
+
   .header-sub {
     position: relative;
     top: 60px;
@@ -104,12 +124,8 @@
     }
 
     li {
-//      display: inline-block;
+      //      display: inline-block;
       float: left;
-    }
-
-    .header-align {
-      line-height: 80px;
     }
 
     a:hover {
@@ -119,15 +135,6 @@
     .header-content {
       max-width: 800px;
       overflow: hidden;
-    }
-  }
-}
-
-@media #{$large-up} {
-  .header-sub {
-    height: 80px;
-    .header-align {
-      line-height: 90px;
     }
   }
   .header-sub .header-content {

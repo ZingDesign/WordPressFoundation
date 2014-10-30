@@ -3,24 +3,26 @@
     color: inherit;
 
     &:hover {
-      color: #333;
+      color: #666;
     }
   }
 }
 
-.post{
-  margin-bottom: 40px;
+article {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid #D8D8D8;
 
   header {
-    h1{
+    .entry-title{
+      font-size: 1.5rem;
 
       a{
         color: $text-black;
 
-        &:hover{
-          color: $electric-blue;
-        }
+//        &:hover{
+//          color: $electric-blue;
+//        }
 
       }
     }
@@ -35,6 +37,18 @@
   }
 }
 
+.entry-content {
+//  margin-bottom: 1rem;
+
+  a {
+    text-decoration: underline;
+
+    &.button {
+      text-decoration: none;
+    }
+  }
+}
+
 .entry-meta{
   margin-bottom: 1rem;
   line-height: 1.5;
@@ -45,18 +59,37 @@
   }
 
   span {
-    margin-right: 20px;
-    display: inline-block;
+    display: block;
 
     a {
       color: $text-black;
+
+      &:hover {
+        color: #666;
+      }
     }
   }
 
-  &:last-child {
-    margin-right: 0;
-  }
+}
 
+footer.entry-meta {
+  margin-top: 1rem;
+
+  .tag-links {
+    a {
+
+      @extend .fa-tag;
+      line-height: normal;
+      display: inline-block;
+      margin-right: 5px;
+
+      &:before {
+        @extend .fa;
+        color: $electric-blue;
+        margin-right: 5px;
+      }
+    }
+  }
 }
 
 .comments-link {
@@ -68,14 +101,15 @@
 
 blockquote {
   margin-left: 0;
+  border-left: 5px solid $electric-blue;
+  padding: 10px 0 10px 20px;
 
   p {
     font-size: 1.25rem;
     line-height: 1.5;
     font-style: italic;
     color: #666;
-    padding: 10px 0 10px 20px;
-    border-left: 5px solid $electric-blue;
+    margin: 0;
   }
 }
 
@@ -129,14 +163,37 @@ blockquote {
 }
 .post-share{
 
-  button,
-  a{
-    margin-right: 20px;
-    &:last-child{
-      margin-right: 0;
-    }
+//  button,
+  a {
+    width: 100%;
+    margin: 0 0 20px;
+    text-align: center;
   }
 
+}
+
+// Icons
+
+span.author,
+time.entry-date,
+.comments-link {
+  &:before {
+    @extend .fa;
+    margin-right: 10px;
+    color: $electric-blue;
+  }
+}
+
+span.author {
+  @extend .fa-user;
+}
+
+time.entry-date {
+  @extend .fa-clock-o;
+}
+
+.comments-link {
+  @extend .fa-comment;
 }
 
 // Category icons
@@ -147,29 +204,90 @@ blockquote {
   &:before {
     @extend .fa;
     color: $electric-blue;
-    margin-right: 5px;
+    margin-right: 10px;
+  }
+
+  &.category-icon-development {
+    @extend .fa-code;
+  }
+
+  &.category-icon-research {
+    @extend .fa-lightbulb-o;
+  }
+
+  &.category-icon-raygun-labs {
+    @extend .fa-flask;
+  }
+
+  &.category-icon-case-studies {
+    @extend .fa-flask;
   }
 
 }
 
-.category-icon-development {
-  @extend .fa-code;
+
+// Crayon (syntax highlighter) style overrides
+
+.crayon-syntax {
+  &.crayon-theme-raygun {
+    border-radius: 3px;
+
+    .crayon-main {
+      padding: 1rem;
+    }
+  }
 }
 
-.category-icon-research {
-  @extend .fa-lightbulb-o;
+.pagination {
+  text-align: center;
 }
 
-.category-icon-raygun-labs {
-  @extend .fa-flask;
-}
-
-.category-icon-case-studies {
-  @extend .fa-flask;
-}
-
-@media only screen and (min-width : 815px){
+@media #{$medium-up}{
   blockquote{
     font-size: 1.5rem;
+  }
+
+  article {
+    header {
+      .entry-title {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .entry-meta {
+    span {
+      margin-right: 15px;
+      display: inline-block;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .post-share {
+    a {
+      padding: 0 20px;
+    }
+  }
+
+
+}
+
+@media #{$large-up} {
+
+  .post-share {
+    a {
+      width: auto;
+      margin: 0 20px 0 0;
+      padding: 0 40px;
+
+      &:last-child{
+        margin-right: 0;
+      }
+
+    }
+
   }
 }

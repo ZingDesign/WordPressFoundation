@@ -6,7 +6,7 @@
  * @since Zing Design 1.0
  */
 $args = array(
-	'post_type' => 'any'
+	'post_type' => array('post', 'resource')
 );
 
 $recent_posts = wp_get_recent_posts($args, OBJECT);
@@ -15,6 +15,7 @@ $recent_posts = wp_get_recent_posts($args, OBJECT);
 
 get_header(); ?>
 
+<div id="main">
 	<div id="main-content" class="content-primary">
 
 		<div id="primary" class="content-area">
@@ -25,8 +26,8 @@ get_header(); ?>
 
 				if ( !empty($recent_posts) ) :
 					// Start the Loop.
-					foreach($recent_posts as $the_post) :
-						setup_postdata($the_post);
+					foreach($recent_posts as $post) :
+						setup_postdata($post);
 
 						/*
 						 * Include the post format-specific template for the content. If you want to
@@ -53,6 +54,13 @@ get_header(); ?>
 		</div><!-- #primary -->
 
 	</div><!-- #main-content -->
+
+	<div class="medium-3 columns">
+		<?php get_sidebar( 'sidebar-1' ); ?>
+	</div>
+</div><!-- #main -->
+
+
 
 
 <?php

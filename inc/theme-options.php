@@ -61,6 +61,7 @@ class ZingDesignThemeOptions {
 			    'social-media'      => 'Social Media',
 			    'analytics'         => 'Analytics',
 			    'newsletter'        => 'Newsletter',
+			    'categories'        => 'Categories'
 //			    'design'            => 'Design',
 //			    'custom-post-types' => 'Custom post types',
 		    );
@@ -90,22 +91,22 @@ class ZingDesignThemeOptions {
 					    'type'      => 'image',
 					    'section'   => 'general'
 				    ),
-				    'enable_mobile_navigation' => array(
-					    'id'        => 'zd-enable-mobile-navigation',
-					    'type'      => 'checkbox',
-					    'section'   => 'general',
-					    'default'   => true
-				    ),
-				    'mobile_navigation_alignment' => array(
-					    'id'        => 'zd-mobile-navigation-alignment',
-					    'type'      => 'select',
-					    'section'   => 'general',
-					    'dropdown'  => array(
-						    'left'  => 'Left',
-						    'right' => 'Right'
-					    ),
-					    'default'   => 'right'
-				    ),
+//				    'enable_mobile_navigation' => array(
+//					    'id'        => 'zd-enable-mobile-navigation',
+//					    'type'      => 'checkbox',
+//					    'section'   => 'general',
+//					    'default'   => true
+//				    ),
+//				    'mobile_navigation_alignment' => array(
+//					    'id'        => 'zd-mobile-navigation-alignment',
+//					    'type'      => 'select',
+//					    'section'   => 'general',
+//					    'dropdown'  => array(
+//						    'left'  => 'Left',
+//						    'right' => 'Right'
+//					    ),
+//					    'default'   => 'right'
+//				    ),
 				    'show_search_form_in_header' => array(
 					    'type'      => 'checkbox',
 					    'default'   => true
@@ -121,7 +122,7 @@ class ZingDesignThemeOptions {
 				    'mailto_email_address' => array(
 					    'label'     => 'Email address',
 					    'section'   => 'contact-details',
-					    'type'      => 'url'
+					    'type'      => 'email'
 				    ),
 				    'physical_address' => array(
 					    'label'     => 'Physical address',
@@ -138,7 +139,8 @@ class ZingDesignThemeOptions {
 				    'mail_chimp_endpoint_url' => array(
 					    'label'     => 'MailChimp endpoint',
 					    'section'   => 'newsletter',
-					    'type'      => 'url'
+					    'type'      => 'url',
+					    'class'     => 'widefat'
 				    ),
 
 				    // Design
@@ -185,6 +187,13 @@ class ZingDesignThemeOptions {
 					    'type'      => 'color'
 				    ),
 
+				    'category_icons' => array(
+					    'label'     => 'Category icons',
+					    'section'   => 'categories',
+					    'type'      => 'select',
+					    'dropdown'  => array()
+				    )
+
 				    // custom post types
 //				    'new_custom_post_types' => array(
 //					    'label'     => 'Custom post type names',
@@ -205,6 +214,7 @@ class ZingDesignThemeOptions {
 
 		        // Add social media outlets
 			    $social_media_outlets = array(
+				    'github',
 				    'facebook',
 				    'twitter',
 				    'linkedin',
@@ -325,6 +335,7 @@ class ZingDesignThemeOptions {
 
 	        // If ID not explicitly set, replace key underscores with dashes
             $id = isset($option['id']) ? $option['id'] : str_replace("_", "-", $key );
+            $class = isset($option['class']) ? $option['class'] : '';
 
 	        // replace key underscores with spaces to generate a title as a fallback for label
             $title = str_replace("_", " ", ucfirst( $key ) );
@@ -334,6 +345,7 @@ class ZingDesignThemeOptions {
 
 	        if( 'url' === $option_type && !isset($option['filter'] ) ) {
 		        $option['filter'] = 'esc_url';
+		        $class .= ' widefat';
 	        }
 
 	        // Set filter to esc_html by default
@@ -358,12 +370,11 @@ class ZingDesignThemeOptions {
 		        $filter = $option['filter'];
 	        }
 	        else if( 'textarea' === $option_type ) {
-		        $filter = 'sanitize_textfield';
+		        $filter = 'sanitize_text_field';
 	        }
 	        else {
 		        $filter = 'esc_html';
 	        }
-
 
 	        // Input wrapper - true by default
 	        $wrapper = isset($option['wrapper']) ? $option['wrapper'] : true;
@@ -383,6 +394,7 @@ class ZingDesignThemeOptions {
 
 	        $input_options_array = array(
 		        'id'            => $id,
+		        'class'         => $class,
                 'label'         => $label,
                 'type'          => $option_type,
                 'dropdown'      => $dropdown,
@@ -467,7 +479,7 @@ class ZingDesignThemeOptions {
 
 	    // Body styles
 	    if( $body_background_color || $body_text_color ) {
-		    $css .= "#page {\n";
+		    $css .= "#{$body_id} {\n";
 
 		    if( $body_background_color ) {
 			    $css .= "  background-color: {$body_background_color};\n";

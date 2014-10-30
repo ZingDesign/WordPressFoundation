@@ -1,11 +1,18 @@
 .button{
   font-size: 1rem;
   color: $white;
-  background: $black;
+//  background-color: $black;
   border:none;
   border-radius: 3px;
-  padding:0 40px 0 40px;
+  padding:0 40px;
   height: 54px;
+  line-height: 54px;
+  display: inline-block;
+
+  &:hover {
+    color: #fff;
+  }
+
   a {
     color: $white;
   }
@@ -83,7 +90,7 @@
   border: none;
 }
 
-@media only screen and (min-width : 815px){
+@media #{$medium-up} {
   .button{
     &.promo{
       height:72px;
@@ -102,6 +109,8 @@
         padding: 0 15px;
         display: block;
 
+        @include transition(background 250ms ease-out);
+
         &:hover,
         &.active{
           background: darken($dark-blue, 5%);
@@ -111,7 +120,7 @@
   }
 
 }
-@media only screen and (min-width : 1035px){
+@media #{$large-up}{
   .button{
     &.promo{
       height: 82px;

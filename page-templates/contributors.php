@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-<div id="main-content" class="main-content">
+<div id="main" class="main-content">
 
 <?php
 	if ( is_front_page() && zd_has_featured_posts() ) {
@@ -45,8 +45,11 @@ get_header(); ?>
 			?>
 		</div><!-- #content -->
 	</div><!-- #primary -->
-</div><!-- #main-content -->
 
 <?php
-get_sidebar();
+get_sidebar();?>
+
+</div><!-- #main -->
+
+<?php
 get_footer();

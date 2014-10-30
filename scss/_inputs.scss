@@ -48,10 +48,23 @@
   }
 }
 
-@media #{$medium-up} {
-  .search-form {
-    display: block;
+textarea {
+  width: 100%;
+}
+
+.form-submit {
+  input[type="submit"] {
+    @extend .button;
+    @extend .green;
+//    background-color: $green;
   }
+}
+
+.required {
+  color: $orange;
+}
+
+@media #{$medium-up} {
 
   .input-search {
 
@@ -63,6 +76,9 @@
 }
 
 @media #{$large-up} {
+  .search-form {
+    display: block;
+  }
 
   .input-search {
 

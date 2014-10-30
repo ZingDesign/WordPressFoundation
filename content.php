@@ -23,17 +23,17 @@
 		?>
 
 		<div class="entry-meta">
-            <?php if ( in_array( 'category', get_object_taxonomies( get_post_type() ) ) && zd_categorized_blog() ) : ?>
+            <?php if ( in_array( 'category', get_object_taxonomies( get_post_type() ) ) || in_array( 'resource_category', get_object_taxonomies( get_post_type() ) ) && zd_categorized_blog() ) : ?>
                 <span class="cat-links"><?php get_category_icons(); ?></span>
             <?php
                 endif;
-				if ( 'post' == get_post_type() )
+				if ( in_array( get_post_type(), array('post', 'resource')) )
 					zd_posted_on();
 
 				if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) :
 			?>
 
-			<span class="comments-link"><i class="fa fa-comment"></i><?php comments_popup_link(
+			<span class="comments-link"><?php comments_popup_link(
 					__( 'Leave a comment', 'twentyfourteen' ),
 					__( '1 Comment', 'twentyfourteen' ),
 					__( '% Comments', 'twentyfourteen' )
@@ -60,7 +60,7 @@
         <?php
         if ( !is_single() ) :
             the_excerpt();
-            ?> <button class="button blue"><a href="<?php echo get_permalink(); ?>">Continue reading</a></button>
+            ?> <a class="button blue" href="<?php echo get_permalink(); ?>">Continue reading</a>
         <?php else :
 			the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'zingdesign' ) );
 			wp_link_pages( array(

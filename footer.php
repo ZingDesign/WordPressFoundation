@@ -38,10 +38,10 @@
 				<?php endif; ?>
 
 				<div class="footer-icons footer-right">
-					<a class="icon-footer colour-github" href="/"><i class="fa fa-github fa-fw"></i></a>
-					<a class="icon-footer colour-facebook" href="/"><i class="fa fa-facebook fa-fw"></i></a>
-					<a class="icon-footer colour-twitter" href="/"><i class="fa fa-twitter fa-fw"></i></a>
-					<a class="icon-footer colour-google-plus" href="/"><i class="fa fa-google-plus fa-fw"></i></a>
+					<a class="icon-footer colour-github" href="<?php echo get_option('github-url'); ?>" target="_blank"><i class="fa fa-github fa-fw"></i></a>
+					<a class="icon-footer colour-facebook" href="<?php echo get_option('facebook-url'); ?>" target="_blank"><i class="fa fa-facebook fa-fw"></i></a>
+					<a class="icon-footer colour-twitter" href="<?php echo get_option('twitter-url'); ?>" target="_blank"><i class="fa fa-twitter fa-fw"></i></a>
+					<a class="icon-footer colour-google-plus" href="<?php echo get_option('google-plus-url'); ?>" target="_blank"><i class="fa fa-google-plus fa-fw"></i></a>
 				</div>
 
 			</div>
@@ -49,7 +49,7 @@
 			<div class="footer-content">
 
 				<div class="footer-credit">
-					<a href="http://mindscape.co.nz" target="_blank"><?php _e('Made by', 'zingdesign'); ?> Mindscape &copy; <?php echo date('Y'); ?></a>
+					<a href="http://www.mindscapehq.com/" target="_blank"><?php _e('Made by', 'zingdesign'); ?> Mindscape &copy; <?php echo date('Y'); ?></a>
 				</div>
 
 				<div class="link-terms footer-right">

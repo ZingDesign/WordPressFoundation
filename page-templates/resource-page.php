@@ -19,8 +19,7 @@ get_header(); ?>
 
 			if ( $resource_post_query->have_posts() ) :
 				// Start the Loop.
-				$i = 0;
-				$display_large = array(0,3);
+				$resource_index = 0;
 				while ( $resource_post_query->have_posts() ) : $resource_post_query->the_post();
 
 					/*
@@ -28,15 +27,9 @@ get_header(); ?>
 					 * use this in a child theme, then include a file called called content-___.php
 					 * (where ___ is the post format) and that will be used instead.
 					 */
-					$class = 'resources-card';
-					if( in_array($i, $display_large) ) {
-						$class .= ' large';
-					}
-					echo "<div class=\"{$class}\">\n";
 					get_template_part( 'content', 'resource' );
-					echo "</div><!--.resources-card-->\n";
 
-					$i ++;
+					$resource_index ++;
 
 				endwhile;
 				// Previous/next post navigation.

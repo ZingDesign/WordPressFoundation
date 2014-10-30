@@ -112,13 +112,18 @@
 }
 
 .link {
-  margin-right: 40px;
   &.blue {
     color: $electric-blue;
     opacity: 1;
   }
-  &:last-child {
-    margin-right: 0;
+
+  @media #{$medium-up} {
+
+    margin-right: 40px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 
