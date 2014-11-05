@@ -1,0 +1,54 @@
+
+
+.zd-sticky-content {
+
+//  position: static;
+//
+//  &.fixed {
+//    position: fixed;
+//    top: 0;
+//  }
+
+  &.affix-bottom {
+    position: absolute;
+  }
+
+}
+
+$sticky-content-offset: $header-height-desktop + 40px;
+
+@media #{$zd-medium-up} {
+
+  .affix {
+    position: fixed;
+  }
+
+  .zd-sticky-content {
+
+    width: 240px;
+    // Add top 'padding'
+    top: $sticky-content-offset;
+
+    .admin-bar & {
+      top: ( strip-unit($sticky-content-offset) + strip-unit($admin-bar-height-tablet)) * 1px;
+    }
+
+  }
+
+
+}
+
+@media #{$zd-large-up} {
+
+  .zd-sticky-content {
+
+    width: 320px;
+    top: $sticky-content-offset;
+
+    .admin-bar & {
+      top: ( strip-unit($sticky-content-offset) + strip-unit($admin-bar-height-desktop)) * 1px;
+    }
+
+  }
+
+}

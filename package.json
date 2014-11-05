@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "grunt": "~0.4.2",
+    "grunt-autoprefixer": "^1.0.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compass": "~0.7.2",
     "grunt-contrib-concat": "~0.3.0",

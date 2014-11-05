@@ -32,7 +32,7 @@
 //  display: block;
 //}
 
-@media #{$medium-up} {
+@media #{$zd-medium-up} {
   .content-primary{
     width: 500px;
     display: block;
@@ -56,7 +56,7 @@
 //    max-width: 800px;
 //  }
 }
-@media #{$large-up} {
+@media #{$zd-large-up} {
   .content-primary{
     width: 660px;
     padding-right: 20px;

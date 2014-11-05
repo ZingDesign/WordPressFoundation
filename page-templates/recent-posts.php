@@ -53,11 +53,10 @@ get_header(); ?>
 			</div><!-- #content -->
 		</div><!-- #primary -->
 
+		<?php get_sidebar( 'sidebar-1' ); ?>
+
 	</div><!-- #main-content -->
 
-	<div class="medium-3 columns">
-		<?php get_sidebar( 'sidebar-1' ); ?>
-	</div>
 </div><!-- #main -->
 
 

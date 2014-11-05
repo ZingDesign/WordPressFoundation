@@ -41,7 +41,7 @@
   border: 1px solid $light-grey-border;
   box-sizing: border-box;
   height: 54px;
-  padding: 0 24 0 24px;
+  padding: 0 24px;
   margin-bottom: 16px;
   &.full-width {
     width: 100%;
@@ -60,11 +60,11 @@ textarea {
   }
 }
 
-.required {
-  color: $orange;
+span.required {
+  color: $error;
 }
 
-@media #{$medium-up} {
+@media #{$zd-medium-up} {
 
   .input-search {
 
@@ -75,7 +75,7 @@ textarea {
 
 }
 
-@media #{$large-up} {
+@media #{$zd-large-up} {
   .search-form {
     display: block;
   }

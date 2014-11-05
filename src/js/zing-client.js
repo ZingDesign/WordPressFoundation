@@ -796,6 +796,133 @@ if (typeof define !== 'undefined' && define.amd) {
 	window.FastClick = FastClick;
 }
 
+/* ========================================================================
+ * Bootstrap: affix.js v3.0.2
+ * http://getbootstrap.com/javascript/#affix
+ * ========================================================================
+ * Copyright 2013 Twitter, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ======================================================================== */
+
+
++function ($) { "use strict";
+
+  // AFFIX CLASS DEFINITION
+  // ======================
+
+  var Affix = function (element, options) {
+    this.options = $.extend({}, Affix.DEFAULTS, options)
+    this.$window = $(window)
+      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
+      .on('click.bs.affix.data-api',  $.proxy(this.checkPositionWithEventLoop, this))
+
+    this.$element = $(element)
+    this.affixed  =
+    this.unpin    = null
+
+    this.checkPosition()
+  }
+
+  Affix.RESET = 'affix affix-top affix-bottom'
+
+  Affix.DEFAULTS = {
+    offset: 0
+  }
+
+  Affix.prototype.checkPositionWithEventLoop = function () {
+    setTimeout($.proxy(this.checkPosition, this), 1)
+  }
+
+  Affix.prototype.checkPosition = function () {
+    if (!this.$element.is(':visible')) return
+
+    var scrollHeight = $(document).height()
+    var scrollTop    = this.$window.scrollTop()
+    var position     = this.$element.offset()
+    var offset       = this.options.offset
+    var offsetTop    = offset.top
+    var offsetBottom = offset.bottom
+
+    if (typeof offset != 'object')         offsetBottom = offsetTop = offset
+    if (typeof offsetTop == 'function')    offsetTop    = offset.top()
+    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom()
+
+    var affix = this.unpin   != null && (scrollTop + this.unpin <= position.top) ? false :
+                offsetBottom != null && (position.top + this.$element.height() >= scrollHeight - offsetBottom) ? 'bottom' :
+                offsetTop    != null && (scrollTop <= offsetTop) ? 'top' : false
+
+    if (this.affixed === affix) return
+    if (this.unpin) this.$element.css('top', '')
+
+    this.affixed = affix
+    this.unpin   = affix == 'bottom' ? position.top - scrollTop : null
+
+    this.$element.removeClass(Affix.RESET).addClass('affix' + (affix ? '-' + affix : ''))
+
+    if (affix == 'bottom') {
+      this.$element.offset({ top: document.body.offsetHeight - offsetBottom - this.$element.height() })
+    }
+  }
+
+
+  // AFFIX PLUGIN DEFINITION
+  // =======================
+
+  var old = $.fn.affix
+
+  $.fn.affix = function (option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.affix')
+      var options = typeof option == 'object' && option
+
+      if (!data) $this.data('bs.affix', (data = new Affix(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  $.fn.affix.Constructor = Affix
+
+
+  // AFFIX NO CONFLICT
+  // =================
+
+  $.fn.affix.noConflict = function () {
+    $.fn.affix = old
+    return this
+  }
+
+
+  // AFFIX DATA-API
+  // ==============
+
+  $(window).on('load', function () {
+    $('[data-spy="affix"]').each(function () {
+      var $spy = $(this)
+      var data = $spy.data()
+
+      data.offset = data.offset || {}
+
+      if (data.offsetBottom) data.offset.bottom = data.offsetBottom
+      if (data.offsetTop)    data.offset.top    = data.offsetTop
+
+      $spy.affix(data)
+    })
+  })
+
+}(jQuery);
+
 /**
  * Created by Sam on 20/10/14.
  * Script to control interaction on elements which are common to each page goes in here
@@ -821,6 +948,46 @@ jQuery(document).ready(function($){
 
 
 
+
+});
+/**
+ * Created by Sam on 3/11/14.
+ */
+
+jQuery(document).ready(function($) {
+
+    /*
+     * Sticky content
+     */
+    if( $('.zd-sticky-content').length ) {
+
+        var stickyContent = $('.zd-sticky-content');
+        var headerHeight = $('header.header').outerHeight(true);
+        var footerHeight = $('#colophon').outerHeight(true);
+
+        var initContentOffset = stickyContent.offset().top - headerHeight - 40;
+
+        if( $('#wpadminbar').length ) {
+            initContentOffset -= $('#wpadminbar').outerHeight(true);
+        }
+
+        //console.log( initContentOffset );
+
+        //$(window).on('scroll', function() {
+        //    console.log(window.scrollY);
+        //});
+
+        $(stickyContent).affix({
+            offset: {
+                top: function() {
+                    return ( this.top = initContentOffset )
+                }
+                //,bottom: function () {
+                //    return (this.bottom = footerHeight )
+                //}
+            }
+        })
+    }
 
 });
 /**
@@ -1101,3 +1268,147 @@ if (!Array.prototype.indexOf)
         return -1;
     };
 }
+
+/**
+ * Created by Sam on 2/07/14.
+ */
+
+jQuery(document).ready(function($){
+    'use strict';
+
+    window.ResponsiveNavigation = (function() {
+
+
+        // Variables
+        var menuOpen = false,
+
+            slideDirection = $('#showLeft').length ? 'right' : 'left',
+
+            menuButton = $('#showLeft').length ? $('#showLeft') : $('#showRight'),
+
+            menu = $('#cbp-spmenu-s1'),
+
+            $body = $('body').addClass('cbp-menu-body'),
+
+            mediumUp = matchMedia(window.ZD.medium).matches,
+
+            largeUp = matchMedia(window.ZD.large).matches,
+
+            menuOverlay = $('.cbp-menu-overlay');
+
+        //console.log(slideDirection);
+
+
+        // Private functions
+        var openMenuPrivate = function () {
+
+            menuButton.addClass('active');
+
+            menu.addClass('cbp-spmenu-open');
+
+            $body
+                .addClass('cbp-body-open')
+                .css(slideDirection, menu.outerWidth() + 'px');
+
+            if( slideDirection === 'right' ) {
+                $body.css('left', 'initial');
+            }
+
+            menuOpen = true;
+        };
+
+        var closeMenuPrivate = function () {
+            //console.log('overlay clicked');
+
+            //var $this = $(this);
+
+            menuButton.removeClass('active');
+
+            menu.removeClass('cbp-spmenu-open');
+
+            //$body.removeClass('open');
+
+            $body
+                .removeClass('cbp-body-open')
+                .css(slideDirection, '0');
+
+            menuOpen = false;
+        };
+
+
+        var initPrivate = function() {
+
+            //if( $('.cbp-menu-overlay').length === 0 ) {
+            //    menuOverlay.appendTo($body);
+            //}
+
+
+
+            // Restrict body width to window width
+            // If mobile/tablet
+            if( ! largeUp ) {
+
+                $body.css({
+                    'width': $(window).width() + 'px'
+                });
+
+            }
+        };
+
+        // Event listeners
+
+        menuButton.on('click', function() {
+            //console.log('menu button clicked');
+
+            //console.log('menuOpen: ' + menuOpen);
+
+            if(menuOpen) {
+                closeMenuPrivate();
+
+                //notMenu.off('click');
+
+                //console.log('closeMenuPrivate');
+            }
+            else {
+                openMenuPrivate();
+
+                //console.log('openMenuPrivate');
+            }
+
+            return false;
+        });
+
+        menuOverlay.on( 'click', closeMenuPrivate );
+
+
+        // Mobile-only - close the menu when a mobile nav link is 'clicked'
+        if( ! mediumUp ) {
+            menu.find('a').on('click', closeMenuPrivate);
+        }
+
+        // Expose methods
+        return {
+            openMenu: function() {
+                openMenuPrivate();
+            },
+
+            closeMenu: function() {
+                closeMenuPrivate();
+            },
+
+            init: function() {
+                initPrivate();
+            }
+        };
+        
+    })();
+
+
+    window.ResponsiveNavigation.init();
+
+
+
+
+    //---------------------------------------------------
+
+});

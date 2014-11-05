@@ -1,5 +1,4 @@
-$admin-bar-height-mobile: 46px;
-$admin-bar-height-tablet: 32px;
+
 
 // Logo image replacement
 
@@ -80,17 +79,17 @@ $admin-bar-height-tablet: 32px;
 @media #{$wp-medium-up}{
   .admin-bar {
     .header {
-      top: $admin-bar-height-tablet;
+      top: $admin-bar-height-desktop;
     }
   }
 }
 
-@media #{$medium-up} {
+@media #{$zd-medium-up} {
   .header-sub {
   }
 }
 
-@media #{$large-up} {
+@media #{$zd-large-up} {
   .link-back {
     display: inline-block;
   }

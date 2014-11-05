@@ -9,7 +9,11 @@
 //@import "compass/css3/font-face";
 //@import "fonts";
 
-//@import "settings";
+@import "settings";
+
+// Bootstrap
+//@import  "../fnd/bower_components/bootstrap-sass/lib/mixins";
+//@import  "../fnd/bower_components/bootstrap-sass/lib/utilities";
 
 // Comment out unused Foundation components here:
 
@@ -24,7 +28,7 @@
 //@import"../fnd/bower_components/foundation/scss/foundation/components/dropdown-buttons";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/flex-video";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/forms";
-//@import "../fnd/bower_components/foundation/scss/foundation/components/grid";
+@import "../fnd/bower_components/foundation/scss/foundation/components/grid";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/inline-lists";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/joyride";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/keystrokes";
@@ -54,12 +58,12 @@
 
 // Compass helpers
 
-@import "compass/css3/box-shadow";
-@import "compass/css3/background-size";
+//@import "compass/css3/box-shadow";
+//@import "compass/css3/background-size";
 //@import "compass/css3/border-radius";
-@import "compass/css3/opacity";
-@import "compass/css3/transition";
-@import "compass/css3/transform";
+//@import "compass/css3/opacity";
+//@import "compass/css3/transition";
+//@import "compass/css3/transform";
 @import "compass/utilities/general/clearfix";
 //@import "compass/css3/user-interface";
 //@import "compass/css3/box-sizing";
@@ -75,6 +79,7 @@
 @import "typography";
 @import "mixins";
 @import "helpers";
+@import "buttons";
 @import "general";
 @import "wordpress";
 
@@ -84,7 +89,7 @@
 @import "header";
 @import "footer";
 @import "sidebars";
-@import "buttons";
+@import "widgets";
 @import "post-content";
 
 @import "ui";

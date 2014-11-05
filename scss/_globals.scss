@@ -14,6 +14,9 @@ $dark-blue: #364760;
 
 $text-black: #222;
 
+$error: $orange;
+$success: $green;
+
 // Responsive navigation
 //$slide-menu-background: #ddd !default;
 //$menu-toggle-icon-color: #ddd !default;
@@ -26,7 +29,14 @@ $text-black: #222;
 $para-line-height: 1.5;
 $para-base-font-size: 16px;
 
+
+// Fixed height values
+$header-height-desktop: 60px;
 $footer-height: 170px;
+
+$admin-bar-height-mobile: 46px;
+$admin-bar-height-tablet: $admin-bar-height-mobile;
+$admin-bar-height-desktop: 32px;
 
 
 // Fonts
@@ -41,10 +51,13 @@ $retina: "only screen and (-webkit-min-device-pixel-ratio: 2),only screen and (m
 $wp-medium-up: 'only screen and (min-width: 783px)';
 
 // Custom breakpoints for Raygun
-$medium: 768px;
-$large: 1035px;
-$medium-up: 'only screen and (min-width: #{$medium})';
-$large-up: 'only screen and (min-width: #{$large})';
+$zd-medium: 768px;
+$zd-large: 1035px;
+$zd-medium-max: $zd-large - 1px;
+
+$zd-medium-up: 'only screen and (min-width: #{$zd-medium})';
+$zd-medium-only: 'only screen and (min-width: #{$zd-medium}) and (max-width: #{$zd-medium-max})';
+$zd-large-up: 'only screen and (min-width: #{$zd-large})';
 
   // Common images
 $ajax-loader: image-url('ajax-loader.gif');

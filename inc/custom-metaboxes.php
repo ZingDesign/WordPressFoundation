@@ -20,26 +20,103 @@ function call_zd_metabox() {
 
 //	$custom_post_types[] = 'post';
 
-//    new zd_metabox(
-//        'Posts to display',
-//        'page',
-//        'zd_posts',
-//        $options = array(
-//	        array(
-//		        'label' => 'Post container',
-//		        'type' => 'checkbox'
-//	        ),
-//            array(
-//                'label' => 'Post type',
-//                'type' => 'select',
-//                'dropdown' => $custom_post_types
-//            )
-//        ),
-//        $settings = array(
-//            'position' => 'advanced',
-//            'priority' => 'low'
-//        )
-//    );
+	$post_id = null;
+	if(isset($_POST['post']) ) {
+		$post_id = $_POST['post'];
+	}
+	else if(isset( $_GET['post'] ) ) {
+		$post_id = $_GET['post'];
+	}
+
+	$category_options = array();
+
+	if( "page-templates/landing-page.php" !== get_page_template_slug($post_id) ) {
+		$category_options[] = array(
+			'type' => 'label',
+			'text' => 'Enable the "Landing Page" template in order to use this functionality'
+		);
+	}
+
+	$category_options[] = array(
+		'label' => 'Post container',
+		'type' => 'checkbox'
+	);
+
+	$all_categories = get_categories();
+
+	$all_categories_checkboxes = array();
+
+	foreach($all_categories as $cat) {
+		$all_categories_checkboxes[$cat->cat_ID] = $cat->name;
+//		$category_options[] = array(
+//			'label' => $cat->name,
+//			'name'  => $cat->cat_ID,
+//			'type'  => 'checkbox'
+//		);
+
+
+	}
+
+	$category_options[] = array(
+		'label'         => 'Categories to display',
+		'type'          => 'multiple_checkbox',
+		'checkboxes'    => $all_categories_checkboxes
+	);
+//	global $post;
+
+//	_d($all_categories_checkboxes);
+
+    new zd_metabox(
+        'Landing page options',
+        'page',
+        'zd_display_categories',
+        $category_options,
+        $settings = array(
+            'position' => 'advanced',
+            'priority' => 'low'
+        )
+    );
+
+	// Show post as a "Large" post on the landing page
+
+    new zd_metabox(
+        'Large post',
+        'post',
+        'is_large_post',
+        array(
+	        array(
+		        'label' => 'Display as a large post on the Landing page',
+		        'id'    => 'is-large-post',
+		        'name'  => 'is_large_post',
+		        'type'  => 'checkbox'
+	        )
+        ),
+        $settings = array(
+            'position' => 'side',
+            'priority' => 'low'
+        )
+    );
+
+	// File upload for White Paper
+
+	new zd_metabox(
+		'White Paper',
+		'white_paper',
+		'white_paper',
+		array(
+			array(
+				'label' => 'Select White Paper PDF file',
+				'id'    => 'white-paper-pdf',
+				'name'  => 'white_paper_pdf',
+				'type'  => 'file'
+			)
+		),
+		$settings = array(
+			'position' => 'advanced',
+			'priority' => 'low'
+		)
+	);
+
 
 
 
@@ -177,17 +254,39 @@ class zd_metabox {
 
         /* OK, its safe for us to save the data now. */
 
+//	    _d($_POST[$this->args_name]);
 
         if( isset($_POST[$this->args_name]) ) {
+
             // Sanitize the user input.
             $data = array();
 
             foreach($this->options as $option) {
-                $filter = isset($option['filter']) ? $option['filter'] : 'sanitize_text_field';
 
-                $name = isset($option['name']) ? $option['name'] : str_replace( ' ', '_', strtolower($option['label']) );
+	            if( 'label' !== $option['type'] ) {
 
-                $data[$name] = isset($_POST[$this->args_name][$name]) ? call_user_func($filter, $_POST[$this->args_name][$name]) : '';
+		            $filter = isset($option['filter']) ? $option['filter'] : 'sanitize_text_field';
+
+		            $name = isset($option['name']) ? $option['name'] : str_replace( ' ', '_', strtolower($option['label']) );
+
+		            if( isset($_POST[$this->args_name][$name]) ) {
+
+			            $current_data = $_POST[$this->args_name][$name];
+
+			            if( is_array($current_data) ) {
+				            $current_data = base64_encode(serialize($current_data));
+			            }
+
+			            if( $filter ) {
+				            $data[$name] = call_user_func($filter, $current_data);
+			            }
+			            else {
+				            $data[$name] = $current_data;
+			            }
+		            }
+
+	            }
+
              }
 
             // Update the meta field.
@@ -210,22 +309,37 @@ class zd_metabox {
         wp_nonce_field( $this->nonce_id, $this->nonce_name );
 
         foreach( $this->options as $option ) {
-            $label = $option['label'];
-            $id = isset($option['id']) ? $option['id'] : str_replace( ' ', '-', strtolower( $label ) );
-            $name = isset($option['name']) ? $option['name'] : str_replace( '-', '_', $id );
-            $dropdown_list = isset($option['dropdown']) ? $option['dropdown'] : false;
-	        echo $this->form_helper->zd_setting_input(array(
-		        'label'         => $label,
-		        'id'            => $this->prefix . '-' . $id,
-		        'name'          => $name,
-		        'type'          => $option['type'],
-		        'dropdown'      => $dropdown_list,
-		        'post_id'       => $post->ID,
-		        'metadata_name' => $this->metadata_name,
-		        'arg_name'      => $this->args_name
-	        ));
+	        if( 'label' === $option['type'] ) {
+		        echo isset($option['text']) ? '<p><strong>' . $option['text'] . '</strong></p>' : '';
+	        }
+	        else {
+		        $label =                $option['label'];
+		        $type =                 isset($option['type']) ? $option['type'] : 'text';
+		        $id =                   isset($option['id']) ? $option['id'] : str_replace( ' ', '-', strtolower( $label ) );
+		        $name =                 isset($option['name']) ? $option['name'] : str_replace( '-', '_', $id );
+		        $dropdown_list =        isset($option['dropdown']) ? $option['dropdown'] : false;
+		        $checkboxes =           isset($option['checkboxes']) ? $option['checkboxes'] : false;
+		        $before =               isset($option['before']) ? $option['before'] : false;
+		        $after =                isset($option['after']) ? $option['after'] : false;
+
+		        echo $this->form_helper->zd_setting_input(array(
+			        'label'             => $label,
+			        'id'                => $this->prefix . '-' . $id,
+			        'name'              => $name,
+			        'type'              => $type,
+			        'dropdown'          => $dropdown_list,
+			        'post_id'           => $post->ID,
+			        'metadata_name'     => $this->metadata_name,
+			        'arg_name'          => $this->args_name,
+			        'checkboxes'        => $checkboxes,
+			        'before'            => $before,
+			        'after'             => $after
+		        ));
+	        }
+
+
         }
-        unset($option, $label, $id, $name);
+//        unset($option, $label, $id, $name);
 
 
 	    echo $this->form_helper->zd_setting_input(array(
@@ -234,17 +348,32 @@ class zd_metabox {
             'id'        => $this->prefix . '-force-save',
             'name'      => $this->prefix . '_force_save',
             'post_id'   => $post->ID,
-            'metadata_name' => $this->metadata_name
+            'metadata_name' => $this->metadata_name,
+            'arg_name'          => $this->args_name,
+		    'value'     => '1'
 	    ));
 //
         echo '<input class="button button-primary button-large" type="submit" value="'.__('Save', $this->text_domain).'" />'."\n";
     }
 
-	public static function zd_get_custom_meta($post_id, $meta_name) {
+	public static function zd_get_custom_meta($post_id, $meta_name, $property=null) {
+
+		$meta_data = false;
 
 		$data = get_post_meta($post_id, self::$_metadata_name, true);
 
-		return unserialize($data['_' . $meta_name . '_data'][0]);
+		$index = '_' . $meta_name . '_data';
+
+		if( isset( $data[$index][0] )) {
+
+			$meta_data = unserialize( $data[$index][0] );
+
+			if( $property ) {
+				return is_array($property) ? $meta_data[$property] : unserialize( base64_decode( $meta_data[$property] ) );
+			}
+		}
+
+		return $meta_data;
 
 //		print_r($data);
 //

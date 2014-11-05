@@ -52,6 +52,7 @@ article {
 .entry-meta{
   margin-bottom: 1rem;
   line-height: 1.5;
+  @include rem-font(14);
 
   i{
     color: $electric-blue;
@@ -60,6 +61,16 @@ article {
 
   span {
     display: block;
+    line-height: 1.5;
+
+    &.cat-links {
+      display: none;
+    }
+
+    &:before {
+      color: $electric-blue;
+      margin-right: 10px;
+    }
 
     a {
       color: $text-black;
@@ -240,9 +251,13 @@ time.entry-date {
 
 .pagination {
   text-align: center;
+
+  .landing-page & {
+    padding: 40px 0;
+  }
 }
 
-@media #{$medium-up}{
+@media #{$zd-medium-up}{
   blockquote{
     font-size: 1.5rem;
   }
@@ -257,8 +272,13 @@ time.entry-date {
 
   .entry-meta {
     span {
+
       margin-right: 15px;
       display: inline-block;
+
+      &.cat-links {
+        display: inline-block;
+      }
 
       &:last-child {
         margin-right: 0;
@@ -275,13 +295,21 @@ time.entry-date {
 
 }
 
-@media #{$large-up} {
+@media #{$zd-medium-only} {
+  .entry-content {
+    iframe {
+      width: 100%;
+    }
+  }
+}
+
+@media #{$zd-large-up} {
 
   .post-share {
     a {
       width: auto;
-      margin: 0 20px 0 0;
-      padding: 0 40px;
+      margin: 0 10px 0 0;
+      padding: 0 30px;
 
       &:last-child{
         margin-right: 0;

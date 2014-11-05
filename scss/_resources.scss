@@ -21,12 +21,17 @@
   box-sizing: border-box;
 
   .entry-content {
-    @include restrict-height-by-lines(4);
     margin-bottom: 20px;
 
     p {
       margin-top: 0;
     }
+
+
+  }
+
+  &.clear {
+    clear: both;
   }
 }
 
@@ -82,19 +87,20 @@
   }
 
   .edit-link {
-    position: absolute;
     text-align: center;
-    margin: 0;
-    bottom: 0;
-    display: block;
-    left: 0;
-    right: 0;
+    display: inline-block;
+//    position: absolute;
+//    margin: 0;
+//    bottom: 0;
+//    left: 0;
+//    right: 0;
 
     a {
       display: block;
-      padding: 10px 0;
+      padding: 10px 40px;
       color: #fff;
       background-color: $green;
+      border-radius: 3px;
 
       &:before {
         color: #fff;
@@ -121,37 +127,26 @@
 
 // Flex box
 
-//.flexbox {
-//  .content-resources {
-//    display: flex;
-//
-//    .resources-card {
-//      &:first-child {
-//        flex-grow: 2;
-//      }
-//    }
-//  }
-//}
+.flexbox {
+  .content-resources {
+    display: flex;
+    flex: 1 100%;
+//    @include flexbox();
+//    @include flex(1 100%);
+    flex-flow: row wrap;
+//    justify-content: space-around;
 
-@media #{$medium-up} {
+    .resources-card {
+
+    }
+  }
+}
+
+@media #{$zd-medium-up} {
   .content-resources {
 //    margin: 140px auto 0;
     width: 680px;
     padding: 80px 0;
-  }
-  .resources-card {
-    margin: 0 10px 20px 10px;
-    width: 320px;
-//    min-height: 500px;
-
-    &.large {
-      width: 660px;
-    }
-
-//    &:first-child,
-//    &:nth-child(4){
-//      width: 660px;
-//    }
   }
 
   .resources-card-image {
@@ -162,12 +157,50 @@
 //      width: auto;
 //    }
   }
+
+  .resources-card {
+//    margin: 0 10px 20px 10px;
+    width: 100%;
+  }
 }
 
-@media #{$large-up} {
+@media #{$zd-large-up} {
   .content-resources {
 //    margin: 60px auto 0;
     width: 1040px;
-    padding: 80px 10px;
+    padding: 80px 10px 0;
+  }
+
+
+  .resources-card {
+    margin: 0 10px 20px 10px;
+    width: 320px;
+    //    min-height: 500px;
+
+    .entry-content {
+
+      @include restrict-height-by-lines(4);
+    }
+
+    &.large {
+      width: 660px;
+
+      .entry-content {
+        height: auto;
+      }
+
+      & + .large {
+        width: 320px;
+
+        .entry-content {
+          @include restrict-height-by-lines(4);
+        }
+      }
+    }
+
+    //    &:first-child,
+    //    &:nth-child(4){
+    //      width: 660px;
+    //    }
   }
 }

@@ -6,6 +6,9 @@
  * Time: 4:54 PM
  */
 
+
+include_once get_template_directory() . '/inc/font-awesome-icons.php';
+
 class ZingDesignThemeOptions {
     
     private $tabs;
@@ -15,6 +18,7 @@ class ZingDesignThemeOptions {
 //	public $zd_theme_options_id;
 	public $custom_css_file;
 	public $custom_css_file_name;
+	private $all_cats;
 
 	private $form_helper;
     
@@ -27,6 +31,16 @@ class ZingDesignThemeOptions {
 	    $this->custom_css_file_name = '/css/theme.css';
 
 	    $this->custom_css_file = get_template_directory() . $this->custom_css_file_name;
+
+	    $exclude_cats = get_cat_ID('Uncategorised');
+
+	    $exclude_cats .= ',' . get_term_id('Uncategorised', 'resource_category');
+
+	    $all_categories = get_categories(array(
+		    'exclude' => $exclude_cats
+	    ));
+
+	    $this->all_cats = $all_categories;
 
         if( is_admin() ) {
             add_action( 'admin_menu', array($this, 'zd_theme_options_init') );
@@ -56,14 +70,15 @@ class ZingDesignThemeOptions {
 		    // Define tabs
 		    // Format: ID => Label
 		    $tabs = array(
-			    'general'           => 'General',
-			    'contact-details'   => 'Contact details',
-			    'social-media'      => 'Social Media',
-			    'analytics'         => 'Analytics',
-			    'newsletter'        => 'Newsletter',
-			    'categories'        => 'Categories'
-//			    'design'            => 'Design',
-//			    'custom-post-types' => 'Custom post types',
+			    'general'           => __('General',            'zingdesign'),
+//			    'contact-details'   => __('Contact details',    'zingdesign'),
+			    'social-media'      => __('Social Media',       'zingdesign'),
+			    'analytics'         => __('Analytics',          'zingdesign'),
+			    'newsletter'        => __('Newsletter',         'zingdesign'),
+			    'categories'        => __('Categories',         'zingdesign'),
+			    'white_papers'      => __('White Papers',       'zingdesign')
+//			    'design'            => __('Design',             'zingdesign'),
+//			    'custom-post-types' => __('Custom post types',  'zingdesign'),
 		    );
 
 		    /*
@@ -81,13 +96,17 @@ class ZingDesignThemeOptions {
 //		    }
 //		    else {
 			    $options = array(
-				    'header_logo' => array(
-					    'id'        => 'zd-logo-header',
-					    'type'      => 'image',
-					    'section'   => 'general'
-				    ),
-				    'footer_logo' => array(
-					    'id'        => 'zd-logo-footer',
+//				    'header_logo' => array(
+//					    'id'        => 'zd-logo-header',
+//					    'type'      => 'image',
+//					    'section'   => 'general'
+//				    ),
+//				    'footer_logo' => array(
+//					    'id'        => 'zd-logo-footer',
+//					    'type'      => 'image',
+//					    'section'   => 'general'
+//				    ),
+				    'favicon_image' => array(
 					    'type'      => 'image',
 					    'section'   => 'general'
 				    ),
@@ -119,80 +138,101 @@ class ZingDesignThemeOptions {
 
 
 				    // Contact details
-				    'mailto_email_address' => array(
-					    'label'     => 'Email address',
-					    'section'   => 'contact-details',
-					    'type'      => 'email'
-				    ),
-				    'physical_address' => array(
-					    'label'     => 'Physical address',
-					    'section'   => 'contact-details',
-					    'type'      => 'textarea'
-				    ),
+//				    'mailto_email_address' => array(
+//					    'label'     => 'Email address',
+//					    'section'   => 'contact-details',
+//					    'type'      => 'email'
+//				    ),
+//				    'physical_address' => array(
+//					    'label'     => 'Physical address',
+//					    'section'   => 'contact-details',
+//					    'type'      => 'textarea'
+//				    ),
 
 				    // Newsletter
-				    'enable_mailchimp_subscription_form' => array(
-					    'label'     => 'Enable MailChimp subscription form',
+//				    'enable_mailchimp_subscription_form' => array(
+//					    'label'     => 'Enable MailChimp subscription form',
+//					    'section'   => 'newsletter',
+//					    'type'      => 'checkbox'
+//				    ),
+				    'mail_chimp_api_key' => array(
+					    'label'     => 'MailChimp API key',
 					    'section'   => 'newsletter',
-					    'type'      => 'checkbox'
+					    'type'      => 'text',
+					    'class'     => 'widefat'
 				    ),
 				    'mail_chimp_endpoint_url' => array(
-					    'label'     => 'MailChimp endpoint',
+					    'label'     => 'MailChimp newsletter endpoint URL',
 					    'section'   => 'newsletter',
 					    'type'      => 'url',
 					    'class'     => 'widefat'
 				    ),
 
 				    // Design
-				    'custom_body_id' => array(
-					    'label'     => 'Page content wrapper ID',
-					    'default'   => 'page'
-				    ),
-				    'custom_header_id' => array(
-					    'label'     => 'Header container ID',
-					    'default'   => 'header-container'
-				    ),
-				    'custom_footer_id' => array(
-					    'label'     => 'Footer container ID',
-					    'default'   => 'colophon'
-				    ),
-				    'body_background_color' => array(
-					    'label'     => 'Body background color',
-					    'section'   => 'design',
-					    'type'      => 'color'
-				    ),
-				    'body_text_color' => array(
-					    'label'     => 'Body text color',
-					    'section'   => 'design',
-					    'type'      => 'color'
-				    ),
-				    'header_background_color' => array(
-					    'label'     => 'Header background color',
-					    'section'   => 'design',
-					    'type'      => 'color'
-				    ),
-				    'header_text_color' => array(
-					    'label'     => 'Header text color',
-					    'section'   => 'design',
-					    'type'      => 'color'
-				    ),
-				    'footer_background_color' => array(
-					    'label'     => 'Footer background color',
-					    'section'   => 'design',
-					    'type'      => 'color'
-				    ),
-				    'footer_text_color' => array(
-					    'label'     => 'Footer text color',
-					    'section'   => 'design',
-					    'type'      => 'color'
-				    ),
+//				    'custom_body_id' => array(
+//					    'label'     => 'Page content wrapper ID',
+//					    'default'   => 'page'
+//				    ),
+//				    'custom_header_id' => array(
+//					    'label'     => 'Header container ID',
+//					    'default'   => 'header-container'
+//				    ),
+//				    'custom_footer_id' => array(
+//					    'label'     => 'Footer container ID',
+//					    'default'   => 'colophon'
+//				    ),
+//				    'body_background_color' => array(
+//					    'label'     => 'Body background color',
+//					    'section'   => 'design',
+//					    'type'      => 'color'
+//				    ),
+//				    'body_text_color' => array(
+//					    'label'     => 'Body text color',
+//					    'section'   => 'design',
+//					    'type'      => 'color'
+//				    ),
+//				    'header_background_color' => array(
+//					    'label'     => 'Header background color',
+//					    'section'   => 'design',
+//					    'type'      => 'color'
+//				    ),
+//				    'header_text_color' => array(
+//					    'label'     => 'Header text color',
+//					    'section'   => 'design',
+//					    'type'      => 'color'
+//				    ),
+//				    'footer_background_color' => array(
+//					    'label'     => 'Footer background color',
+//					    'section'   => 'design',
+//					    'type'      => 'color'
+//				    ),
+//				    'footer_text_color' => array(
+//					    'label'     => 'Footer text color',
+//					    'section'   => 'design',
+//					    'type'      => 'color'
+//				    ),
 
-				    'category_icons' => array(
-					    'label'     => 'Category icons',
-					    'section'   => 'categories',
-					    'type'      => 'select',
-					    'dropdown'  => array()
+				    // White papers
+				    'white_paper_email_template' => array(
+					    'label'     => 'White Paper email template',
+					    'name'      => 'white_paper_email_template',
+					    'section'   => 'white_papers',
+					    'type'      => 'textarea'
+				    ),
+				    'white_paper_from_email' => array(
+					    'label'     => 'White Paper "from" email',
+					    'name'      => 'white_paper_from_email',
+					    'section'   => 'white_papers',
+					    'type'      => 'email'
 				    )
+
+//				    'category_icons' => array(
+//					    'label'     => 'Category icons',
+//					    'section'   => 'categories',
+//					    'type'      => 'select',
+//					    'dropdown'  => get_font_awesome_option_list(),
+//					    'custom_options' => true
+//				    )
 
 				    // custom post types
 //				    'new_custom_post_types' => array(
@@ -236,7 +276,31 @@ class ZingDesignThemeOptions {
 				    );
 			    }
 
-			    $this->write_to_file(json_encode($options), $options_data_file);
+		        // Categories
+
+//		    echo '<pre>';
+//		    print_r($all_categories);
+//		    echo '</pre>';
+
+		        foreach($all_categories as $cat) {
+			        $cat_label = str_replace( "_", " ", ucfirst($cat->name) ) . ' icon';
+			        $option_id = $cat->slug . '_icon';
+			        $option_access_id = str_replace("_", "-", $option_id);
+
+			        $current_icon = get_option($option_access_id);
+
+			        $options[$option_id] = array(
+				        'label'             => $cat_label,
+				        'section'           => 'categories',
+				        'type'              => 'custom_dropdown',
+                        'dropdown'          => get_font_awesome_dropdown_list($option_access_id, $current_icon),
+                        'custom_options'    => true,
+				        'after'             => '<span class="zd-icon-preview"><i class="fa fa-'.$current_icon.'"></i></span>',
+				        'class'             => 'icon-dropdown'
+			        );
+		        }
+
+//			    $this->write_to_file(json_encode($options), $options_data_file);
 //		    }
 
 
@@ -333,6 +397,9 @@ class ZingDesignThemeOptions {
 
 	        // Validate options
 
+	        $before = isset($option['before']) ? $option['before'] : '';
+	        $after = isset($option['after']) ? $option['after'] : '';
+
 	        // If ID not explicitly set, replace key underscores with dashes
             $id = isset($option['id']) ? $option['id'] : str_replace("_", "-", $key );
             $class = isset($option['class']) ? $option['class'] : '';
@@ -392,6 +459,8 @@ class ZingDesignThemeOptions {
 		        $default = $option['default'];
 	        }
 
+	        $custom_options = isset($option['custom_options']) ? $option['custom_options'] : false;
+
 	        $input_options_array = array(
 		        'id'            => $id,
 		        'class'         => $class,
@@ -404,7 +473,10 @@ class ZingDesignThemeOptions {
 		        'rows'          => $rows,
 		        'cols'          => $cols,
 		        'wrapper'       => $wrapper,
-		        'help'          => $help
+		        'help'          => $help,
+		        'custom_options'=> $custom_options,
+		        'before'        => $before,
+		        'after'         => $after
 //		        'add_multiple'  => $add_multiple
 	        );
 

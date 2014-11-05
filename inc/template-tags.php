@@ -13,10 +13,21 @@ if ( ! function_exists( 'zd_paging_nav' ) ) :
  *
  * @since Zing Design 1.0
  */
-function zd_paging_nav() {
+function zd_paging_nav($max_num_pages=false) {
 	// Don't print empty markup if there's only one page.
-	if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+//	if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+//		return;
+//	}
+
+	// Custom pagination logic for static templates
+	if( $max_num_pages ) {
+		$total = $max_num_pages;
+	}
+	else if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
 		return;
+	}
+	else {
+		$total = $GLOBALS['wp_query']->max_num_pages;
 	}
 
 	$paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
@@ -38,7 +49,7 @@ function zd_paging_nav() {
 	$links = paginate_links( array(
 		'base'     => $pagenum_link,
 		'format'   => $format,
-		'total'    => $GLOBALS['wp_query']->max_num_pages,
+		'total'    => $total,
 		'current'  => $paged,
 		'mid_size' => 1,
 		'add_args' => array_map( 'urlencode', $query_args ),
@@ -228,14 +239,23 @@ if( ! function_exists('get_category_icons') ) :
 		if( 'post' === $post_type ) {
 			$categories = get_the_category();
 		}
-		else if( 'resource' === $post_type ) {
-			$categories = get_the_terms($post_id, 'resource_category');
-		}
+//		else if( 'resource' === $post_type ) {
+//			$categories = get_the_terms($post_id, 'resource_category');
+//		}
 		foreach($categories as $cat) {
 			// Exclude featured
 			if(is_array($exclude) && in_array($cat->name, $exclude)) continue;
 
-			$html .= "<span class=\"category-icon-{$cat->slug}\">{$cat->name}</span>";
+			$cat_class = '';
+
+			if($icon_suffix = get_option($cat->slug . '-icon') ) {
+				$cat_class = 'fa fa-' . $icon_suffix;
+			}
+			else {
+				$cat_class = 'category-icon-' . $cat->slug;
+			}
+
+			$html .= "<span class=\"$cat_class\">{$cat->name}</span>";
 		}
 
 		if( ! $echo ) {
@@ -244,4 +264,108 @@ if( ! function_exists('get_category_icons') ) :
 		echo $html;
 	}
 
+endif;
+
+if( ! function_exists('zd_the_post_thumbnail') ) :
+
+	function zd_the_post_thumbnail($image_size='full') {
+
+		global $post;
+
+		$before = $after = $post_image = '';
+
+		$is_single = is_single();
+
+		$post_link = get_the_permalink();
+
+		$post_link_before ="<a href=\"{$post_link}\">\n";
+		$post_link_after = "</a>\n";
+
+		// Check if the post thumbnail exists, show this regardless of single/multiple
+		if( has_post_thumbnail() ) {
+			$post_image = get_the_post_thumbnail( $post->ID, $image_size );
+			$before = $post_link_before;
+			$after = $post_link_after;
+		}
+
+		else if( ! $is_single ) {
+			$first_image_id = false;
+
+			if( $attached_media = get_attached_media( 'image') ) {
+
+				if( !empty( $attached_media ) ) {
+					$keys = array_keys($attached_media);
+					$first_image_id = $attached_media[$keys[0]]->ID;
+				}
+			}
+			else if( is_int( intval( zd_get_first_image() ) ) ) {
+
+				// If not in media, use a custom function to search
+				// through the post with regex
+				$first_image_id = zd_get_first_image();
+			}
+
+
+			// After all that's done, check to see if the image ID was set
+			// If it is, display the image
+
+			if( $first_image_id ) {
+
+				$first_image_src = wp_get_attachment_image_src($first_image_id, $image_size);
+
+				if( ! empty( $first_image_src) ) {
+
+					$post_image = "<img src=\"{$first_image_src[0]}\" width=\"{$first_image_src[1]}\" height=\"{$first_image_src[2]}\" />\n";
+
+//					$post_image = $first_image;
+					$before = $post_link_before;
+					$after = $post_link_after;
+
+				}
+
+
+			}
+		}
+
+		echo $before;
+
+		echo $post_image;
+
+		echo $after;
+
+
+
+
+	}
+
+endif;
+
+
+if( ! function_exists('zd_get_first_image') ) :
+	function zd_get_first_image() {
+		global $post;
+
+		$first_img = false;
+		ob_start();
+		ob_end_clean();
+//		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+		preg_match_all('/<img.+class=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+
+//		_d( $matches );
+
+		if( isset($matches[1][0]) ) {
+			preg_match('/([0-9]+)/', $matches[1][0], $decimals);
+//			_d($decimals);
+			if( isset($decimals[0]) ) {
+				$first_img = $decimals[0];
+			}
+		}
+//		$first_img = isset($matches[1][0]) ? $matches[1][0] : false;
+
+//		if(empty($first_img)) {
+//			$first_img = get_template_directory_uri() . "/images/default.png";
+
+//		}
+		return $first_img;
+	}
 endif;

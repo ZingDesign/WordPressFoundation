@@ -1,6 +1,6 @@
 #main{
   width: 100%;
-  max-width: $medium;
+  max-width: $zd-medium;
   padding: 40px 0;
   box-sizing: border-box;
   margin: 60px auto 0;
@@ -20,7 +20,7 @@
 
 .content {
   width: 100%;
-  max-width: $medium;
+  max-width: $zd-medium;
   padding: 40px 0;
   box-sizing: border-box;
   margin: 60px auto 0 auto;
@@ -46,13 +46,13 @@
   display: block;
 }
 
-@media #{$medium-up} {
+@media #{$zd-medium-up} {
   #primary {
 //    width: 500px;
     width: 65%;
     display: block;
     float: left;
-    padding-right: 10px;
+    padding-right: 20px;
 
     .main-full-width & {
       width: 100%;
@@ -72,13 +72,13 @@
     padding: 80px 0;
   }
   .header-content {
-    max-width: $medium;
+    max-width: $zd-medium;
   }
 }
 
-@media #{$large-up} {
+@media #{$zd-large-up} {
   #main {
-    max-width: $large;
+    max-width: $zd-large;
 
     .main-full-width & {
       max-width: none;
@@ -87,12 +87,12 @@
 
   #primary {
 //    width: 660px;
-    width: (660 / strip-unit($large) ) * 100%;
-    padding-right: 20px;
+    width: (660 / strip-unit($zd-large) ) * 100%;
+//    padding-right: 20px;
   }
   #content-secondary {
 //    width: 360px;
-    width: (360 / strip-unit($large) ) * 100%;
+    width: (360 / strip-unit($zd-large) ) * 100%;
     padding-left: 20px;
   }
   .content {

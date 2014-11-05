@@ -36,6 +36,13 @@
       background: darken($green, 5%);
     }
   }
+  // green button
+  &.orange{
+    background: $orange;
+    &:hover{
+      background: darken($orange, 10%);
+    }
+  }
   // button with facebook's colours
   &.facebook{
     background: #3B5998;
@@ -68,14 +75,6 @@
   &.full-width{
     width: 100%;
   }
-  // this is a special button that only appears in the blog navigation
-  &.promo{
-    border-radius: 0;
-    width: 320px;
-    margin: 4px 0 0 0;
-    float: right;
-    text-align: center;
-  }
 }
 .button-nav{
   display: none;
@@ -90,13 +89,35 @@
   border: none;
 }
 
-@media #{$medium-up} {
-  .button{
-    &.promo{
-      height:72px;
-      width: 270px;
+// this is a special button that only appears in the blog navigation
+.header-content {
+  //    border-radius: 0;
+  //    width: 320px;
+  .button {
+    &.promo {
+
+//      margin: 4px 0 0 0;
+      float: right;
+      text-align: center;
+
+      height: 56px;
+      //  padding: 16px;
+      //  line-height: 24px;
+      line-height: 56px;
+      border-radius: 3px;
+      margin: 12px 0;
+      font-weight: bold;
     }
   }
+}
+
+@media #{$zd-medium-up} {
+//  .button{
+//    &.promo{
+//      height:72px;
+//      width: 270px;
+//    }
+//  }
 
   // replace button-nav with specificity selector
   .header-sub {
@@ -109,7 +130,7 @@
         padding: 0 15px;
         display: block;
 
-        @include transition(background 250ms ease-out);
+        transition: background 250ms ease-out;
 
         &:hover,
         &.active{
@@ -120,13 +141,13 @@
   }
 
 }
-@media #{$large-up}{
-  .button{
-    &.promo{
-      height: 82px;
-      width: 320px;
-    }
-  }
+@media #{$zd-large-up}{
+//  .button{
+//    &.promo{
+//      height: 82px;
+//      width: 320px;
+//    }
+//  }
 //  .button-nav{
 //    height:90px;
 //    line-height: 90px;

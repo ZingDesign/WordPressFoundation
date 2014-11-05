@@ -48,8 +48,11 @@
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-    <link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" type="image/x-icon"/>
-
+	<?php if( get_option('favicon-image') ) : ?>
+		<link rel="shortcut icon" href="<?php echo wp_get_attachment_url(get_option('favicon-image')); ?>" type="image/x-icon"/>
+	<?php else : ?>
+		<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" type="image/x-icon"/>
+	<?php endif; ?>
 	<?php wp_head(); ?>
 
 
@@ -110,7 +113,7 @@
 					<ul>
 						<?php
 						$categories = get_terms(
-							array('category', 'resource_category'),
+							array('category'),
 							array('exclude' => get_cat_ID('Uncategorised') )
 						);
 
@@ -152,15 +155,16 @@
 		<div class="header-content">
 
 			<?php
+//			_d( zd_is_resource_category() );
 
-			if( is_page(array('Resources', 'resources', 41)) || is_tax('resource_category') ) {
+			if( zd_is_resource_page() ) {
 				zd_get_menu('resources');
 			}
 			else {
 				zd_get_menu('secondary');
 			} ?>
 
-			<a href="https://app.raygun.io/signup" class="button green promo" target="_blank">Get started for FREE</a>
+			<a href="https://app.raygun.io/signup" class="green promo button" target="_blank">Get started for FREE</a>
 
 		</div>
 

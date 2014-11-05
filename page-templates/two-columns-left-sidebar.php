@@ -6,7 +6,10 @@
  * @since Zing Design 1.0
  */
 
-get_header(); ?>
+get_header();?>
+
+<div id="main">
+	<?php get_sidebar(); ?>
 
 	<div id="main-content" class="main-content">
 
@@ -37,7 +40,8 @@ get_header(); ?>
 			</div><!-- #content -->
 		</div><!-- #primary -->
 	</div><!-- #main-content -->
+</div>
+
 
 <?php
-get_sidebar();
 get_footer();

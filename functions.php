@@ -31,11 +31,64 @@ define("ZD_TEXT_DOMAIN", "zingdesign");
 //
 //}
 
+/*
+ Simple debugger function for debuggin'
+*/
+
+if( !function_exists('_d') ) :
+	function _d($to_debug=null, $raw=false) {
+
+
+		if( true === WP_DEBUG ) {
+
+			if( is_array($to_debug) || is_object($to_debug) ) {
+
+				if( $raw ) {
+					$to_debug = esc_html( serialize($to_debug) );
+				}
+
+				echo "<pre>\n";
+				print_r($to_debug);
+				echo "</pre>\n";
+			}
+			else {
+
+				if( $raw ) {
+					$to_debug = esc_html($to_debug);
+				}
+				var_dump($to_debug);
+			}
+
+		}
+
+	}
+endif;
+
+
+/*
+ * Get term ID
+ * Another possibly necessary level of abstraction... maybe
+ */
+
+if( ! function_exists('get_term_id') ) :
+
+	function get_term_id($cat_name, $tax) {
+
+		$cat = get_term_by( 'name', $cat_name, $tax );
+		if ( $cat )
+			return $cat->term_id;
+		return 0;
+
+	}
+
+endif;
+
 include_once get_template_directory() . '/inc/FormHelper.php';
-include_once get_template_directory() . '/inc/theme-options.php';
+
 include_once get_template_directory() . '/inc/custom-post-types.php';
 include_once get_template_directory() . '/inc/custom-shortcodes.php';
 include_once get_template_directory() . '/inc/custom-metaboxes.php';
+include_once get_template_directory() . '/inc/theme-options.php';
 //include_once get_template_directory() . '/inc/custom-widgets.php';
 //include_once get_template_directory() . '/inc/custom-sidebars.php';
 //}
@@ -192,6 +245,7 @@ function zd_widgets_init() {
 
 	require get_template_directory() . '/inc/custom-widgets.php';
 	register_widget('ZD_Widget_Featured_Posts');
+	register_widget('ZD_Widget_Sticky_Content');
 
 	register_widget('ZD_Widget_Newsletter_Subscribe');
 
@@ -318,6 +372,8 @@ function zd_admin_setup() {
 
     wp_enqueue_style( 'zd-admin-style', get_template_directory_uri() . '/css/zing-admin.css' );
 
+	wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+
 
 	wp_enqueue_media();
 
@@ -325,8 +381,10 @@ function zd_admin_setup() {
 	wp_enqueue_style('spectrum-css', get_template_directory_uri() . '/fnd/bower_components/spectrum/spectrum.css');
 	wp_enqueue_script('spectrum-js', get_template_directory_uri() . '/fnd/bower_components/spectrum/spectrum.js', array('jquery'), '1', false);
 
+	wp_enqueue_script('foundation', get_template_directory_uri() . '/fnd/bower_components/foundation/js/foundation.min.js');
+
 	//Custom admin script
-	wp_enqueue_script('zd-admin', get_template_directory_uri() . '/js/admin/zing-admin.js', array('jquery', 'spectrum-js'), '1', true);
+	wp_enqueue_script('zd-admin', get_template_directory_uri() . '/js/admin/zing-admin.js', array('jquery', 'foundation', 'spectrum-js'), '1', true);
 
 
 
@@ -773,52 +831,6 @@ function zd_get_menu($menu_location='primary', $menu_class='nav-menu', $is_found
 endif;
 
 
-//function zd_search_form( $form ) {
-//	$form = '<form role="search" method="get" id="searchform" class="searchform" action="' . home_url( '/' ) . '" >
-//	<div><label class="screen-reader-text" for="s">' . __( 'Search for:' ) . '</label>
-//	<input type="text" value="' . get_search_query() . '" name="s" id="s" />
-//	<input type="submit" id="searchsubmit" value="'. esc_attr__( 'Search' ) .'" />
-//	</div>
-//	</form>';
-//
-//	return $form;
-//}
-//
-//add_filter( 'get_search_form', 'zd_search_form' );
-
-
-if( !function_exists('_d') ) :
-	function _d($to_debug=null) {
-
-		if( true === WP_DEBUG ) {
-
-			if( is_array($to_debug) || is_object($to_debug) ) {
-				echo "<pre>\n";
-				print_r($to_debug);
-				echo "</pre>\n";
-			}
-			else {
-				var_dump($to_debug);
-			}
-
-		}
-
-	}
-endif;
-
-//if( ! function_exists('get_author_by_id') ) :
-//
-//	function get_author_by_id($id) {
-//		$userinfo = get_userdata($id);
-//		return $userinfo->first_name;
-//	}
-//endif;
-
-//function zd_custom_excerpt_length( $length ) {
-//	return 10;
-//}
-//add_filter( 'excerpt_length', 'zd_custom_excerpt_length', 999 );
-
 add_filter( 'image_size_names_choose', 'zd_custom_sizes' );
 
 function zd_custom_sizes( $sizes ) {
@@ -826,4 +838,424 @@ function zd_custom_sizes( $sizes ) {
 		'resource-thumb' => __( 'Default small image to display on Resource index page', 'zingdesign' ),
 		'resource-large' => __( 'Large image to display for featured posts on Resource index page', 'zingdesign' ),
 	) );
+}
+
+/**
+ * Tests if any of a post's assigned categories are descendants of target categories
+ *
+ * @param int|array $cats The target categories. Integer ID or array of integer IDs
+ * @param int|object $_post The post. Omit to test the current post in the Loop or main query
+ * @return bool True if at least 1 of the post's categories is a descendant of any of the target categories
+ * @see get_term_by() You can get a category by name or slug, then pass ID to this function
+ * @uses get_term_children() Passes $cats
+ * @uses in_category() Passes $_post (can be empty)
+ * @version 2.7
+ * @link http://codex.wordpress.org/Function_Reference/in_category#Testing_if_a_post_is_in_a_descendant_category
+ */
+if ( ! function_exists( 'post_is_in_descendant_category' ) ) {
+	function post_is_in_descendant_category( $cats, $_post = null ) {
+		foreach ( (array) $cats as $cat ) {
+			// get_term_children() accepts integer ID only
+			$descendants = get_term_children( (int) $cat, 'category' );
+			if ( $descendants && in_category( $descendants, $_post ) )
+				return true;
+		}
+		return false;
+	}
+}
+
+if( ! function_exists('zd_is_resource_page') ) :
+	function zd_is_resource_page() {
+		global $post;
+//		_d( $post->ID );
+		$resource_cat_id = get_cat_ID('resource');
+
+		$resource_cats = array();
+		$resource_cats[] = $resource_cat_id;
+
+		$resource_child_cats = get_categories(array(
+			'child_of' => $resource_cat_id
+		));
+
+		foreach($resource_child_cats as $cat) {
+			$resource_cats[] = $cat->term_id;
+		}
+
+//		_d(in_category( $resource_cat_id ));
+//		_d(post_is_in_descendant_category( $resource_cat_id, $post ));
+//		_d(is_category($resource_cat_id));
+
+		$is_descendant_of_resources = ( is_single() && post_is_in_descendant_category( $resource_cat_id, $post ) );
+
+		return (in_category( $resource_cat_id )
+		        || $is_descendant_of_resources
+		        || is_category( $resource_cats )
+				|| is_page(array('Resources', 'resources', 41) ));
+	}
+endif;
+
+
+function zd_get_white_paper_form($post_id) {
+
+	$html = '';
+	$general_message = false;
+
+	$nonce_name = 'white-paper_' . $post_id;
+	$nonce = wp_create_nonce( $nonce_name );
+
+	if( $white_paper_meta = zd_metabox::zd_get_custom_meta( $post_id, 'white_paper' ) ) {
+		$file_url = wp_get_attachment_url( $white_paper_meta['white_paper_pdf'] );
+
+		$fh = new FormHelper();
+		$inputs = array(
+			array(
+				'label'    => __('First name', 'zingdesign'),
+				'name'     => 'first_name',
+				'required' => true
+			),
+			array(
+				'label'    => __('Last name', 'zingdesign'),
+				'name'     => 'last_name',
+				'required' => true
+			),
+			array(
+				'label'    => __('Email', 'zingdesign'),
+				'name'     => 'email',
+				'type'     => 'email',
+				'required' => true
+			),
+			array(
+				'label'    => __('Phone', 'zingdesign'),
+				'name'     => 'phone',
+				'type'     => 'tel',
+				'required' => true
+			),
+			array(
+				'label'    => __('Company name', 'zingdesign'),
+				'name'     => 'company_name',
+				'required' => true
+			),
+//			array(
+//				'label'    => 'Company size',
+//				'name'     => 'company_size',
+//				'type'     => 'select',
+//				'dropdown' => array(
+//					'201-or-more' => '201 or more people',
+//					'51-200'      => '51 to 200 people',
+//					'26-50'       => '26 to 50 people',
+//					'11-25'       => '11 to 25 people',
+//					'6-10'        => '6 to 10 people',
+//					'1-5'         => '1 to 5 people',
+//				),
+//				'required' => true
+//			),
+//			array(
+//				'label'    => 'Business type',
+//				'name'     => 'business_type',
+//				'type'     => 'select',
+//				'dropdown' => array(
+//					'saas'                 => 'SaaS (Software as a Service)',
+//					'ecommerce'            => 'E-commerce',
+//					'ad_supported'         => 'Ad-supported',
+//					'facebook_application' => 'Facebook application',
+//					'agency_consultancy'   => 'Agency / consultancy'
+//				),
+//				'required' => true
+//
+//
+//			),
+			array(
+				'label'    => 'Company website',
+				'name'     => 'company_website',
+				'type'     => 'url',
+				'required' => true
+			),
+			array(
+				'label' => __('Please do not fill in this field', 'zingdesign'),
+				'id'    => 'hp-sauce',
+				'name'  => 'hp_sauce',
+				'type'  => 'honeypot'
+			)
+
+		);
+
+		if ( isset( $_POST['submit_white_paper'] ) ) {
+
+			if( false === wp_verify_nonce($_POST['white_paper_nonce'], $nonce_name ) )  {
+				echo '<p class="error">' . __('Hey! What do you think you\'re doing?!','zingdesign') . '</p>' . "\n";
+				return false;
+			}
+
+			$clean_data = array_map( 'esc_html', $_POST );
+
+			$validation_errors = zd_validate_white_paper_form($clean_data, $inputs);
+
+			// Valid
+			if( empty( $validation_errors ) ) {
+
+				$full_name = $clean_data['first_name'] . ' ' . $clean_data['last_name'];
+
+				$subject = __('Raygun white paper: ', 'zingdesign') . get_the_title($post_id);
+
+				$message_body = '';
+
+				if( get_option('white_paper_email_template') ) {
+					$message_body .= get_option('white_paper_email_template');
+				}
+				else {
+
+					$message_body .= '<h1 style="font-family:Helvetica,Arial,sans-serif;">' . __('Thanks for your interest in Raygun', 'zingdesign') . '</h1>';
+
+					$message_body .= '<p>' . __('Click the link below to download our white paper:', 'zingdesign' ) . '</p>';
+				}
+
+				$message_body .= '<p><a style="font-family:Helvetica,Arial,sans-serif;background-color:#9aca40;color:#fff;padding:10px 40px;display:inline-block;text-decoration:none;border-radius:3px;" href="'.$file_url.'">' . __('Download the PDF!') . '</a></p>';
+
+				$message_sender = zd_send_email_smtp( array(
+					'to'        => $clean_data['email'],
+					'to_name'   => $full_name,
+					'from'      => 'no-reply@raygun.io',
+					'from_name' => 'Raygun',
+					'subject'   => $subject,
+					'body'      => $message_body
+				) );
+
+				if( true === $message_sender ) {
+					$general_message .= '<p class="success">' . __( 'Message sent, check your email inbox for a link to the white paper', 'zingdesign' ) . '</p>' . "\n";
+				}
+				else {
+					$general_message .= '<p class="error">' . $message_sender . '</p>' . "\n";
+				}
+
+				$mailchimp_sender = zd_send_data_to_mailchimp($clean_data);
+
+				_d($mailchimp_sender);
+
+				if( 'error' === $mailchimp_sender['status'] ) {
+					// Fail quietly?
+				}
+			}
+		}
+
+		$html .= '<form id="white-paper-form" action="' . $_SERVER['REQUEST_URI'] . '" method="post">' . "\n";
+
+		// First name
+
+		foreach($inputs as $input) {
+
+			if( isset($validation_errors[$input['name']] ) ) {
+				$input['error'] = $validation_errors[$input['name']];
+			}
+
+			$html .= $fh->zd_setting_input( $input );
+		}
+
+		//Nonce field goes here
+		$html .= '<input type="hidden" value="' . $nonce . '" name="white_paper_nonce" />' . "\n";
+
+		$html .= '<button type="submit" class="green button" name="submit_white_paper">' . __( 'Send me my PDF!', 'zingdesign' ) . '</button>' . "\n";
+
+		$html .= '<p><small><a class="zd-help" href="#help" title="';
+		$html .= __('We will populate our lead nurturing mail list with these details', 'zingdesign') . '">';
+		$html .= __('Hey! What are you going to do with my personal details?', 'zingdesign');
+		$html .= '</a></small></p>';
+
+		$html .= '</form>' . "\n";
+
+		if( $general_message ) {
+			$html .= '<div class="general-message">' . $general_message . "</div>\n";
+		}
+
+		echo $html;
+	}
+
+
+}
+
+function zd_validate_white_paper_form($form_data, $_inputs) {
+	$errors = array();
+
+	$error_required = __('This field is required', 'zingdesign');
+	$error_invalid_email = __('Please enter a valid email address', 'zingdesign');
+	$error_invalid_url = __('Please enter a valid URL', 'zingdesign');
+	$honeypot_not_empty = __('Please do not fill in this field', 'zingdesign');
+
+	foreach($_inputs as $input) {
+		$name = $input['name'];
+		$type = isset($input['type']) ? $input['type'] : 'text';
+		$required = isset($input['required']) ? $input['required'] : false;
+
+		if( 'honeypot' === $type && isset($form_data[$name]) && (strlen($form_data[$name]) > 0) ) {
+			$errors[$name] = $honeypot_not_empty;
+		}
+
+		if( $required ) {
+			if( ! isset( $form_data[$name] ) ) {
+				$errors[$name] = $error_required;
+			}
+
+			else if( 'select' === $type && $form_data[$name] === "-1" ) {
+				$errors[$name] = $error_required;
+			}
+		}
+
+		if( 'email' === $type && ! is_email($form_data[$name]) ) {
+			$errors[$name] = $error_invalid_email;
+		}
+
+		if( 'url' === $type && (esc_url($form_data[$name]) === '') ) {
+			$errors[$name] = $error_invalid_url;
+		}
+	}
+
+	return $errors;
+}
+
+/*
+ * Function: zd_send_email_smtp
+ *
+ * Args: $details
+ * Format :
+ * [to]         => (string)
+ * [to_name]    => (string)
+ * [from]       => (string)
+ * [from_name]  => (string)
+ * [subject]    => (string)
+ * [cc]         => (string)
+ * [cc_name]    => (string)
+ * [body]       => (string)
+ *
+ */
+
+function zd_send_email_smtp( $message=array() ) {
+
+	if( WP_DEBUG && ( 'boilerplate' === $_SERVER['SERVER_NAME'] ) ) {
+		return true;
+	}
+
+	if(empty($message)) {
+		return false;
+	}
+
+	if( ! isset($message['from_name']) ) {
+		$message['from_name'] = get_bloginfo( 'name' );
+	}
+
+	if( ! isset($message['from']) ) {
+		$message['from'] = get_option('admin_email');
+	}
+
+	if( ! isset($message['to_name']) ) {
+		$message['to_name'] = __('Recipient', 'zingdesign');
+	}
+
+	if( ! isset($message['subject']) ) {
+		$message['subject'] = sprintf( __('Message from %s', 'zingdesign'), get_bloginfo( 'name' ) );
+	}
+
+	if( ! isset($message['body']) && WP_DEBUG ) {
+		return __('Message body required', 'zingdesign');
+	}
+
+	if( ! isset($message['to']) && WP_DEBUG ) {
+		return __('Message "to" recipient required', 'zingdesign');
+	}
+
+	require_once( get_template_directory() .'/libs/PHPMailer/class.phpmailer.php' );
+	require_once( get_template_directory() .'/libs/PHPMailer/class.smtp.php' );
+
+	extract($message);
+
+	try {
+		// smtp settings
+		// set this to true to throw exceptions
+		// if you're running into issues
+		$mail = new PHPMailer();
+
+		$mail -> IsSMTP();
+		$mail -> SMTPAuth = true;
+		$mail -> SMTPSecure = "tls";
+		$mail -> Host = "smtp.mandrillapp.com";
+		$mail -> Username = "hello@zingdesign.co.nz";
+		$mail -> Password = "l_EWEfrXJLrbGd-KL4LRcw";
+
+		$mail -> SetFrom( $from, $from_name );
+		$mail -> Subject = __( $subject, "zingdesign" );
+		$mail -> MsgHTML($body);
+
+		if( isset($cc) && isset($cc_name) ) {
+			$mail -> addCC( $cc, $cc_name );
+		}
+
+		// recipient
+		$mail -> AddAddress( $to, $to_name ); // this is where the email will be sent
+
+		// success
+		if ($mail -> Send()) {
+			// woohoo! the mail sent! do your success things here.
+			return true;
+		}
+		else {
+			return __('Message failed to send. Please try again', 'zingdesign');
+		}
+
+
+		// errors :(
+	} catch (phpmailerException $e) {
+
+		if( WP_DEBUG ) {
+			return $e -> errorMessage();
+		}
+
+	} catch (Exception $e) {
+
+		if( WP_DEBUG ) {
+			return $e -> getMessage();
+		}
+
+	}
+
+	return false;
+}
+
+function zd_send_data_to_mailchimp($data) {
+
+	extract($data);
+
+	$mailchimp_api_key = "88c07c4ae059aa9ddeefd7796caafd3d-us5";
+
+	$mailchimp_list_id = "4f0fa531f3";
+
+//	$api_url = "https://us2.api.mailchimp.com/2.0/lists/subscribe.php&apikey={$mailchimp_api_key}";
+
+	require_once( get_template_directory() . '/libs/mailchimp-api/src/Drewm/MailChimp.php' );
+
+	try {
+		$MailChimp = new \Drewm\MailChimp($mailchimp_api_key);
+
+		return $MailChimp->call('lists/subscribe', array(
+			'id'                => $mailchimp_list_id,
+			'email'             => array('email'=>$email),
+			'merge_vars'        => array(
+				'FNAME'     => $first_name,
+				'LNAME'     => $last_name,
+				'PHONE'     => $phone,
+				'COMPANY'   => $company_name,
+				'WEBSITE'   => $company_website,
+			),
+			'double_optin'      => true,
+			'update_existing'   => true,
+			'replace_interests' => false,
+			'send_welcome'      => false,
+		));
+	}
+	catch( Exception $e ) {
+		if( WP_DEBUG ) {
+			return $e -> getMessage();
+		}
+	}
+
+	return false;
+
+
 }

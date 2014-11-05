@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Resources Page
+ * Template Name: White Papers Page
  * @package WordPress
  * @subpackage Zing_Design
  * @since Zing Design 1.0
@@ -8,28 +8,27 @@
 
 
 get_header(); ?>
-	<div class="content-wrapper" role="main">
+	<div id="main">
 
-		<div class="content-resources">
+		<?php the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header><!-- .entry-header -->' ); ?>
+
+		<div class="row" role="main">
 			<?php
 
-			$resource_post_query = new WP_Query( array(
-				'post_type' => 'resource'
+			$custom_post_type_query = new WP_Query( array(
+				'post_type' => 'white_paper'
 			) );
 
-			if ( $resource_post_query->have_posts() ) :
+			if ( $custom_post_type_query->have_posts() ) :
 				// Start the Loop.
-				$resource_index = 0;
-				while ( $resource_post_query->have_posts() ) : $resource_post_query->the_post();
+				while ( $custom_post_type_query->have_posts() ) : $custom_post_type_query->the_post();
 
 					/*
 					 * Include the post format-specific template for the content. If you want to
 					 * use this in a child theme, then include a file called called content-___.php
 					 * (where ___ is the post format) and that will be used instead.
 					 */
-					get_template_part( 'content', 'resource' );
-
-					$resource_index ++;
+					get_template_part( 'content', 'white-paper' );
 
 				endwhile;
 				// Previous/next post navigation.

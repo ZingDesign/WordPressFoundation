@@ -1,3 +1,57 @@
+@import "globals";
+
+@import "../fnd/bower_components/foundation/scss/foundation/functions";
+@import "admin-settings";
+
+// Comment out unused Foundation components here:
+
+//@import "../fnd/bower_components/foundation/scss/foundation/components/accordion";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/alert-boxes";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/block-grid";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/breadcrumbs";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/button-groups";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/buttons";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/clearing";
+@import"../fnd/bower_components/foundation/scss/foundation/components/dropdown";
+@import"../fnd/bower_components/foundation/scss/foundation/components/dropdown-buttons";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/flex-video";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/forms";
+//@import "../fnd/bower_components/foundation/scss/foundation/components/grid";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/inline-lists";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/joyride";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/keystrokes";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/labels";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/magellan";
+
+// Orbit replaced by Slick
+//@import"../fnd/bower_components/foundation/scss/foundation/components/orbit";
+
+//@import"../fnd/bower_components/foundation/scss/foundation/components/pagination";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/panels";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/pricing-tables";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/progress-bars";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/reveal";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/side-nav";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/split-buttons";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/sub-nav";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/switch";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/tables";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/tabs";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/thumbs";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/tooltips";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/top-bar";
+//@import "../fnd/bower_components/foundation/scss/foundation/components/type";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/offcanvas";
+//@import"../fnd/bower_components/foundation/scss/foundation/components/visibility";
+
+@import "compass/css3/transition";
+@import "compass/css3/transform";
+
+select {
+  width: auto;
+}
+
+
 .zd-help {
   background-color: #d00;
   display: inline-block;
@@ -59,15 +113,39 @@
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
+
+  .button {
+    &.dropdown {
+      display: inline-block;
+    }
+  }
+
+  .f-dropdown {
+    &:focus {
+      outline: none;
+    }
+
+    &.icon-dropdown {
+      max-width: 900px;
+    }
+  }
 }
 
 .zd-image-src-output {
   width: 50%;
+
+  .widget-content & {
+    width: 100%;
+  }
 }
 
 .zd-image-preview {
 //  margin: 20px 0;
 //  display: inline-block;
+  display: inline-block;
+  min-width: 64px;
+  min-height: 64px;
+  background-size: contain;
 }
 
 .zd-hide {
@@ -89,4 +167,60 @@
   .postbox & {
     margin-bottom: 10px;
   }
+}
+
+// metaboxes
+.postbox {
+  .zd-image-input-wrapper {
+    margin-top: 10px;
+  }
+}
+
+.zd-icon-preview {
+  font-size: 16px;
+
+  i {
+    color: $electric-blue;
+  }
+}
+
+.zd-icon-list-item {
+  display: inline-block;
+
+  label {
+    min-width: initial;
+    padding: 5px;
+    text-align: center;
+
+    i {
+      padding: 3px;
+      background-color: #fff;
+      display: inline-block;
+      border-radius: 3px;
+      @include transition( transform 200ms ease 150ms, color 200ms, background 200ms );
+    }
+
+    &:hover {
+      //      border-radius: 50%;
+      color: $electric-blue;
+      i {
+        background-color: rgba(#fff, 0.8);
+        @include transform( scale(4) translateY(30px) );
+      }
+      //        font-size: 2rem;
+    }
+  }
+
+  input[type="radio"] {
+    &:checked {
+      & + label {
+        background-color: $orange;
+        i {
+          background-color: $orange;
+          color: #fff;
+        }
+      }
+    }
+  }
+
 }

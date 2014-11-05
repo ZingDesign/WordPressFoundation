@@ -53,7 +53,7 @@
   overflow: hidden;
 
 //  transform: translateY(-10%);
-  @include transform(translateY(-10%));
+  transform: translateY(-10%);
   opacity: 0;
   visibility: hidden;
 
@@ -61,9 +61,7 @@
 //  opacity .25s ease-in-out,
 //  visibility .25s ease-in-out;
 
-  @include transition(transform .25s ease-in-out,
-          opacity .25s ease-in-out,
-          visibility .25s ease-in-out);
+  transition: transform .25s ease-in-out, opacity .25s ease-in-out, visibility .25s ease-in-out;
   ul {
     list-style: none;
     display: block;
@@ -242,14 +240,14 @@
 #listener-mobile-navigation:checked ~ .mobile-navigation-draw,
 #listener-mobile-search:checked ~ .mobile-search-draw {
 //  transform: translateY(0);
-  @include transform(translateY(0));
+  transform: translateY(0);
   opacity: 1;
   visibility: visible;
 //  transition-delay: 0s;
-  @include transition-delay(0s);
+  transition-delay: 0s;
 }
 
-@media #{$large-up} {
+@media #{$zd-large-up} {
   .mobile-navigation-toggle,
   .mobile-navigation-draw,
   #listener-mobile-navigation:checked ~ .mobile-navigation-draw,

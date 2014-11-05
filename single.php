@@ -24,7 +24,7 @@ get_header(); ?>
 			get_template_part( 'content', get_post_format() );
 
 			// Previous/next post navigation.
-			//					zd_post_nav();
+			zd_post_nav();
 
 			// If comments are open or we have at least one comment, load up the comment template.
 			if ( comments_open() || get_comments_number() ) {

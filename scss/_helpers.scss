@@ -5,7 +5,7 @@
 
 // Mobile-friendly transition fix
 .mobile-friendly {
-  @include translate3d(0,0,0);
+  translate3d: 0,0,0;
 }
 
 //JavaScript detection
@@ -57,6 +57,10 @@
     width: auto;
     z-index: 100000; /* Above WP toolbar */
   }
+}
+
+.clear {
+  clear: both;
 }
 
 //Genericons
@@ -117,7 +121,7 @@
     opacity: 1;
   }
 
-  @media #{$medium-up} {
+  @media #{$zd-medium-up} {
 
     margin-right: 40px;
 
@@ -133,4 +137,8 @@
 
 .index-2 {
   z-index: 200;
+}
+
+.zd-help {
+  cursor: help;
 }

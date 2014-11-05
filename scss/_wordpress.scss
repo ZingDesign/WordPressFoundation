@@ -163,18 +163,37 @@ img.aligncenter,
 // Comments
 
 #comments {
+
+  .comments-title {
+    font-size: 1.4rem;
+  }
+
   .comment-list {
     list-style-type: none;
     padding-left: 0;
+
+    ol {
+      list-style-type: none;
+    }
   }
 
   .reply {
     .comment-reply-link {
       @extend .button;
+      @extend .orange;
 
-      padding-top: 10px;
-      padding-bottom: 10px;
+//      padding-top: 10px;
+//      padding-bottom: 10px;
       background-color: $orange;
+      height: 32px;
+      line-height: 32px;
+
+      @extend .fa;
+      @extend .fa-reply;
+
+      &:before {
+        margin-right: 10px;
+      }
     }
   }
 
@@ -187,6 +206,12 @@ img.aligncenter,
   article {
     padding-bottom: 20px;
     margin-bottom: 20px;
+  }
+
+  .comment-metadata {
+    .edit-link {
+      margin-left: 20px;
+    }
   }
 }
 

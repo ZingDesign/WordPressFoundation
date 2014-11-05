@@ -16,11 +16,11 @@ function get_custom_post_type_title($str) {
 
 function zd_custom_taxonomies() {
 	// Resources - category
-	register_taxonomy('resource_category', 'resource', array(
-		'hierarchical'  => true,
-		'label'         => __('Resource Categories'),
-		'rewrite'       => array('slug' => 'resource-category')
-	));
+//	register_taxonomy('resource_category', 'resource', array(
+//		'hierarchical'  => true,
+//		'label'         => __('Resource Categories'),
+//		'rewrite'       => array('slug' => 'resource-category')
+//	));
 }
 
 add_action('init', 'zd_custom_taxonomies');
@@ -37,12 +37,19 @@ function zd_add_custom_post_types() {
 	// Format: ID (singular form) => (array)Options
 
 	$custom_post_types = array(
-		'resource' => array(
+//		'resource' => array(
+//			'menu_position' => 5,
+//			'plural'        => 'resources',
+//			'icon'          => 'category',
+//			'hierarchical'  => true,
+//			'taxonomies'    => array('resource_category')
+//		),
+		'white_paper' => array(
 			'menu_position' => 5,
-			'plural'        => 'resources',
-			'icon'          => 'category',
+			'plural'        => 'white papers',
+			'icon'          => 'media-document',
 			'hierarchical'  => true,
-			'taxonomies'    => array('resource_category')
+//			'taxonomies'    => array('category')
 		),
 
 	);

@@ -52,9 +52,7 @@
 	</div><!-- .entry-summary -->
 	<?php else : ?>
         <?php
-        if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
-            the_post_thumbnail();
-        }
+		zd_the_post_thumbnail();
         ?>
 	<div class="entry-content">
         <?php

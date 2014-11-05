@@ -19,6 +19,8 @@ module.exports = function(grunt) {
 
     var clientScripts = './js/client/**/*.js';
 
+    var clientStylesheet = './css/zing-unprefixed.css';
+    var clientStylesheetPrefixed = './css/zing.css';
     var stylesheets = './scss/*.scss';
 
     var plugins = [
@@ -71,6 +73,7 @@ module.exports = function(grunt) {
             ,client: {
                 src: [
                     'fnd/bower_components/fastclick/lib/fastclick.js',
+                    bowerComponentsPath + 'bootstrap-sass/js/affix.js',
                     //Comment out unused scripts here for extra optimisingness
                     //foundationScriptPath + '/foundation.js',
                     //foundationScriptPath + '/foundation.abide.js',
@@ -128,17 +131,6 @@ module.exports = function(grunt) {
             }
         },
 
-        cssmin: {
-            add_banner: {
-                options: {
-                    banner: '/* <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
-                },
-                files: {
-                    'css/<%= pkg.name %>.min.css': ['css/**/*.css']
-                }
-            }
-        },
-
         copy: {
             //style: {
             //    expand: true,
@@ -160,6 +152,32 @@ module.exports = function(grunt) {
             }
         },
 
+
+        autoprefixer: {
+            options: {
+                // Task-specific options go here.
+                browsers: ['last 2 versions', 'ie 9']
+            },
+            clientCSS: {
+                options: {
+                    // Target-specific options go here.
+                },
+                src: clientStylesheet,
+                dest: clientStylesheetPrefixed
+            }
+        },
+
+        cssmin: {
+            add_banner: {
+                options: {
+                    banner: '/* <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */'
+                },
+                files: {
+                    'css/<%= pkg.name %>.min.css': ['css/**/*.css']
+                }
+            }
+        },
+
         watch: {
             clientJsWatch: {
                 files: [clientScripts],
@@ -172,6 +190,10 @@ module.exports = function(grunt) {
             sassWatch: {
                 files: [stylesheets],
                 tasks: cssTasks
+            },
+            cssWatch: {
+                files: [clientStylesheet],
+                tasks: ['autoprefixer']
             },
             fontWatch: {
                 files: [
@@ -191,6 +213,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-autoprefixer');
 
     grunt.registerTask('default', ['clean', 'jshint:client', 'concat', 'uglify', 'compass', 'copy']);
     grunt.registerTask('css', cssTasks);

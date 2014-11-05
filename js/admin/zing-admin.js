@@ -117,7 +117,8 @@ jQuery(document).ready(function($) {
                         'background': 'url(' + attachment.url +') no-repeat',
                         'width': attachment.width,
                         'height': attachment.height
-                    });
+                    })
+                    .removeClass('zd-hide');
 
                 $('.image-preview-label').removeClass('zd-hide');
 //                    .attr({
@@ -152,4 +153,48 @@ jQuery(document).ready(function($) {
             return false;
         });
     }
+
+    if( $('.zd-icon-preview').length ) {
+
+        //$('.zd-icon-preview').each(function() {
+        //    var $this = $(this);
+        //
+        //    var icon = $this.find('i');
+        //
+        //    var radioElements = $this.siblings('.f-dropdown').find('input[type="radio"]');
+        //
+        //    //var initValue = selectElement.val();
+        //    //
+        //    //icon.addClass('fa-' + initValue);
+        //
+        //    radioElements.on('click', function(){
+        //        var currentValue = $(this).val();
+        //
+        //        //console.log(currentValue);
+        //
+        //        icon.removeAttr('class')
+        //            .addClass('fa-' + currentValue)
+        //            .addClass('fa');
+        //    });
+        //});
+
+        if( $('.zd-icon-list-item') ) {
+            $('.zd-icon-list-item').on('click', function() {
+                var $this = $(this);
+
+                var currentIcon = $this.attr('title');
+
+                $this
+                    .parents('.zd-input-group')
+                    .find('.zd-icon-preview')
+                    .find('i')
+                    .attr('class', 'fa fa-' + currentIcon);
+
+                return false;
+            })
+        }
+
+    }
 });
+
+jQuery(document).foundation();
