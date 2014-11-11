@@ -12,7 +12,7 @@ get_header(); ?>
 <div id="main">
 
 	<div class="row">
-		<div class="medium-6 columns">
+		<div id="white-paper-content" class="medium-8 columns">
 
 			<?php
 			// Start the Loop.
@@ -26,7 +26,7 @@ get_header(); ?>
 				get_template_part( 'content', get_post_format() );
 
 				// Previous/next post navigation.
-				zd_post_nav();
+				//zd_post_nav();
 
 				// If comments are open or we have at least one comment, load up the comment template.
 				if ( comments_open() || get_comments_number() ) {
@@ -37,9 +37,12 @@ get_header(); ?>
 
 		</div><!-- #content -->
 
-		<div class="medium-6 columns">
+		<div class="medium-4 columns">
 
-			<?php zd_get_white_paper_form(get_the_ID()); ?>
+			<div class="grey-box">
+				<?php zd_get_white_paper_form(get_the_ID()); ?>
+			</div>
+
 
 		</div>
 	</div>

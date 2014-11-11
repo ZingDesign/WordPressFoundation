@@ -1,0 +1,39 @@
+// Form
+
+.form-title {
+  @include rem-val(mb, 20);
+}
+
+#white-paper-form {
+//  @extend .grey-box;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    @include rem-font(14);
+  }
+
+  input {
+    padding: 5px;
+    width: 100%;
+  }
+
+  .has-tip {
+    @include rem-font(10);
+    font-style: italic;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    clear: both;
+  }
+}
+
+@media #{$zd-medium-up} {
+
+//  #white-paper-form {
+//    input {
+//      width: 80%;
+//    }
+//  }
+
+}

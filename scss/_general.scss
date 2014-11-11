@@ -56,7 +56,7 @@ p {
 }
 
 li, p {
-  line-height: 1.5;
+  line-height: $para-line-height;
 }
 
 a {
@@ -74,4 +74,18 @@ a {
 img {
   max-width: 100%;
   height: auto;
+}
+
+figure {
+  margin: 0;
+}
+
+@media #{$medium-up} {
+
+  figure {
+
+    margin: 1em 40px;
+
+  }
+
 }

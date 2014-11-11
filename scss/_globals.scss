@@ -5,7 +5,8 @@ $white: #fff;
 $black: #000;
 $raygun-red: #e6969e;
 $electric-blue: #158fef;
-$green: #9aca40;
+//$green: #9aca40;
+$green: #8eba3b;
 $yellow: #ffbb42;
 $orange: #fe5723;
 $light-grey: #f0f3f8;
@@ -17,6 +18,19 @@ $text-black: #222;
 $error: $orange;
 $success: $green;
 
+// Links
+$default-link-color: $electric-blue;
+
+// Pagination
+$pagination-text-color: #fff;
+$pagination-bg-color: $electric-blue;
+$pagination-active-bg-color: $pagination-text-color;
+
+// Modal
+$reveal-modal-bg: $electric-blue;
+$reveal-close-color: #fff;
+$reveal-radius: rem-calc(3px);
+
 // Responsive navigation
 //$slide-menu-background: #ddd !default;
 //$menu-toggle-icon-color: #ddd !default;
@@ -26,7 +40,7 @@ $success: $green;
 //
 //$slide-menu-link-color: #666 !default;
 
-$para-line-height: 1.5;
+$para-line-height: 1.8;
 $para-base-font-size: 16px;
 
 
@@ -63,8 +77,10 @@ $zd-large-up: 'only screen and (min-width: #{$zd-large})';
 $ajax-loader: image-url('ajax-loader.gif');
 $header-logo: "logo-raygun-white.svg";
 
+
+
 // Enable CSS support
-$legacy-support: false;
+$legacy-support: 'ie9';
 $no-js-support: true;
 $use-font-awesome: true;
 $use-slick-slider: true;

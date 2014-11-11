@@ -2,6 +2,7 @@
  * Created by Sam on 6/05/14.
  */
 
+
 jQuery(document).ready(function($) {
     if( $('.zd-color-input').length ) {
 
@@ -184,16 +185,151 @@ jQuery(document).ready(function($) {
 
                 var currentIcon = $this.attr('title');
 
+                console.log(currentIcon);
+
                 $this
                     .parents('.zd-input-group')
                     .find('.zd-icon-preview')
                     .find('i')
                     .attr('class', 'fa fa-' + currentIcon);
 
-                return false;
+                //return false;
             })
         }
 
+    }
+
+    // Toggle metabox view based on page template selected
+
+    if( $('#page_template').length && $('#landing_page_options').length ) {
+
+        var $pageTemplate = $('#page_template');
+
+        var landingPageOptions = '#landing_page_options';
+
+        $pageTemplate.on('init change', null, {'targetElement':landingPageOptions}, onPageTemplateChange);
+        $pageTemplate.trigger('init');
+    }
+
+    function onPageTemplateChange(event) {
+
+        //console.log(event);
+
+        var $this = $(this);
+        var _targetElement = $(event.data.targetElement);
+
+        //console.log($this.val());
+
+        if( $this.val().indexOf( 'landing-page') > -1 ) {
+            _targetElement.show();
+        }
+        else {
+            _targetElement.hide();
+        }
+    }
+
+
+    //var targetType = '';
+    //var toggle = '';
+
+    if( $('[data-zd-target]').length ) {
+        var zdTargets = $('[data-zd-target]');
+        var $doc = $(document);
+
+        zdTargets.each(function() {
+            var $this = $(this);
+
+            var target = $this.attr('data-zd-target');
+            var state = $this.attr('data-zd-state');
+            var toggle = $this.attr('data-zd-toggle');
+
+            // If to-toggle is set, set target to jQuery(elementToToggle)
+            // Else set to $this by default
+
+            var toToggle = $this.attr('data-zd-to-toggle') ? $( $this.attr('data-zd-to-toggle') ) : $this;
+
+            // Put in initial 'off' state
+            toggleOff($this, toggle);
+
+            if( ! $(target).length ) {
+                console.log( 'ZD Error: Invalid target selector: ' + target );
+            }
+            else {
+                var $target = $(target);
+                var eventType = 'click';
+
+                var targetType = $target.attr('type');
+
+                var eventData = {
+                    'targetType':   targetType,
+                    'toggleType':   toggle,
+                    'toToggle':     toToggle,
+                    'targetState':  state
+                }
+
+                $target.on('init ' + eventType, null, eventData, toggleState);
+
+                // Initial toggle based on initial state
+                $target.trigger('init');
+            }
+
+
+        });
+
+        //console.log( zdTargets.length );
+    }
+
+    function toggleOn(element, toggleType) {
+
+        switch(toggleType) {
+            case 'enable' : element.removeAttr('disabled'); break;
+            case 'display' : element.show(); break;
+            default : console.log('Invalid toggle type'); break;
+        }
+
+    }
+
+    function toggleOff(element, toggleType) {
+
+        switch(toggleType) {
+            case 'enable' : element.attr('disabled', true); break;
+            case 'display' : element.hide(); break;
+            default : console.log('Invalid toggle type'); break;
+        }
+
+    }
+
+    function toggleState(event) {
+        var $currentTarget = $(this);
+
+        //console.log($currentTarget);
+        //console.log(event);
+
+        var _toggle = event.data.toggleType;
+        var _targetType = event.data.targetType;
+        var _toToggle = event.data.toToggle;
+        var _state = event.data.targetState;
+
+        //console.log( _toggle );
+        //console.log( 'Target clicked! Value: ' + $currentTarget.is(':checked') );
+
+        // Default condition is that the state matches the current target value
+        // Which is true for text, select
+        var condition =  $currentTarget.val() === _state;
+
+        // Checkbox is an exception to the rule, so the condition must change
+        if( 'checkbox' === _targetType ) {
+            condition = $currentTarget.is(':checked');
+        }
+
+        if( condition ) {
+            toggleOn(_toToggle, _toggle);
+        }
+        else {
+            toggleOff(_toToggle, _toggle);
+        }
+
+        //return false;
     }
 });
 

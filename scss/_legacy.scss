@@ -1,6 +1,33 @@
 // Legacy browser styles
 
-@if $legacy-support {
+// IE 9
+
+@if index($legacy-support, ie9) != false {
+  .no-placeholder {
+    input,
+    textarea {
+
+      &.placeholder {
+        color: #999;
+      }
+
+    }
+
+    input {
+      &.input-search {
+
+        &.placeholder {
+          color: lighten($electric-blue, 20%);
+        }
+
+      }
+    }
+  }
+}
+
+// IE 8 ( no CSS rem unit support )
+
+@if index($legacy-support, ie8) != false {
   // Style overrides for IE8 and earlier
   .no-css-remunit {
 

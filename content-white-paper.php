@@ -1,15 +1,9 @@
 <?php
 
 ?>
-<div id="white-paper-card" class="medium-4 columns">
+<div class="white-paper-card medium-4 columns">
 
-    <div class="white-paper-card-image">
-
-	    <?php
-	    zd_the_post_thumbnail( 'medium' );
-
-	    ?>
-    </div>
+    <div class="card-image white-paper-card-image"><?php zd_the_post_thumbnail( 'medium' ); ?></div>
 
 	<div class="white-paper-card-content">
 

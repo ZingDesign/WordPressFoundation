@@ -28,7 +28,7 @@ get_header(); ?>
 				get_template_part( 'content', 'page' );
 
 				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) {
+				if ( ( comments_open() || get_comments_number() ) && get_option('enable-comments-on-full-width') ) {
 					comments_template();
 				}
 			endwhile;

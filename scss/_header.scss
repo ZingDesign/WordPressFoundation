@@ -108,7 +108,7 @@
     display: block;
     height: 80px;
     width: 100%;
-    background: $dark-blue;
+    background-color: $dark-blue;
 
     .zd-nav-menu {
       float: left;
@@ -125,6 +125,7 @@
     li {
       //      display: inline-block;
       float: left;
+
     }
 
     a:hover {

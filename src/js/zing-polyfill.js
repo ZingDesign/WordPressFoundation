@@ -5,7 +5,7 @@
 
 if (typeof jQuery === "undefined") { throw new Error("Foundation requires jQuery") }
 
-/*! http://mths.be/placeholder v2.0.8 by @mathias */
+(function(){window.devMode = true})();/*! http://mths.be/placeholder v2.0.8 by @mathias */
 ;(function(window, document, $) {
 
 	// Opera Mini v7 doesn’t support placeholder although its DOM seems to indicate so

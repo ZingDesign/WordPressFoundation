@@ -93,9 +93,11 @@ img.aligncenter,
   .tag-links {
     a {
       @include rem-val(margin-right, 10px);
+      @extend .fa-tag;
       &:before {
-        @extend .genericon;
-        content: '\f302';
+        @extend .fa;
+//        @extend .genericon;
+//        content: '\f302';
         //      vertical-align: bottom;
       }
     }
@@ -105,10 +107,12 @@ img.aligncenter,
 .comments-link {
   @include rem-val(margin-right, 10px);
   a {
+    @extend .fa-comment;
     &:before {
-      @extend .genericon;
+      @extend .fa;
+//      @extend .genericon;
       margin-right: 5px;
-      content: '\f412';
+//      content: '\f412';
     }
   }
 }
@@ -135,6 +139,8 @@ img.aligncenter,
 
 .nav-links {
   @include clearfix();
+  margin-bottom: 40px;
+
   a {
     width: 50%;
     padding: 0 5px;
@@ -142,18 +148,24 @@ img.aligncenter,
 
     &[rel="prev"] {
       float:left;
+      @extend .fa-long-arrow-left;
       &:before {
-        @extend .genericon;
-        content: '\f430';
+        @extend .fa;
+//        @extend .genericon;
+//        content: '\f430';
         line-height: 1.5;
+        margin-right: 10px;
       }
     }
     &[rel="next"] {
       float: right;
-      &:after {
-        @extend .genericon;
-        content: '\f429';
+      text-align: right;
+      @extend .fa-long-arrow-right;
+      &:before {
+        @extend .fa;
         line-height: 1.5;
+        float: right;
+        margin-left: 10px;
       }
     }
   }
@@ -181,15 +193,14 @@ img.aligncenter,
     .comment-reply-link {
       @extend .button;
       @extend .orange;
+      @extend .fa;
+      @extend .fa-reply;
 
 //      padding-top: 10px;
 //      padding-bottom: 10px;
-      background-color: $orange;
-      height: 32px;
-      line-height: 32px;
-
-      @extend .fa;
-      @extend .fa-reply;
+//      background-color: $orange;
+      height: 36px;
+      line-height: 36px;
 
       &:before {
         margin-right: 10px;
@@ -213,8 +224,102 @@ img.aligncenter,
       margin-left: 20px;
     }
   }
+
+  .comment-content {
+    word-wrap: break-word;
+  }
 }
 
 .form-allowed-tags {
   font-size: 0.8rem;
+}
+
+
+// Pagination
+
+.page-numbers {
+  background-color: $pagination-bg-color;
+  color: $pagination-text-color;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 3px;
+  transition: background 200ms ease-out;
+  border: 1px solid $pagination-bg-color;
+
+  &:hover {
+    color: $pagination-text-color;
+    background-color: darken( $pagination-bg-color, 10% );
+  }
+
+  &:active {
+    box-shadow: inset 0 1px rgba(#fff, .5);
+  }
+
+  &.prev,
+  &.next,
+  &.dots {
+    background-color: transparent;
+    width: auto;
+    color: $pagination-bg-color;
+    border: 0;
+
+    &:hover {
+      color: $pagination-bg-color;
+    }
+  }
+
+  &.prev,
+  &.next {
+    display: block;
+    &:hover {
+      color: darken( $pagination-bg-color, 10% );
+    }
+  }
+
+  &.next {
+    margin: 10px 0 0;
+  }
+
+  &.prev {
+    margin: 0 0 10px;
+  }
+
+  &.current {
+    background-color: $pagination-active-bg-color;
+    color: $pagination-bg-color;
+  }
+}
+
+
+// Tag cloud
+.tagcloud {
+  a {
+    &:hover {
+      color: darken($default-link-color, 10%);
+    }
+  }
+}
+
+@media #{$medium-up} {
+  .nav-links {
+//    margin-bottom: 0;
+  }
+
+  .page-numbers {
+    &.prev,
+    &.next {
+      display: inline-block;
+    }
+
+    &.next {
+      margin: 0 0 0 10px;
+    }
+
+    &.prev {
+      margin: 0 10px 0 0;
+    }
+  }
 }

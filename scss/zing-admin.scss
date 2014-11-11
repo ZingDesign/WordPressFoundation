@@ -38,7 +38,7 @@
 //@import"../fnd/bower_components/foundation/scss/foundation/components/tables";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/tabs";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/thumbs";
-//@import"../fnd/bower_components/foundation/scss/foundation/components/tooltips";
+@import"../fnd/bower_components/foundation/scss/foundation/components/tooltips";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/top-bar";
 //@import "../fnd/bower_components/foundation/scss/foundation/components/type";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/offcanvas";
@@ -83,15 +83,26 @@ select {
   padding: 20px;
   background-color: #fff;
 
+  input, label {
+    display: inline-block;
+  }
+
+  input {
+    margin: 0;
+  }
+
   label {
     font-weight: 700;
 //    height: 27px;
     min-width: 150px;
+    margin-bottom: 10px;
   }
 
-  input, label {
-    display: inline-block;
-    margin: 0;
+  input[type="checkbox"] + label,
+  input[type="radio"] + label
+  {
+    margin-bottom: 0;
+    margin-left: 5px;
   }
 
   label.image-label {
@@ -101,7 +112,7 @@ select {
 
   textarea {
     display: block;
-    margin-top: 10px;
+//    margin-top: 10px;
   }
 
   &.zd-active-tab {
@@ -129,6 +140,10 @@ select {
       max-width: 900px;
     }
   }
+
+  .wp-editor-wrap {
+    margin-bottom: 20px;
+  }
 }
 
 .zd-image-src-output {
@@ -149,7 +164,7 @@ select {
 }
 
 .zd-hide {
-  display: none;
+  display: none !important;
 }
 
 .zd-input-group {

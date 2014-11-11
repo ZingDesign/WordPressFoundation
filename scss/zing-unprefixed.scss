@@ -1,7 +1,6 @@
 @charset "utf-8";
 // Foundation
 @import "../fnd/bower_components/foundation/scss/normalize";
-//@import "../fnd/bower_components/foundation/scss/foundation";
 @import "../fnd/bower_components/foundation/scss/foundation/functions";
 
 @import "globals";
@@ -42,7 +41,7 @@
 //@import"../fnd/bower_components/foundation/scss/foundation/components/panels";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/pricing-tables";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/progress-bars";
-//@import"../fnd/bower_components/foundation/scss/foundation/components/reveal";
+@import "../fnd/bower_components/foundation/scss/foundation/components/reveal";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/side-nav";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/split-buttons";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/sub-nav";
@@ -50,7 +49,7 @@
 //@import"../fnd/bower_components/foundation/scss/foundation/components/tables";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/tabs";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/thumbs";
-//@import"../fnd/bower_components/foundation/scss/foundation/components/tooltips";
+@import "../fnd/bower_components/foundation/scss/foundation/components/tooltips";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/top-bar";
 //@import "../fnd/bower_components/foundation/scss/foundation/components/type";
 //@import"../fnd/bower_components/foundation/scss/foundation/components/offcanvas";
@@ -72,7 +71,7 @@
 // Plugins
 @import "../fnd/bower_components/font-awesome/scss/font-awesome";
 
-//@import "../fnd/bower_components/slick-carousel/slick/slick";
+@import "../fnd/bower_components/slick-carousel/slick/slick";
 
 // General stylesheets
 
@@ -102,8 +101,12 @@
 @import "resources";
 @import "navigation";
 
+@import "white-papers";
+
 // Kyle's stylesheets
 @import "kyle";
+
+@import "image-modal";
 
 // Important: Legacy and No-JS and print always load last
 @import "legacy";

@@ -1,0 +1,34 @@
+#zd-image-modal {
+  .image-slider {
+    @include rem-val(mt, 30);
+
+    h2 {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    h2, p {
+      color: #FFF;
+    }
+
+    img {
+      margin: 0 auto;
+      display: block;
+    }
+
+    p {
+      margin: 20px auto;
+    }
+  }
+}
+
+@media #{$medium-up} {
+  #zd-image-modal {
+    .image-slider {
+
+      h2 {
+        font-size: 2rem;
+      }
+    }
+  }
+}

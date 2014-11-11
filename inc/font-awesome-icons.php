@@ -579,22 +579,46 @@ endif;
 
 if( !function_exists('get_font_awesome_dropdown_list') ) :
 	function get_font_awesome_dropdown_list($name, $value=null) {
+
 		$html = $selected = '';
-		$index = 0;
+		$transient_value_name = $name . '_value';
 
-		$id_base = $name . '_option';
-
-		$id = $id_base;
-
-		foreach(get_font_awesome_icons() as $icon_name => $css_char) {
-			$selected = ($value === $icon_name) ? ' checked' : '';
-
-			$html .= "<li class=\"zd-icon-list-item\" title=\"{$icon_name}\">\n<input id=\"{$id}\" name=\"{$name}\" type=\"radio\" value=\"{$icon_name}\" class=\"screen-reader-text\"{$selected}/>\n";
-			$html .= "<label for=\"$id\"><i class=\"fa fa-{$icon_name}\"></i></label>\n</li>\n";
-
-			$id = $id_base . '-' . $index;
-			$index ++;
+		if( get_transient($name)
+		    && ($value === base64_decode(get_transient($transient_value_name))) )
+		{
+			$html = base64_decode(get_transient($name));
 		}
+		else {
+			$index = 0;
+
+			$id_base = $name . '_option';
+
+			$id = $id_base;
+
+			foreach(get_font_awesome_icons() as $icon_name => $css_char) {
+				$selected = ($value === $icon_name) ? ' checked' : '';
+
+				$html .= "<li class=\"zd-icon-list-item\" title=\"{$icon_name}\">";
+				$html .= "<input id=\"{$id}\" name=\"{$name}\" type=\"radio\" value=\"{$icon_name}\" class=\"zd-hide\"{$selected}/>\n";
+				$html .= "<label for=\"$id\"><i class=\"fa fa-{$icon_name}\"></i></label>\n</li>\n";
+
+				$id = $id_base . '-' . $index;
+				$index ++;
+			}
+
+			set_transient($name, base64_encode($html));
+			set_transient($transient_value_name, base64_encode($value) );
+		}
+
 		return $html;
 	}
 endif;
+
+function zd_upload_mimes( $existing_mimes=array() ) {
+	$existing_mimes['ico'] = 'image/x-icon';
+
+	// and return the new full result
+	return $existing_mimes;
+}
+
+add_filter('upload_mimes', 'zd_upload_mimes');

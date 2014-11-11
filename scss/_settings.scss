@@ -899,14 +899,14 @@ $row-width: rem-calc(1035);
 
 // Reveal
 
-// $include-html-reveal-classes: $include-html-classes;
+$include-html-reveal-classes: true;
 
 // We use these to control the style of the reveal overlay.
-// $reveal-overlay-bg: rgba(#000, .45);
+$reveal-overlay-bg: rgba($dark-blue, .45);
 // $reveal-overlay-bg-old: #000;
 
 // We use these to control the style of the modal itself.
-// $reveal-modal-bg: #fff;
+//$reveal-modal-bg: #fff !default;
 // $reveal-position-top: rem-calc(100);
 // $reveal-default-width: 80%;
 // $reveal-modal-padding: rem-calc(20);
@@ -916,11 +916,11 @@ $row-width: rem-calc(1035);
 // $reveal-close-font-size: rem-calc(40);
 // $reveal-close-top: rem-calc(8);
 // $reveal-close-side: rem-calc(11);
-// $reveal-close-color: #aaa;
+//$reveal-close-color: #aaa !default;
 // $reveal-close-weight: bold;
 
 // We use this to set the default radius used throughout the core.
-// $reveal-radius: $global-radius;
+//$reveal-radius: $global-radius !default;
 // $reveal-round: $global-rounded;
 
 // We use these to control the modal border
@@ -1138,7 +1138,7 @@ $row-width: rem-calc(1035);
 // TOOLTIPS
 //
 
-// $include-html-tooltip-classes: $include-html-classes;
+$include-html-tooltip-classes: true;
 
 // $has-tip-border-bottom: dotted 1px #ccc;
 // $has-tip-font-weight: bold;
@@ -1148,7 +1148,7 @@ $row-width: rem-calc(1035);
 // $has-tip-cursor-type: help;
 
 // $tooltip-padding: rem-calc(12);
-// $tooltip-bg: #333;
+$tooltip-bg: $dark-blue;
 // $tooltip-font-size: rem-calc(14);
 // $tooltip-font-weight: normal;
 // $tooltip-font-color: #fff;

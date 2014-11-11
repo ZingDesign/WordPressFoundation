@@ -25,8 +25,8 @@ $share_google = 'https://plus.google.com/share?url=' . $post_link;
 ?>
 
 <div class="post-share">
-	<h4><?php __('Share this article', 'zingdesign'); ?></h4>
-	<a href="<?php echo $share_facebook; ?>" class="button facebook" target="_blank" title="Share on Facebook"><i class="fa fa-facebook fa-right-margin"></i> Facebook</a>
-	<a href="<?php echo $share_twitter; ?>" class="button twitter" target="_blank" title="Tweet about this post"><i class="fa fa-twitter fa-right-margin"></i> Twitter</a>
-	<a href="<?php echo $share_google; ?>" class="button google-plus" target="_blank" title="Share on Google+"><i class="fa fa-google-plus fa-right-margin"></i> Google+</a>
+	<h4><?php _e('Share this article', 'zingdesign'); ?></h4>
+	<a href="<?php echo esc_url($share_facebook); ?>" class="button facebook" target="_blank" title="Share on Facebook"><i class="fa fa-facebook fa-right-margin"></i> Facebook</a>
+	<a href="<?php echo esc_url($share_twitter); ?>" class="button twitter" target="_blank" title="Tweet about this post"><i class="fa fa-twitter fa-right-margin"></i> Twitter</a>
+	<a href="<?php echo esc_url($share_google); ?>" class="button google-plus" target="_blank" title="Share on Google+"><i class="fa fa-google-plus fa-right-margin"></i> Google+</a>
 </div>

@@ -5,7 +5,7 @@
   box-sizing: border-box;
   margin: 60px auto 0;
   display: block;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #primary,
@@ -47,6 +47,11 @@
 }
 
 @media #{$zd-medium-up} {
+
+//  #main {
+//    overflow: hidden;
+//  }
+
   #primary {
 //    width: 500px;
     width: 65%;

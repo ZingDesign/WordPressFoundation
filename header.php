@@ -8,29 +8,6 @@
  * @subpackage Zing_Design
  * @since Zing Design 1.0
  */
-//	$nav_menu_enabled = get_option('zd-enable-mobile-navigation');
-//	$nav_menu_direction = get_option('zd-mobile-navigation-alignment');
-//
-//	$nav_class = 'cbp-spmenu cbp-spmenu-vertical';
-//
-//	if( $nav_menu_enabled ) {
-//		$menu_toggle_id = 'showLeft';
-//
-//		if( $nav_menu_direction === 'left') {
-//			$nav_class .= ' cbp-spmenu-left';
-//			$menu_toggle_id = 'showRight';
-//		}
-//		else {
-//
-//			$nav_class .= ' cbp-spmenu-right';
-//		}
-//	}
-//	else {
-//		$nav_class = 'cbp-spmenu-disabled';
-//		$menu_toggle_id = 'menu-disabled';
-//	}
-
-
 
 ?><!DOCTYPE html>
 <!--[if IE 7]>
@@ -45,6 +22,9 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="csrf-param" content="<?php echo wp_create_nonce( 'request_forgery_protection_token' ); ?>">
+	<meta name="csrf-token" content="<?php echo wp_create_nonce( 'form_authenticity_token' ); ?>">
+
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
@@ -54,6 +34,9 @@
 		<link rel="shortcut icon" href="<?php bloginfo('template_directory'); ?>/images/favicon.ico" type="image/x-icon"/>
 	<?php endif; ?>
 	<?php wp_head(); ?>
+
+
+	<script type="text/javascript">if(!Modernizr.placeholder) {document.write('<script src="<?php echo get_template_directory_uri(); ?>/dist/js/zing-polyfill.min.js"><\/script>');}</script>
 
 
     <!--[if lt IE 9]>
@@ -91,7 +74,7 @@
 				<label for="listener-mobile-navigation" class="mobile-navigation-toggle"><i
 						class="fa fa-close fa-2x"></i></label>
 
-				<div class="mobile-navigation-header"><a href="<?php echo site_url('/'); ?>" class="logo-raygun"></a></div>
+				<div class="mobile-navigation-header"><a href="<?php echo home_url('/'); ?>" class="logo-raygun"></a></div>
 				<div class="mobile-navigation-scroll">
 					<!-- primary (mobile) menu-->
 					<?php
@@ -134,14 +117,18 @@
 
 			</div>
 
-			<a href="<?php echo site_url(); ?>" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
+			<a href="http://raygun.io" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
 
-			<div class="link-back"><i class="fa fa-angle-left fa-lg header-align header-margin-right"></i><a class="header-align" href="http://raygun.io">Back to Raygun</a></div>
+			<div class="link-back">
+				<a href="http://raygun.io">
+					<i class="fa fa-angle-left fa-lg header-align header-margin-right"></i> <?php _e('Back to Raygun', 'zingdesign'); ?>
+				</a>
+			</div>
 
 			<?php
-			if( get_option('show-search-form-in-header') ) {
+//			if( get_option('show-search-form-in-header') ) {
 				echo get_search_form();
-			}
+//			}
 			?>
 
 		</div>
@@ -164,7 +151,7 @@
 				zd_get_menu('secondary');
 			} ?>
 
-			<a href="https://app.raygun.io/signup" class="green promo button" target="_blank">Get started for FREE</a>
+			<a href="<?php esc_url(get_option('callout-button-url')); ?>" class="green promo button" target="_blank"><?php echo esc_attr(get_option('callout-button-text')) ?></a>
 
 		</div>
 

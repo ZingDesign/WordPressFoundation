@@ -38,7 +38,7 @@ function call_zd_metabox() {
 	}
 
 	$category_options[] = array(
-		'label' => 'Post container',
+		'label' => 'Enable this page as a post container',
 		'type' => 'checkbox'
 	);
 
@@ -368,7 +368,7 @@ class zd_metabox {
 
 			$meta_data = unserialize( $data[$index][0] );
 
-			if( $property ) {
+			if( $property && isset($meta_data[$property]) ) {
 				return is_array($property) ? $meta_data[$property] : unserialize( base64_decode( $meta_data[$property] ) );
 			}
 		}

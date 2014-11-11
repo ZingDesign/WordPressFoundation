@@ -117,6 +117,24 @@
 
             $('#style-output').append(css);
             return true;
+        },
+        debug: function(toDebug) {
+            //console.log(window.devMode);
+            if ( window.console && window.console.log && window.ZD.isDevMode() ) {
+                if (typeof toDebug === 'object' || toDebug instanceof Array) {
+                    window.console.log('ZD Debug Object:');
+                    window.console.log(toDebug);
+                }
+                else {
+                    window.console.log('ZD Debug: ' + toDebug);
+                }
+            }
+        },
+        isset: function(_var) {
+            return (typeof _var !== 'undefined' && _var !== null);
+        },
+        isDevMode: function() {
+            return window.ZD.isset(window.devMode);
         }
     };
 
@@ -144,7 +162,7 @@
 
                 var $this = $(this);
 
-                $this.on('click', function() {
+                $this.on('click', function(e) {
 
                     var linkTarget = $this.attr('href');
 
@@ -154,96 +172,14 @@
                         var targetElement = $(linkTarget);
 
                         if( targetElement.length ) {
+                            e.preventDefault();
+
                             $('html, body').animate({
                                 scrollTop: targetElement.offset().top
                             });
                         }
-                        else {
-                            return true;
-                        }
                     }
-                    else {
-                        return true;
-                    }
-
-                    return false;
                 });
-
-            });
-        },
-        responsiveImage: function() {
-            return this.each(function() {
-                var $this = $(this);
-
-                var windowWidth = $(window).width();
-
-                var imageWidth = $this.outerWidth();
-                var imageHeight = $this.outerHeight();
-
-                //console.log('containerWidth: ' + containerWidth);
-                //console.log('imageWidth: ' + imageWidth);
-                //console.log('imageHeight: ' + imageHeight);
-
-                // Image width exceeds container width, get the ratio of the image width
-                // To the container width and apply that ratio to the height
-                if( imageWidth > windowWidth ) {
-                    var widthRatio = windowWidth / imageWidth;
-
-                    //console.log(widthRatio);
-
-                    var newHeight = Math.floor(imageHeight * widthRatio);
-
-                    //console.log(newHeight);
-
-                    $this.css({
-                        'height': newHeight + 'px',
-                        'width': '100%'
-                    });
-                }
-            });
-        },
-        forceFullWidth: function() {
-            var i = 0;
-
-            return this.each(function() {
-                var $this = $(this);
-
-                var windowWidth = $(window).width();
-
-                //console.log($this.outerWidth());
-
-                //var currentOffset = (windowWidth / 2) - $this.offset().left;
-                var currentOffset = (windowWidth / 2) - ($this.outerWidth() / 2);
-
-                //console.log($this.offset().left);
-
-                //var paddingTop = parseInt($this.css('padding-top').replace('px', ''), 10);
-                //var paddingBottom = parseInt($this.css('padding-bottom').replace('px', ''), 10);
-
-                var currentHeight = $this.outerHeight(true);
-
-                console.log(currentHeight);
-
-                var fullWidthStyle = 'position: absolute; left: -' + currentOffset + 'px; right: -' + currentOffset + 'px;';
-
-                //console.log(fullWidthStyle);
-
-                $this.removeClass('force-full-width');
-
-                var currentClass = typeof $this.attr('class') !== 'undefined' ? $this.attr('class') : 'ffw-element';
-
-                // Get current ID if there is one, otherwise generate an ID
-                var currentID = typeof $this.attr('id') !== 'undefined' ? $this.attr('id') : 'ffw-element-' + i;
-
-                $this
-                    //.removeAttr('class')
-                    .removeAttr('id')
-                    .addClass('force-full-width')
-                    .addClass('container')
-                    .wrap('<div id="'+currentID+'-container" style="position:relative; height: ' + currentHeight + 'px;"></div>')
-                    .wrap('<div id="'+currentID+'" class="'+currentClass+'" style="'+fullWidthStyle+'"></div>');
-
-                i ++;
 
             });
         }

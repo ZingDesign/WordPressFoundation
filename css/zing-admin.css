@@ -324,6 +324,114 @@ meta.foundation-data-attribute-namespace {
   max-width: 800px;
 }
 
+/* Tooltips */
+/* line 37, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.has-tip {
+  border-bottom: dotted 1px #cccccc;
+  cursor: help;
+  font-weight: bold;
+  color: #333333;
+}
+/* line 44, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.has-tip:hover, .has-tip:focus {
+  border-bottom: dotted 1px #003f54;
+  color: #008cba;
+}
+/* line 50, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.has-tip.tip-left, .has-tip.tip-right {
+  float: none !important;
+}
+
+/* line 53, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tooltip {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  font-weight: normal;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  padding: 0.75rem;
+  max-width: 85%;
+  left: 50%;
+  width: 100%;
+  color: white;
+  background: #333333;
+}
+/* line 67, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tooltip > .nub {
+  display: block;
+  left: 5px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: solid 5px;
+  border-color: transparent transparent #333333 transparent;
+  top: -10px;
+}
+/* line 77, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tooltip > .nub.rtl {
+  left: auto;
+  right: 5px;
+}
+/* line 83, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tooltip.radius {
+  border-radius: 3px;
+}
+/* line 86, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tooltip.round {
+  border-radius: 1000px;
+}
+/* line 88, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tooltip.round > .nub {
+  left: 2rem;
+}
+/* line 93, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tooltip.opened {
+  color: #008cba !important;
+  border-bottom: dotted 1px #003f54 !important;
+}
+
+/* line 99, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+.tap-to-close {
+  display: block;
+  font-size: 0.625rem;
+  color: #777777;
+  font-weight: normal;
+}
+
+@media only screen and (min-width: 40.063em) {
+  /* line 108, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+  .tooltip > .nub {
+    border-color: transparent transparent #333333 transparent;
+    top: -10px;
+  }
+  /* line 112, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+  .tooltip.tip-top > .nub {
+    border-color: #333333 transparent transparent transparent;
+    top: auto;
+    bottom: -10px;
+  }
+  /* line 119, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+  .tooltip.tip-left, .tooltip.tip-right {
+    float: none !important;
+  }
+  /* line 121, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+  .tooltip.tip-left > .nub {
+    border-color: transparent transparent transparent #333333;
+    right: -10px;
+    left: auto;
+    top: 50%;
+    margin-top: -5px;
+  }
+  /* line 128, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
+  .tooltip.tip-right > .nub {
+    border-color: transparent #333333 transparent transparent;
+    right: auto;
+    left: -10px;
+    top: 50%;
+    margin-top: -5px;
+  }
+}
 /* line 50, ../scss/zing-admin.scss */
 select {
   width: auto;
@@ -365,57 +473,70 @@ select {
   background-color: #fff;
 }
 /* line 86, ../scss/zing-admin.scss */
+.zd-tab input, .zd-tab label {
+  display: inline-block;
+}
+/* line 90, ../scss/zing-admin.scss */
+.zd-tab input {
+  margin: 0;
+}
+/* line 94, ../scss/zing-admin.scss */
 .zd-tab label {
   font-weight: 700;
   min-width: 150px;
+  margin-bottom: 10px;
 }
-/* line 92, ../scss/zing-admin.scss */
-.zd-tab input, .zd-tab label {
-  display: inline-block;
-  margin: 0;
+/* line 103, ../scss/zing-admin.scss */
+.zd-tab input[type="checkbox"] + label,
+.zd-tab input[type="radio"] + label {
+  margin-bottom: 0;
+  margin-left: 5px;
 }
-/* line 97, ../scss/zing-admin.scss */
+/* line 108, ../scss/zing-admin.scss */
 .zd-tab label.image-label {
   display: block;
   margin-bottom: 10px;
 }
-/* line 102, ../scss/zing-admin.scss */
+/* line 113, ../scss/zing-admin.scss */
 .zd-tab textarea {
   display: block;
-  margin-top: 10px;
 }
-/* line 107, ../scss/zing-admin.scss */
+/* line 118, ../scss/zing-admin.scss */
 .zd-tab.zd-active-tab {
   display: block;
 }
-/* line 111, ../scss/zing-admin.scss */
+/* line 122, ../scss/zing-admin.scss */
 .zd-tab .input-group {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-/* line 118, ../scss/zing-admin.scss */
+/* line 129, ../scss/zing-admin.scss */
 .zd-tab .button.dropdown {
   display: inline-block;
 }
-/* line 124, ../scss/zing-admin.scss */
+/* line 135, ../scss/zing-admin.scss */
 .zd-tab .f-dropdown:focus {
   outline: none;
 }
-/* line 128, ../scss/zing-admin.scss */
+/* line 139, ../scss/zing-admin.scss */
 .zd-tab .f-dropdown.icon-dropdown {
   max-width: 900px;
 }
+/* line 144, ../scss/zing-admin.scss */
+.zd-tab .wp-editor-wrap {
+  margin-bottom: 20px;
+}
 
-/* line 134, ../scss/zing-admin.scss */
+/* line 149, ../scss/zing-admin.scss */
 .zd-image-src-output {
   width: 50%;
 }
-/* line 137, ../scss/zing-admin.scss */
+/* line 152, ../scss/zing-admin.scss */
 .widget-content .zd-image-src-output {
   width: 100%;
 }
 
-/* line 142, ../scss/zing-admin.scss */
+/* line 157, ../scss/zing-admin.scss */
 .zd-image-preview {
   display: inline-block;
   min-width: 64px;
@@ -423,54 +544,54 @@ select {
   background-size: contain;
 }
 
-/* line 151, ../scss/zing-admin.scss */
+/* line 166, ../scss/zing-admin.scss */
 .zd-hide {
-  display: none;
+  display: none !important;
 }
 
-/* line 155, ../scss/zing-admin.scss */
+/* line 170, ../scss/zing-admin.scss */
 .zd-input-group {
   margin-bottom: 20px;
 }
-/* line 158, ../scss/zing-admin.scss */
+/* line 173, ../scss/zing-admin.scss */
 .widget-content .zd-input-group {
   margin-bottom: 10px;
 }
-/* line 159, ../scss/zing-admin.scss */
+/* line 174, ../scss/zing-admin.scss */
 .widget-content .zd-input-group label {
   display: inline-block;
   margin: 5px 0;
 }
-/* line 167, ../scss/zing-admin.scss */
+/* line 182, ../scss/zing-admin.scss */
 .postbox .zd-input-group {
   margin-bottom: 10px;
 }
 
-/* line 174, ../scss/zing-admin.scss */
+/* line 189, ../scss/zing-admin.scss */
 .postbox .zd-image-input-wrapper {
   margin-top: 10px;
 }
 
-/* line 179, ../scss/zing-admin.scss */
+/* line 194, ../scss/zing-admin.scss */
 .zd-icon-preview {
   font-size: 16px;
 }
-/* line 182, ../scss/zing-admin.scss */
+/* line 197, ../scss/zing-admin.scss */
 .zd-icon-preview i {
   color: #158fef;
 }
 
-/* line 187, ../scss/zing-admin.scss */
+/* line 202, ../scss/zing-admin.scss */
 .zd-icon-list-item {
   display: inline-block;
 }
-/* line 190, ../scss/zing-admin.scss */
+/* line 205, ../scss/zing-admin.scss */
 .zd-icon-list-item label {
   min-width: initial;
   padding: 5px;
   text-align: center;
 }
-/* line 195, ../scss/zing-admin.scss */
+/* line 210, ../scss/zing-admin.scss */
 .zd-icon-list-item label i {
   padding: 3px;
   background-color: #fff;
@@ -482,11 +603,11 @@ select {
   -o-transition: -o-transform 200ms ease 150ms, color 200ms, background 200ms;
   transition: transform 200ms ease 150ms, color 200ms, background 200ms;
 }
-/* line 203, ../scss/zing-admin.scss */
+/* line 218, ../scss/zing-admin.scss */
 .zd-icon-list-item label:hover {
   color: #158fef;
 }
-/* line 206, ../scss/zing-admin.scss */
+/* line 221, ../scss/zing-admin.scss */
 .zd-icon-list-item label:hover i {
   background-color: rgba(255, 255, 255, 0.8);
   -webkit-transform: scale(4) translateY(30px);
@@ -495,11 +616,11 @@ select {
   -o-transform: scale(4) translateY(30px);
   transform: scale(4) translateY(30px);
 }
-/* line 216, ../scss/zing-admin.scss */
+/* line 231, ../scss/zing-admin.scss */
 .zd-icon-list-item input[type="radio"]:checked + label {
   background-color: #fe5723;
 }
-/* line 218, ../scss/zing-admin.scss */
+/* line 233, ../scss/zing-admin.scss */
 .zd-icon-list-item input[type="radio"]:checked + label i {
   background-color: #fe5723;
   color: #fff;

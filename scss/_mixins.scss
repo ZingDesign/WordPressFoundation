@@ -157,7 +157,11 @@
     $pxValues: append($pxValues, $_px);
   }
 
-  #{$type}: $pxValues;
+//  @debug index($legacy-support, ie8);
+
+  @if index($legacy-support, ie8) != false {
+    #{$type}: $pxValues;
+  }
   #{$type}: rem-calc($px);
 }
 
@@ -367,7 +371,7 @@
 
 // -------
 @mixin rem-font($pixel-value) {
-  @if $legacy-support {
+  @if index($legacy-support, ie8) != false {
     font-size: $pixel-value * 1px;
   }
 
@@ -396,7 +400,7 @@
     @content;
   }
 
-  @if $legacy-support {
+  @if index($legacy-support, firefox) != false {
     &:-moz-placeholder { // Firefox 18-
       @content;
     }

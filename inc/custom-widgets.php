@@ -246,7 +246,7 @@ class ZD_Widget_Newsletter_Subscribe extends WP_Widget {
 		<!-- Begin MailChimp Signup Form -->
 
 			<div id="mc_embed_signup">
-				<form action="<?php echo $mailchimp_url; ?>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<form action="<?php echo esc_html($mailchimp_url); ?>" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
 					<div id="mc_embed_signup_scroll">
 						<div class="mc-field-group">
 							<label for="mce-EMAIL" class="screen-reader-text">Subscribe to our mailing list</label>

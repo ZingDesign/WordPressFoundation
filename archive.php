@@ -21,7 +21,7 @@ get_header(); ?>
 
 <div id="main">
 	<section id="primary" class="content-area content-primary">
-		<div id="content" class="site-content" role="main">
+		<div id="content" class="site-content" role="main" data-ajax-content-area>
 
 			<?php if ( have_posts() ) : ?>
 

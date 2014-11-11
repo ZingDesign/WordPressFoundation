@@ -49,7 +49,17 @@ function zd_add_custom_post_types() {
 			'plural'        => 'white papers',
 			'icon'          => 'media-document',
 			'hierarchical'  => true,
-//			'taxonomies'    => array('category')
+			'supports'              => array(
+				'title',
+				'editor',
+				'thumbnail',
+				'revisions',
+//				'excerpt',
+//				'custom-fields',
+//				'page-attributes',
+//				'author'
+			),
+			'taxonomies'    => array()
 		),
 
 	);

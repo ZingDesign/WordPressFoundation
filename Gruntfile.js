@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    "use strict";
+    'use strict';
 
     var wpConfig = grunt.file.read('../../../wp-config.php');
 
@@ -24,14 +24,20 @@ module.exports = function(grunt) {
     var stylesheets = './scss/*.scss';
 
     var plugins = [
-        //bowerComponentsPath + 'slick-carousel/slick/slick.js'
+        bowerComponentsPath + 'slick-carousel/slick/slick.js'
     ];
 
     var polyfills = [
         bowerComponentsPath + 'jquery-placeholder/jquery.placeholder.js'
     ];
 
-    var cssTasks = ['compass'];
+    var cssTasks = ['compass', 'autoprefixer'];
+
+    var preScript = 'if (typeof jQuery === "undefined") { throw new Error("Foundation requires jQuery") }';
+
+    if(devMode) {
+        preScript += '\n\n(function(){window.devMode = true})();';
+    }
 
     //if( ! devMode ) {
     //    cssTasks.push('cssmin');
@@ -44,7 +50,7 @@ module.exports = function(grunt) {
             ' * Zing Design <%= pkg.version %> (<%= pkg.homepage %>)\n' +
             ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
             ' */\n\n',
-        jqueryCheck: 'if (typeof jQuery === "undefined") { throw new Error("Foundation requires jQuery") }\n\n',
+        jqueryCheck: preScript,
 
         clean: {
             dist: ['dist', 'src', '.sass-cache', 'css']
@@ -63,6 +69,9 @@ module.exports = function(grunt) {
             ,client: {
                 src: [clientScripts]
             }
+            ,zdPlugins: {
+                src: ['./js/zd-plugins/*.js']
+            }
         },
 
         concat: {
@@ -75,7 +84,7 @@ module.exports = function(grunt) {
                     'fnd/bower_components/fastclick/lib/fastclick.js',
                     bowerComponentsPath + 'bootstrap-sass/js/affix.js',
                     //Comment out unused scripts here for extra optimisingness
-                    //foundationScriptPath + '/foundation.js',
+                    foundationScriptPath + '/foundation.js',
                     //foundationScriptPath + '/foundation.abide.js',
                     //foundationScriptPath + '/foundation.accordian.js',
                     //foundationScriptPath + '/foundation.alert.js',
@@ -88,9 +97,9 @@ module.exports = function(grunt) {
                     //foundationScriptPath + '/foundation.offcanvas.js',
                     // ORBIT replaced by Slick
                     //foundationScriptPath + '/foundation.orbit.js',
-                    //foundationScriptPath + '/foundation.reveal.js',
+                    foundationScriptPath + '/foundation.reveal.js',
                     //foundationScriptPath + '/foundation.tab.js',
-                    //foundationScriptPath + '/foundation.tooltip.js',
+                    foundationScriptPath + '/foundation.tooltip.js',
                     //foundationScriptPath + '/foundation.topbar.js',
                     plugins,
                     clientScripts
@@ -115,6 +124,14 @@ module.exports = function(grunt) {
             ,buildPolyfill: {
                 src: 'src/js/<%= pkg.name %>-polyfill.js',
                 dest: 'dist/js/<%= pkg.name %>-polyfill.min.js'
+            },
+            ajaxPagination: {
+                src: 'js/zd-plugins/ajax-page-loading.js',
+                dest: 'dist/js/ajax-page-loading.min.js'
+            },
+            imageModalSlider: {
+                src: 'js/zd-plugins/image-modal-slider.js',
+                dest: 'dist/js/image-modal-slider.min.js'
             }
 
         },
@@ -142,13 +159,13 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: bowerComponentsPath + 'font-awesome/fonts/',
                 src: ['*'],
-                dest: './css/fonts'
+                dest: './fonts'
             },
             slickFonts: {
                 expand: true,
                 cwd: bowerComponentsPath + 'slick-carousel/slick/fonts/',
                 src: ['*'],
-                dest: './css/fonts'
+                dest: './fonts'
             }
         },
 
@@ -182,6 +199,10 @@ module.exports = function(grunt) {
             clientJsWatch: {
                 files: [clientScripts],
                 tasks: ['jshint:client', 'concat:client', 'uglify:build']
+            },
+            zdPluginWatch: {
+                files: ['./js/zd-plugins/*.js'],
+                tasks: ['jshint:zdPlugins', 'uglify:ajaxPagination' , 'uglify:imageModalSlider' ]
             },
             polyfillJsWatch: {
                 files: [polyfills],
@@ -217,6 +238,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['clean', 'jshint:client', 'concat', 'uglify', 'compass', 'copy']);
     grunt.registerTask('css', cssTasks);
-    grunt.registerTask('js', ['jshint:client', 'concat', 'uglify']);
-    grunt.registerTask('copyFonts', ['copy:fontAwesomeFonts', 'copy:slickFonts']);
+    grunt.registerTask('js', ['jshint:client', 'jshint:zdPlugins', 'concat', 'uglify']);
+    grunt.registerTask('w', ['css', 'js', 'watch']);
+    grunt.registerTask('copyFonts', ['copy:fontAwesomeFonts']);
 };

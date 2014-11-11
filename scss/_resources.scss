@@ -35,15 +35,13 @@
   }
 }
 
-.resources-card-image {
+.card-image {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   width: 100%;
   background: $electric-blue;
   overflow: hidden;
   position: relative;
-
-  @extend .fa-file-image-o;
 
   &:before {
     @extend .fa;
@@ -69,6 +67,14 @@
     z-index: 1;
     position: relative;
     width: 100%;
+  }
+
+  &.resources-card-image {
+    @extend .fa-file-image-o;
+  }
+
+  &.white-paper-card-image {
+    @extend .fa-file-text-o;
   }
 }
 
@@ -174,13 +180,17 @@
 
   .resources-card {
     margin: 0 10px 20px 10px;
-    width: 320px;
     //    min-height: 500px;
+
+    width: 320px;
 
     .entry-content {
 
       @include restrict-height-by-lines(4);
     }
+
+//    &.normal {
+//    }
 
     &.large {
       width: 660px;

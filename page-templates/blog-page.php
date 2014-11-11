@@ -6,19 +6,23 @@
  * @since Zing Design 1.0
  */
 
+// Exclude Resources (and posts with categories that are child of Resources)
 $exclude_cats = '-' . get_cat_ID('resource');
 
 //$paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
 
+$paged = 1;
+
 if ( get_query_var('paged') ) {
-	$paged = get_query_var('paged');
+	$paged = intval( get_query_var('paged') );
 }
-elseif ( get_query_var('page') ) {
-	$paged = get_query_var('page');
+else if ( get_query_var('page') ) {
+	$paged = intval( get_query_var('page') );
 }
-else {
-	$paged = 1;
-}
+
+//_d($paged);
+
+//$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
 $blog_query = new WP_Query(array(
 	'paged' => $paged,
@@ -38,7 +42,7 @@ get_header(); ?>
 			?>
 
 			<div id="primary" class="content-area">
-				<div id="content" class="site-content" role="main">
+				<div id="content" class="site-content" role="main" data-ajax-content-area>
 
 
 					<?php
@@ -54,14 +58,16 @@ get_header(); ?>
 							get_template_part( 'content', get_post_format() );
 
 						endwhile;
-						// Previous/next post navigation.
-						zd_paging_nav( $blog_query->max_num_pages );
 
 					else :
 						// If no content, include the "No posts found" template.
 						get_template_part( 'content', 'none' );
 
 					endif;
+
+					// Previous/next post navigation.
+					zd_paging_nav( $blog_query->max_num_pages );
+//					_d($paged);
 
 //					wp_reset_query();
 					wp_reset_postdata();

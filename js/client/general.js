@@ -5,6 +5,7 @@
  */
 
 jQuery(document).ready(function($){
+    'use strict';
 
     // Variable declaration
 
@@ -17,10 +18,18 @@ jQuery(document).ready(function($){
             $('body').removeClass('no-scroll');
         }
         //return;
+    };
+
+
+
+    // Placeholder polyfill
+    if ( ! Modernizr.input.placeholder ) {
+        $('input, textarea').placeholder();
     }
 
-    // Event listeners
-
+    if( $('figure').length ) {
+        $('figure').css({'width':'auto'});
+    }
 
 
 

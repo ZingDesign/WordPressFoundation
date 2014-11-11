@@ -278,6 +278,13 @@ time.entry-date {
 
       &.cat-links {
         display: inline-block;
+        span {
+          font-family: $helvetica;
+
+          &:before {
+            font-family: FontAwesome;
+          }
+        }
       }
 
       &:last-child {

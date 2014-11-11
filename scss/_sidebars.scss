@@ -1,9 +1,45 @@
-.sidebar-features{
+.grey-box {
+
   background: $light-grey;
   border-radius: 3px;
   padding: 32px 40px;
+
+}
+
+.widget{
+  @extend .grey-box;
+
   h3{
     margin: 0;
+  }
+
+  .widget-title {
+    @include rem-val(mb, 20);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      font-size: 1rem;
+      @include rem-val(mt, 20);
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    a {
+      font-weight: 700;
+    }
+  }
+
+  &.sidebar-newsletter,
+  &.zd-sticky-content {
+    background-color: #fff;
+    padding: 0;
   }
 }
 
@@ -52,7 +88,7 @@
   border: 1px solid $light-grey-border;
   box-sizing: border-box;
   height: 54px;
-  padding: 0 24px 0 24px;
+  padding: 0 24px;
   margin-bottom: 16px;
 
   &.full-width{

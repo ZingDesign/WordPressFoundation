@@ -9,7 +9,6 @@
  * @since Zing Design 1.0
  */
 ?>
-<!--            </div><!-- .small-12 columns -->
 		</div><!-- #main-wrapper -->
 
 		<!-- footer starts here -->
