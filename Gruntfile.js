@@ -236,7 +236,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-autoprefixer');
 
-    grunt.registerTask('default', ['clean', 'jshint:client', 'concat', 'uglify', 'compass', 'copy']);
+    grunt.registerTask('default', ['clean', 'jshint:client', 'jshint:zdPlugins', 'concat', 'uglify', 'compass', 'copy']);
     grunt.registerTask('css', cssTasks);
     grunt.registerTask('js', ['jshint:client', 'jshint:zdPlugins', 'concat', 'uglify']);
     grunt.registerTask('w', ['css', 'js', 'watch']);
