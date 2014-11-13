@@ -31,8 +31,8 @@ $blog_query = new WP_Query(array(
 
 get_header(); ?>
 
-	<div id="main">
-		<div id="main-content" class="content-primary">
+	<div id="main" class="row">
+		<div id="main-content" class="content-primary <?php primary_content_class(); ?>">
 
 			<?php
 			if ( is_front_page() && zd_has_featured_posts() ) {
@@ -42,7 +42,7 @@ get_header(); ?>
 			?>
 
 			<div id="primary" class="content-area">
-				<div id="content" class="site-content" role="main" data-ajax-content-area>
+				<div id="content" class="site-content ajax-content-area" role="main">
 
 
 					<?php

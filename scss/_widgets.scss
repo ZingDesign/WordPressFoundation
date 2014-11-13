@@ -25,7 +25,7 @@ $sticky-content-offset: $header-height-desktop + 40px;
 
   .zd-sticky-content {
 
-    width: 240px;
+    width: inherit;
     // Add top 'padding'
     top: $sticky-content-offset;
 
@@ -42,11 +42,15 @@ $sticky-content-offset: $header-height-desktop + 40px;
 
   .zd-sticky-content {
 
-    width: 320px;
+    width: auto;
     top: $sticky-content-offset;
 
     .admin-bar & {
       top: ( strip-unit($sticky-content-offset) + strip-unit($admin-bar-height-desktop)) * 1px;
+    }
+
+    img {
+      width: 100%;
     }
 
   }

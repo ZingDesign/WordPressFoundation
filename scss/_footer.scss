@@ -5,21 +5,23 @@
 $footer-height-mobile: 352px;
 $footer-height-desktop: 170px;
 
-body {
-  padding-bottom: $footer-height-mobile;
-}
+//body {
+//  padding-bottom: $footer-height-mobile;
+//}
 
 .footer-links {
   display: none;
 }
 
-.footer {
+#colophon {
   width: 100%;
   padding: 40px 0;
   background: $dark-blue;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  @include _r(mt, 40);
+
+  .page-template-page-templateslanding-page-php & {
+    margin-top: 0;
+  }
 
   li {
     display: inline-block;
@@ -41,6 +43,13 @@ body {
   }
   .icon-footer {
     opacity: 1;
+  }
+
+  &.sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 }
 
@@ -88,7 +97,7 @@ body {
 }
 
 .footer-content {
-  overflow: auto;
+  overflow: hidden;
   text-align: center;
 
   &:first-child {
@@ -98,12 +107,16 @@ body {
 
 .link-terms {
   margin-top: 16px;
+
+  a {
+    padding: 0 5px;
+  }
 }
 
 @media #{$zd-medium-up} {
   body {
 //    margin: 0 0 170px 0; /* Footer height */
-    padding-bottom: $footer-height-desktop;
+//    padding-bottom: $footer-height-desktop;
   }
 
   .footer-right {

@@ -1,17 +1,18 @@
 <?php
 
 ?>
-<div class="white-paper-card medium-4 columns">
+<div class="white-paper-card medium-6 large-4 columns">
 
-    <div class="card-image white-paper-card-image"><?php zd_the_post_thumbnail( 'medium' ); ?></div>
+	<div class="white-paper-inner">
+		<div class="card-image white-paper-card-image"><?php zd_the_post_thumbnail( 'medium' ); ?></div>
 
-	<div class="white-paper-card-content">
+		<div class="white-paper-card-content">
 
-		<h3><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
+			<h3><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
 
-		<div class="entry-content">
-			<?php the_excerpt();?>
-		</div>
+			<div class="entry-content">
+				<?php the_excerpt();?>
+			</div>
 
 			<?php //zd_posted_on();
 
@@ -30,6 +31,9 @@
 
 			?>
 
-		<?php edit_post_link( __( 'Edit', 'zingdesign' ), '<span class="edit-link">', '</span>' );?>
+			<?php edit_post_link( __( 'Edit', 'zingdesign' ), '<span class="edit-link">', '</span>' );?>
+		</div>
 	</div>
+
+
 </div><!--.white-papers-card-->

@@ -16,26 +16,70 @@
   float: left;
   display: inline-block;
   height: 60px;
-  padding: 0 20px 0 20px;
+  padding: 0 20px;
   text-align: center;
-  i {
-    line-height: 60px;
-  }
+//  i {
+//    line-height: 60px;
+//  }
 }
 
 .mobile-navigation-toggle {
+  @extend .fa;
   left: 0;
   margin-right: 20px;
+  text-align: center;
+  transition: background-color 200ms ease-in;
+
+  &:before {
+    line-height: 60px;
+    color: #fff;
+    font-size: 2em;
+  }
+
+  &.open {
+    @extend .fa-bars;
+
+    &.active {
+      background-color: darken($electric-blue, 10%);
+    }
+  }
+
+  &.close {
+    @extend .fa-close;
+
+//    &.active {
+//      background-color: darken($dark-blue, 10%);
+//    }
+  }
 }
 
 .mobile-search-toggle {
+  @extend .fa;
+  @extend .fa-search;
+  text-align: center;
+
+
   cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
   height: 60px;
   width: 64px;
-  background: image-url('icons/icon-search-white.svg') center/24px no-repeat;
+
+
+  &:before {
+    line-height: 60px;
+    color: #fff;
+    @include rem-font(26);
+
+  }
+
+
+//  background: image-url('icons/icon-search-white.svg') center/24px no-repeat;
+
+//  .no-svg & {
+//    background-image: image-url('icons/icon-search-white.png');
+//  }
 }
 
 .mobile-navigation-draw,
@@ -158,7 +202,8 @@
     line-height: 24px;
     box-sizing: border-box;
     padding: 0 20px;
-    margin-bottom: 46px;
+//    margin-bottom: 46px;
+    @include _r(mb, 20);
   }
   label {
     cursor: pointer;
@@ -174,6 +219,21 @@
   display: block;
   float: left;
   margin-right: 20px;
+
+
+  &.ticked {
+//    background: image-url('icons/icon-tick-white.svg') center no-repeat $electric-blue;
+    @extend .fa;
+    @extend .fa-check;
+    background-color: $electric-blue;
+    text-align: center;
+    line-height: 24px;
+    color: #fff;
+
+//    .no-svg & {
+//      background-image: image-url('icons/icon-tick-white.png');
+//    }
+  }
 }
 
 .mobile-search-label-text {
@@ -184,17 +244,22 @@
 .mobile-search-category {
   display: none;
 
-  &:checked + label .mobile-search-tick {
-    background: image-url('icons/icon-tick-white.svg') center no-repeat $electric-blue;
-  }
+//  &:checked + label .mobile-search-tick {
 }
 
 
 .mobile-search-close {
+  @extend .fa;
+  @extend .fa-close;
+
   right: 0;
   margin-left: 20px;
-  i {
+  text-align: center;
+
+  &:before {
     color: $text-black;
+    font-size: 2em;
+    line-height: 60px;
   }
 }
 
@@ -247,6 +312,14 @@
   transition-delay: 0s;
 }
 
+@media #{$zd-medium-up} and (orientation: landscape) {
+  .mobile-menu-inner-container {
+    max-width: $zd-medium;
+    margin: 0 auto;
+    position: relative;
+  }
+}
+
 @media #{$zd-large-up} {
   .mobile-navigation-toggle,
   .mobile-navigation-draw,
@@ -255,5 +328,11 @@
   .mobile-search-draw,
   #listener-mobile-search:checked ~ .mobile-search-draw {
     display: none;
+  }
+
+  .mobile-search-draw {
+    li {
+      @include _r(mb, 46);
+    }
   }
 }

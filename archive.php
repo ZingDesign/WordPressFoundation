@@ -19,9 +19,9 @@
 
 get_header(); ?>
 
-<div id="main">
-	<section id="primary" class="content-area content-primary">
-		<div id="content" class="site-content" role="main" data-ajax-content-area>
+<div id="main" class="row">
+	<section id="primary" class="content-area content-primary <?php primary_content_class(); ?>">
+		<div id="content" class="site-content ajax-content-area" role="main">
 
 			<?php if ( have_posts() ) : ?>
 

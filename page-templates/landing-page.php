@@ -36,9 +36,9 @@ $landing_page_query = new WP_Query( array(
 get_header(); ?>
 	<div id="landing-page-container" class="content-wrapper landing-page" role="main">
 
-		<div id="resources-container" data-ajax-content-area>
+		<div id="resources-container" class="<?php echo get_option('enable-ajax-pagination') ? 'ajax-content-area' : ''; ?>">
 
-			<div class="content-resources">
+			<div class="content-resources row flex-row">
 				<?php
 
 				if ( $landing_page_query->have_posts() ) :
@@ -63,7 +63,7 @@ get_header(); ?>
 
 				endif;
 				?>
-			</div><!-- .resources-container -->
+			</div><!-- .content-resources -->
 
 			<?php
 
@@ -75,7 +75,7 @@ get_header(); ?>
 			wp_reset_postdata();
 			//			wp_reset_query();
 			?>
-		</div>
+		</div><!-- #resources-container -->
 
 
 

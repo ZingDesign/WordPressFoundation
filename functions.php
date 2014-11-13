@@ -943,3 +943,40 @@ function zd_add_image_modal() {
 
 	echo $html;
 }
+
+function primary_content_class($echo=true) {
+	$medium_up = is_int( intval( get_option('primary-content-width-medium') ) ) ? get_option('primary-content-width-medium') : 8;
+	$large_up = is_int( intval( get_option('primary-content-width-large') ) ) ? get_option('primary-content-width-large') : 8;
+
+	$medium_class = "medium-{$medium_up}";
+	$large_class = "large-{$large_up}";
+
+	$output = $medium_class . ' ' . $large_class . ' columns';
+
+	if( ! $echo ) {
+		return $output;
+	}
+
+	echo $output;
+}
+
+function sidebar_content_class($echo=true) {
+	$columns = 12;
+
+	$primary_medium_up = is_int( intval( get_option('primary-content-width-medium') ) ) ? intval( get_option('primary-content-width-medium') ) : 8;
+	$primary_large_up = is_int( intval( get_option('primary-content-width-large') ) ) ? intval( get_option('primary-content-width-large') ) : 8;
+
+	$medium_up = $columns - $primary_medium_up;
+	$large_up = $columns - $primary_large_up;
+
+	$medium_class = "medium-{$medium_up}";
+	$large_class = "large-{$large_up}";
+
+	$output = $medium_class . ' ' . $large_class . ' columns';
+
+	if( ! $echo ) {
+		return $output;
+	}
+
+	echo $output;
+}

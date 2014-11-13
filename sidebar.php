@@ -9,7 +9,7 @@
 ?>
 
 
-<div id="content-secondary">
+<div id="content-secondary" class="<?php sidebar_content_class(); ?>">
 
     <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
         <?php dynamic_sidebar( 'sidebar-1' ); ?>

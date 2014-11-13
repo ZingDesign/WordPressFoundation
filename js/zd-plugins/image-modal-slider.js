@@ -7,24 +7,12 @@ jQuery(document).ready(function($) {
     // Variable declaration
     var imageModalSelector = '#zd-image-modal';
     //var revealModalBgSelector = '.reveal-modal-bg';
-    var imageSelector = '.entry-content img';
+    var imageSelector = '.entry-content img:not(.wp-smiley)';
     var $doc = $(document);
 
     //function getImageCount() {
     //    return $(imageSelector).length;
     //}
-
-    function addImageToSlider(_slider, _img) {
-
-        var newSlide = '<div>\n<img src="' + _img.attr('src') + '" ' +
-        'alt="' + _img.attr('alt') + '" ' +
-        'width="' + _img.attr('width') + '" ' +
-        'height="' + _img.attr('height') + '" />\n</div>\n';
-
-        _slider.append( newSlide );
-
-
-    }
 
     function openImageInModal(e) {
         var $this = $(this);
@@ -39,7 +27,13 @@ jQuery(document).ready(function($) {
 
         //var allImageLinks = e.data.allImageLinks;
 
-        if (imageModal.length) {
+        // Smiley fix
+        //if( ! $this.hasClass('wp-smiley')) {
+        //
+        //}
+
+
+        if ( imageModal.length ) {
             e.preventDefault();
 
             //ZD.debug( postImages.length );
@@ -57,6 +51,7 @@ jQuery(document).ready(function($) {
         else {
             ZD.debug('Image modal element missing: ' + imageModalSelector);
         }
+
 
 
         //return false;
@@ -138,7 +133,7 @@ jQuery(document).ready(function($) {
 
     //console.log( $('[data-ajax-content-area]').length );
 
-    if ($(imageSelector).length) {
+    if ($(imageSelector).length && isLargeUp() ) {
         //initImageModal();
 
         var postImages = $(imageSelector);
@@ -172,5 +167,26 @@ jQuery(document).ready(function($) {
         modal.attr('aria-hidden', true);
         //$(revealModalBgSelector).attr('aria-hidden', true);
     });
+
+    // Disable link around image
+    if( $('a.img').length ) {
+
+        $('a.img').on('click', function() {
+            //event.preventDefault();
+            //alert('image link clicked');
+            $(this).find('img').trigger('click');
+
+            return false;
+        });
+
+    }
+
+    function isMediumUp() {
+        return window.matchMedia ? matchMedia(Foundation.media_queries.medium).matches : true;
+    }
+
+    function isLargeUp() {
+        return window.matchMedia ? matchMedia(Foundation.media_queries.large).matches : true;
+    }
 
 });

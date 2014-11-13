@@ -9,8 +9,8 @@
 
 
 get_header(); ?>
-<div id="main">
-	<div id="primary" class="content-primary" role="main" data-ajax-content-area>
+<div id="main" class="row">
+	<div id="primary" class="content-primary ajax-content-area <?php primary_content_class(); ?>" role="main">
 
 		<?php
 		// Start the Loop.

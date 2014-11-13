@@ -407,7 +407,7 @@
   }
 }
 
-// Flexbox bitches
+// Flexbox bitches!
 
 @mixin flexbox() {
   display: -webkit-box;
@@ -431,4 +431,11 @@
   -ms-flex-order: $val;
   -webkit-order: $val;
   order: $val;
+}
+
+//Text truncation
+@mixin restrict-height-by-lines($lines) {
+  display: block;
+  overflow: hidden;
+  height: $lines * $para-line-height * strip-unit($para-base-font-size) * 1px;
 }

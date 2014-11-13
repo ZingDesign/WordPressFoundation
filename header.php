@@ -64,74 +64,98 @@
 
 	<header class="header">
 
-		<div class="header-content">
+		<div class="header-content row">
+			<div class="small-12 columns">
 
-			<input type="checkbox" id="listener-mobile-navigation" onclick="toggleScroll()">
-			<label for="listener-mobile-navigation" class="mobile-navigation-toggle"><i
-					class="fa fa-bars fa-2x"></i></label>
+				<input aria-hidden="true" type="checkbox" id="listener-mobile-navigation" onclick="toggleScroll()">
+				<label for="listener-mobile-navigation" class="mobile-navigation-toggle open">
+					<span class="screen-reader-text"><?php _e('Menu', 'zingdesign'); ?></span>
+				</label>
 
-			<div class="mobile-navigation-draw index-1">
-				<label for="listener-mobile-navigation" class="mobile-navigation-toggle"><i
-						class="fa fa-close fa-2x"></i></label>
+				<div aria-hidden="true" class="mobile-navigation-draw index-1">
 
-				<div class="mobile-navigation-header"><a href="<?php echo home_url('/'); ?>" class="logo-raygun"></a></div>
-				<div class="mobile-navigation-scroll">
-					<!-- primary (mobile) menu-->
-					<?php
-					zd_get_menu('primary');
-					 ?>
+					<div class="mobile-menu-inner-container">
+						<label for="listener-mobile-navigation" class="mobile-navigation-toggle close">
+							<span class="screen-reader-text"><?php _e('Close', 'zingdesign'); ?></span>
+						</label>
+
+						<div class="mobile-navigation-header"><a href="<?php echo home_url('/'); ?>" class="logo-raygun"></a></div>
+						<div class="mobile-navigation-scroll">
+							<!-- primary (mobile) menu-->
+							<?php
+							zd_get_menu('primary');
+							 ?>
+						</div>
+
+					</div><!-- .mobile-menu-inner-container -->
+				</div><!-- mobile-navigation-draw -->
+
+				<input aria-hidden="true" type="checkbox" id="listener-mobile-search" onclick="toggleScroll()">
+				<label for="listener-mobile-search" class="mobile-search-toggle">
+					<span class="screen-reader-text"><?php _e('Search', 'zingdesign'); ?></span>
+				</label>
+
+				<div aria-hidden="true" class="mobile-search-draw index-1">
+
+					<div class="mobile-menu-inner-container">
+
+						<form id="mobile-search-form" method="get" action="<?php echo home_url( '/' ); ?>">
+							<label for="listener-mobile-search" class="mobile-search-close">
+								<span class="screen-reader-text"><?php _e('Close', 'zingdesign'); ?></span>
+							</label>
+							<input name="s" class="mobile-search-input" type="text" placeholder="Search our blog">
+
+							<h3><?php _e( 'Filter by category', 'zingdesign' ); ?></h3>
+
+							<ul>
+								<?php
+								$categories = get_terms(
+									array('category'),
+									array('exclude' => get_cat_ID('Uncategorised') )
+								);?>
+								<li>
+										<input type="radio" class="mobile-search-category" id="mobile-search-check-all" name="category_name" value="" checked>
+										<label for="mobile-search-check-all">
+											<span class="mobile-search-tick ticked"></span>
+											<span class="mobile-search-label-text"><?php _e('All Categories'); ?></span>
+										</label>
+								</li>
+
+								<?php
+								foreach($categories as $cat) : ?>
+									<li>
+										<input type="radio" class="mobile-search-category" id="mobile-search-check-<?php echo $cat->term_id; ?>" name="category_name" value="<?php echo esc_attr($cat->slug); ?>">
+										<label for="mobile-search-check-<?php echo $cat->term_id; ?>">
+											<span class="mobile-search-tick"></span>
+											<span class="mobile-search-label-text"><?php echo esc_attr($cat->name); ?></span>
+										</label>
+									</li>
+
+									<?php endforeach; ?>
+							</ul>
+
+							<button id="mobile-search-submit" type="submit"><?php _e( 'Search', 'zingdesign' ); ?></button>
+						</form>
+
+					</div><!-- .mobile-menu-inner-container -->
+
+				</div><!-- mobile-search-draw -->
+
+				<a href="http://raygun.io" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
+
+				<div class="link-back">
+					<a href="http://raygun.io">
+						<i class="fa fa-angle-left fa-lg header-align header-margin-right"></i> <?php _e('Back to Raygun', 'zingdesign'); ?>
+					</a>
 				</div>
-			</div>
 
-			<input type="checkbox" id="listener-mobile-search" onclick="toggleScroll()">
-			<label for="listener-mobile-search" class="mobile-search-toggle"></label>
-
-			<div class="mobile-search-draw index-1">
-				<form id="mobile-search-form" method="get" action="<?php echo home_url( '/' ); ?>">
-					<label for="listener-mobile-search" class="mobile-search-close"><i class="fa fa-close fa-2x"></i></label>
-					<input name="s" class="mobile-search-input" type="text" placeholder="Search our blog">
-
-					<h3><?php _e( 'Filter by category', 'zingdesign' ); ?></h3>
-
-					<ul>
-						<?php
-						$categories = get_terms(
-							array('category'),
-							array('exclude' => get_cat_ID('Uncategorised') )
-						);
-
-						foreach($categories as $cat) : ?>
-							<li>
-								<input type="radio" class="mobile-search-category" id="mobile-search-check-<?php echo $cat->term_id; ?>" name="category_name" value="<?php echo esc_attr($cat->slug); ?>">
-								<label for="mobile-search-check-<?php echo $cat->term_id; ?>">
-									<span class="mobile-search-tick"></span>
-									<span class="mobile-search-label-text"><?php echo esc_attr($cat->name); ?></span>
-								</label>
-							</li>
-
-							<?php endforeach; ?>
-					</ul>
-
-					<button id="mobile-search-submit" type="submit"><?php _e( 'Search', 'zingdesign' ); ?></button>
-				</form>
-
-			</div>
-
-			<a href="http://raygun.io" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
-
-			<div class="link-back">
-				<a href="http://raygun.io">
-					<i class="fa fa-angle-left fa-lg header-align header-margin-right"></i> <?php _e('Back to Raygun', 'zingdesign'); ?>
-				</a>
-			</div>
-
-			<?php
-//			if( get_option('show-search-form-in-header') ) {
-				echo get_search_form();
-//			}
-			?>
-
-		</div>
+				<?php
+	//			if( get_option('show-search-form-in-header') ) {
+					echo get_search_form();
+	//			}
+				?>
+			</div><!--.columns-->
+		</div><!--.header-content-->
 
 	</header>
 	<!-- main header ends -->
@@ -139,19 +163,21 @@
 	<!-- Sub header that contains all the navigation for the blog except for search -->
 	<nav class="header-sub">
 
-		<div class="header-content">
+		<div class="header-content row">
+			<div class="small-12 columns">
 
-			<?php
-//			_d( zd_is_resource_category() );
+				<?php
+	//			_d( zd_is_resource_category() );
 
-			if( zd_is_resource_page() ) {
-				zd_get_menu('resources');
-			}
-			else {
-				zd_get_menu('secondary');
-			} ?>
+				if( zd_is_resource_page() ) {
+					zd_get_menu('resources');
+				}
+				else {
+					zd_get_menu('secondary');
+				} ?>
 
-			<a href="<?php esc_url(get_option('callout-button-url')); ?>" class="green promo button" target="_blank"><?php echo esc_attr(get_option('callout-button-text')) ?></a>
+				<a href="<?php esc_url(get_option('callout-button-url')); ?>" class="green promo button" target="_blank"><?php echo esc_attr(get_option('callout-button-text')) ?></a>
+			</div>
 
 		</div>
 

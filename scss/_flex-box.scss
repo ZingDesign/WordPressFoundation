@@ -1,0 +1,31 @@
+// Flex box magic
+// Span 1 col by default
+// Span 2 cols on medium-up
+// Span 3 cols on large-up
+
+.flexbox {
+
+  .flex-row {
+    display: flex;
+    flex: 1 100%;
+    flex-flow: row wrap;
+    align-items: stretch;
+
+    & > div {
+      display: flex;
+      flex: 0 0 100%;
+
+      @media #{$zd-medium-up} {
+        flex: 0 0 (100% / 2);
+
+        &.large {
+          flex-grow: 2;
+        }
+      }
+
+      @media #{$zd-large-up} {
+        flex: 0 0 (100% / 3);
+      }
+    }
+  }
+}

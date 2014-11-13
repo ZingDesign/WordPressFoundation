@@ -72,7 +72,7 @@ jQuery(document).ready(function ($) {
         $.fn.loadAjaxContent.defaults = $.extend({
             // These are the defaults.
             // Set container to the data-attribute by default
-            container: '[data-ajax-content-area]',
+            container: '.ajax-content-area',
             linkSelector: null,
             stickToBottom: false,
             stickToTop: true
@@ -147,20 +147,23 @@ jQuery(document).ready(function ($) {
                         //debug(newContent);
 
                         //debug($(response).find(_target));
-                        $_container
-                            .html(newContent)
-                            .removeClass('loading');
 
                         if (Modernizr.history) {
                             window.history.pushState(null, null, $request);
                         }
 
                         if(e.data.stickToTop) {
-                            window.scrollTo(0, 0);
+                            //window.scrollTo(0, 0);
+                            //ZD.debug(e);
+                            ZD.animateScrollVertical(0, e.pageY );
                         }
                         if (e.data.stickToBottom && isMediumUp()) {
                             window.scrollTo(0, document.body.scrollHeight);
                         }
+
+                        $_container
+                            .html(newContent)
+                            .removeClass('loading');
 
                         //return false;
                         // Re-jiggle the DOM

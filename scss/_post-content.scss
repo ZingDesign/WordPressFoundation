@@ -40,6 +40,8 @@ article {
 .entry-content {
 //  margin-bottom: 1rem;
 
+  word-wrap: break-word;
+
   a {
     text-decoration: underline;
 
@@ -279,7 +281,7 @@ time.entry-date {
       &.cat-links {
         display: inline-block;
         span {
-          font-family: $helvetica;
+          font-family: $body-font-family;
 
           &:before {
             font-family: FontAwesome;

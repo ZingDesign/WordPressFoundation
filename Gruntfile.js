@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
     'use strict';
 
-    var wpConfig = grunt.file.read('../../../wp-config.php');
+    //var wpConfig = grunt.file.read('../../../wp-config.php');
 
-    var devMode = (wpConfig.indexOf("'WP_DEBUG', true") > -1);
+    var devMode = true;
 
     if( devMode ) {
         console.log('-----------------------------------');

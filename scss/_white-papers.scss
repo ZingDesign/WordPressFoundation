@@ -1,3 +1,37 @@
+
+.white-paper-card {
+  @include _r(mb, 30);
+
+  .white-paper-inner {
+    width: 100%;
+  }
+
+  .edit-link {
+    text-align: center;
+    display: inline-block;
+
+    a {
+      display: block;
+      padding: 10px 40px;
+      color: #fff;
+      background-color: $green;
+      border-radius: 3px;
+
+      &:before {
+        color: #fff;
+      }
+
+      &:hover {
+        background-color: lighten($green, 5%);
+      }
+    }
+  }
+}
+
+.white-paper-card-image {
+  margin-bottom: 20px;
+}
+
 // Form
 
 .form-title {

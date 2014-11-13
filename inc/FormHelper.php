@@ -253,6 +253,7 @@ class FormHelper {
 			}
 
 			if( $tooltip ) {
+				$tooltip = esc_html($tooltip);
 				$after .= "<span data-tooltip aria-haspopup=\"true\" class=\"zd-tooltip has-tip\" title=\"{$tooltip}\">?</span>\n";
 			}
 

@@ -1,7 +1,7 @@
 {
   "name": "zing",
-  "version": "0.1.0",
-  "description": "Zing Design boilerplate WordPress theme",
+  "version": "1.0.0",
+  "description": "Raygun WordPress theme",
   "keywords": [
     "wordpress",
     "foundation"
@@ -10,10 +10,10 @@
   "environment": "development",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ZingDesign/ZingDesign.git"
+    "url": "https://github.com/MindscapeHQ/raygun-blog-theme.git"
   },
   "bugs": {
-    "url": "https://github.com/ZingDesign/ZingDesign/issues"
+    "url": "https://github.com/MindscapeHQ/raygun-blog-theme/issues"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

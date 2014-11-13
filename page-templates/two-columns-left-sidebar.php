@@ -8,10 +8,10 @@
 
 get_header();?>
 
-<div id="main">
+<div id="main" class="row">
 	<?php get_sidebar(); ?>
 
-	<div id="main-content" class="main-content">
+	<div id="main-content" class="main-content <?php primary_content_class(); ?>">
 
 		<?php
 		if ( is_front_page() && zd_has_featured_posts() ) {

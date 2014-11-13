@@ -76,8 +76,8 @@ class ZingDesignThemeOptions {
 			    'analytics'         => __('Analytics',          'zingdesign'),
 			    'newsletter'        => __('Mailchimp',          'zingdesign'),
 			    'categories'        => __('Categories',         'zingdesign'),
-			    'white_papers'      => __('White Papers',       'zingdesign')
-//			    'design'            => __('Design',             'zingdesign'),
+			    'white_papers'      => __('White Papers',       'zingdesign'),
+			    'design'            => __('Design',             'zingdesign'),
 //			    'custom-post-types' => __('Custom post types',  'zingdesign'),
 		    );
 
@@ -254,7 +254,34 @@ class ZingDesignThemeOptions {
 						    'state'     => 'on',
 						    'toggle'    => 'display'
 					    )
-				    )
+				    ),
+				    'primary_content_width_medium' => array(
+					    'label'     => 'Primary content width (tablet-up)',
+					    'section'   => 'design',
+					    'type'      => 'number',
+					    'help'   => 'See <a href="http://foundation.zurb.com/docs/components/grid.html" target="_blank">Foundation Grid docs</a> for more info',
+					    'default'   => 8
+				    ),
+				    'primary_content_width_large' => array(
+					    'label'     => 'Primary content width (desktop-up)',
+					    'section'   => 'design',
+					    'type'      => 'number',
+					    'help'   => 'See <a href="http://foundation.zurb.com/docs/components/grid.html" target="_blank">Foundation Grid docs</a> for more info',
+					    'default'   => 8
+				    ),
+//				    'sidebar_content_width_medium' => array(
+//					    'label'     => 'Sidebar width (tablet-up)',
+//					    'section'   => 'design',
+//					    'type'      => 'number',
+//					    'default'   => '4'
+//				    ),
+//				    'sidebar_content_width_large' => array(
+//					    'label'     => 'Sidebar width (desktop-up)',
+//					    'section'   => 'design',
+//					    'type'      => 'number',
+//					    'default'   => '4'
+//				    ),
+
 
 //				    'category_icons' => array(
 //					    'label'     => 'Category icons',

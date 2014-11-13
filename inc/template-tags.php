@@ -110,8 +110,8 @@ if ( ! function_exists( 'zd_post_nav' ) ) : /**
 				if ( is_attachment() ) :
 					previous_post_link( '%link', __( '<span class="meta-nav">Published In</span>%title', 'zingdesign' ) );
 				else :
-					previous_post_link( '%link', __( '<span data-tooltip aria-haspopup="true"  class="meta-nav" title="%title">Previous Post</span>', 'zingdesign' ) );
-					next_post_link( '%link', __( '<span data-tooltip aria-haspopup="true"  class="meta-nav" title="%title">Next Post</span>', 'zingdesign' ) );
+					previous_post_link( '%link', __( '<span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="meta-nav" title="%title">Previous Post</span>', 'zingdesign' ) );
+					next_post_link( '%link', __( '<span data-tooltip aria-haspopup="true" data-options="disable_for_touch:true" class="meta-nav" title="%title">Next Post</span>', 'zingdesign' ) );
 				endif;
 				?>
 			</div>
@@ -293,14 +293,16 @@ if ( ! function_exists( 'zd_the_post_thumbnail' ) ) :
 
 		global $post;
 
-		$before = $after = $post_image = '';
+		$before = $after = $post_image = $post_link_before = $post_link_after = '';
 
 		$is_single = is_single();
 
 		$post_link = get_the_permalink();
 
-		$post_link_before = "<a href=\"{$post_link}\">\n";
-		$post_link_after  = "</a>\n";
+		if( ! $is_single ) {
+			$post_link_before = "<a href=\"{$post_link}\">\n";
+			$post_link_after  = "</a>\n";
+		}
 
 		// Check if the post thumbnail exists, show this regardless of single/multiple
 		if ( has_post_thumbnail() ) {

@@ -1,0 +1,5 @@
+@include font-face($proxima-nova-fontname, font-files("proxima-nova/light/proximanova-light-webfont.woff", "proxima-nova/light/proximanova-light-webfont.ttf", "proxima-nova/light/proximanova-light-webfont.svg"), "proxima-nova/light/proximanova-light-webfont.eot", 200, normal);
+
+@include font-face($proxima-nova-fontname, font-files("proxima-nova/regular/proximanova-regular-webfont.woff", "proxima-nova/regular/proximanova-regular-webfont.ttf", "proxima-nova/regular/proximanova-regular-webfont.svg"), "proxima-nova/regular/proximanova-regular-webfont.eot", 400, normal);
+
+@include font-face($proxima-nova-fontname, font-files("proxima-nova/bold/proximanova-bold-webfont.woff", "proxima-nova/bold/proximanova-bold-webfont.ttf", "proxima-nova/bold/proximanova-bold-webfont.svg"), "proxima-nova/bold/proximanova-bold-webfont.eot", 700, normal);

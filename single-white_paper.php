@@ -12,7 +12,7 @@ get_header(); ?>
 <div id="main">
 
 	<div class="row">
-		<div id="white-paper-content" class="medium-8 columns">
+		<div id="white-paper-content" class="<?php primary_content_class(); ?>">
 
 			<?php
 			// Start the Loop.
@@ -44,8 +44,8 @@ get_header(); ?>
 			</div>
 
 
-		</div>
-	</div>
+		</div><!--.medium-4-->
+	</div><!--.row-->
 
 </div><!-- #main -->
 

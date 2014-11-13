@@ -18,6 +18,8 @@ $text-black: #222;
 $error: $orange;
 $success: $green;
 
+/// ----- Foundation settings:
+
 // Links
 $default-link-color: $electric-blue;
 
@@ -30,6 +32,11 @@ $pagination-active-bg-color: $pagination-text-color;
 $reveal-modal-bg: $electric-blue;
 $reveal-close-color: #fff;
 $reveal-radius: rem-calc(3px);
+
+$tooltip-bg: $dark-blue;
+$tooltip-close-font-color: #eee;
+
+/// -----
 
 // Responsive navigation
 //$slide-menu-background: #ddd !default;
@@ -45,6 +52,7 @@ $para-base-font-size: 16px;
 
 
 // Fixed height values
+$header-height: 60px;
 $header-height-desktop: 60px;
 $footer-height: 170px;
 
@@ -56,6 +64,9 @@ $admin-bar-height-desktop: 32px;
 // Fonts
 $helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+$proxima-nova-fontname: "proxima-nova";
+$body-font-family: $proxima-nova-fontname, $helvetica;
+
 //Custom media queries
 
 // Retina mega-query!
@@ -66,7 +77,7 @@ $wp-medium-up: 'only screen and (min-width: 783px)';
 
 // Custom breakpoints for Raygun
 $zd-medium: 768px;
-$zd-large: 1035px;
+$zd-large: 1120px;
 $zd-medium-max: $zd-large - 1px;
 
 $zd-medium-up: 'only screen and (min-width: #{$zd-medium})';
@@ -75,7 +86,8 @@ $zd-large-up: 'only screen and (min-width: #{$zd-large})';
 
   // Common images
 $ajax-loader: image-url('ajax-loader.gif');
-$header-logo: "logo-raygun-white.svg";
+$header-logo: image-url("logos/logo-raygun-white.svg");
+$header-logo-fallback: image-url("logos/logo-raygun-white.png");
 
 
 

@@ -6,18 +6,31 @@
  * @since Zing Design 1.0
  */
 
+$paged = 1;
+
+if ( get_query_var('paged') ) {
+	$paged = intval( get_query_var('paged') );
+}
+else if ( get_query_var('page') ) {
+	$paged = intval( get_query_var('page') );
+}
+
+$custom_post_type_query = new WP_Query( array(
+	'paged'     => $paged,
+	'post_type' => 'white_paper'
+) );
 
 get_header(); ?>
 	<div id="main">
 
-		<?php the_title( '<header class="entry-header"><h1 class="entry-title">', '</h1></header><!-- .entry-header -->' ); ?>
+		<div class="row">
+			<div class="small-12 columns">
+				<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+			</div>
+		</div>
 
-		<div class="row" role="main">
+		<div class="row flex-row" role="main">
 			<?php
-
-			$custom_post_type_query = new WP_Query( array(
-				'post_type' => 'white_paper'
-			) );
 
 			if ( $custom_post_type_query->have_posts() ) :
 				// Start the Loop.

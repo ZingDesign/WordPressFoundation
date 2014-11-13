@@ -355,7 +355,7 @@ meta.foundation-data-attribute-namespace {
   left: 50%;
   width: 100%;
   color: white;
-  background: #333333;
+  background: #364760;
 }
 /* line 67, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
 .tooltip > .nub {
@@ -365,7 +365,7 @@ meta.foundation-data-attribute-namespace {
   width: 0;
   height: 0;
   border: solid 5px;
-  border-color: transparent transparent #333333 transparent;
+  border-color: transparent transparent #364760 transparent;
   top: -10px;
 }
 /* line 77, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
@@ -395,19 +395,19 @@ meta.foundation-data-attribute-namespace {
 .tap-to-close {
   display: block;
   font-size: 0.625rem;
-  color: #777777;
+  color: #eeeeee;
   font-weight: normal;
 }
 
 @media only screen and (min-width: 40.063em) {
   /* line 108, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
   .tooltip > .nub {
-    border-color: transparent transparent #333333 transparent;
+    border-color: transparent transparent #364760 transparent;
     top: -10px;
   }
   /* line 112, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
   .tooltip.tip-top > .nub {
-    border-color: #333333 transparent transparent transparent;
+    border-color: #364760 transparent transparent transparent;
     top: auto;
     bottom: -10px;
   }
@@ -417,7 +417,7 @@ meta.foundation-data-attribute-namespace {
   }
   /* line 121, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
   .tooltip.tip-left > .nub {
-    border-color: transparent transparent transparent #333333;
+    border-color: transparent transparent transparent #364760;
     right: -10px;
     left: auto;
     top: 50%;
@@ -425,7 +425,7 @@ meta.foundation-data-attribute-namespace {
   }
   /* line 128, ../fnd/bower_components/foundation/scss/foundation/components/_tooltips.scss */
   .tooltip.tip-right > .nub {
-    border-color: transparent #333333 transparent transparent;
+    border-color: transparent #364760 transparent transparent;
     right: auto;
     left: -10px;
     top: 50%;

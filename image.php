@@ -13,9 +13,9 @@ $metadata = wp_get_attachment_metadata();
 get_header();
 ?>
 
-<div id="main">
+<div id="main" class="row">
 
-	<section id="primary" class="content-area image-attachment">
+	<section id="primary" class="content-area image-attachment medium-8">
 		<div id="content" class="site-content" role="main">
 
 	<?php

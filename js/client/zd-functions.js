@@ -133,8 +133,27 @@
         isset: function(_var) {
             return (typeof _var !== 'undefined' && _var !== null);
         },
+        notSet: function(_var) {
+            return (typeof _var === 'undefined' || _var === null);
+        },
         isDevMode: function() {
             return window.ZD.isset(window.devMode);
+        },
+        animateScrollVertical: function( _destY, _origY ) {
+
+            var speed = 500;
+
+            if( ZD.notSet(_destY) ) {
+                _destY = 0;
+            }
+
+            if( ZD.isset(_origY) ) {
+                speed = Math.floor( Math.abs( _destY - _origY ) * 0.2 );
+            }
+
+            $('html, body').animate({
+                scrollTop: _destY
+            }, speed);
         }
     };
 

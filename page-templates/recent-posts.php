@@ -15,12 +15,11 @@ $recent_posts = wp_get_recent_posts($args, OBJECT);
 
 get_header(); ?>
 
-<div id="main">
-	<div id="main-content" class="content-primary">
+<div id="main" class="row">
+	<div id="main-content" class="content-primary medium-8">
 
 		<div id="primary" class="content-area">
 			<div id="content" class="site-content" role="main">
-
 
 				<?php
 
@@ -53,7 +52,7 @@ get_header(); ?>
 			</div><!-- #content -->
 		</div><!-- #primary -->
 
-		<?php get_sidebar( 'sidebar-1' ); ?>
+		<?php get_sidebar( 'content' ); ?>
 
 	</div><!-- #main-content -->
 

@@ -1,24 +1,31 @@
+#landing-page-container {
+
+
+}
+
 .content-wrapper {
   background: $light-grey;
 
 }
 
 .content-resources {
-  width: 100%;
-  margin: 60px auto 0;
-  box-sizing: border-box;
-  padding: 40px 20px;
-  overflow: auto;
+//  width: 100%;
+//  margin: 60px auto 0;
+//  box-sizing: border-box;
+//  padding: 40px 20px;
+//  overflow: auto;
+  padding-top: $header-height + 30px;
 }
 
 .resources-card {
-  background: #fff;
-  border: 1px solid $light-grey-border;
-  width: 100%;
-  border-radius: 3px;
-  float: left;
-  margin: 0 0 20px 0;
-  box-sizing: border-box;
+  @include _r(mb, 30);
+
+  .resource-card-inner {
+
+    background: #fff;
+    border: 1px solid $light-grey-border;
+    border-radius: 3px;
+  }
 
   .entry-content {
     margin-bottom: 20px;
@@ -81,7 +88,7 @@
 .resources-card-content {
   width: 100%;
   padding: 32px;
-  box-sizing: border-box;
+//  box-sizing: border-box;
   position: relative;
   
   h3 {
@@ -95,11 +102,6 @@
   .edit-link {
     text-align: center;
     display: inline-block;
-//    position: absolute;
-//    margin: 0;
-//    bottom: 0;
-//    left: 0;
-//    right: 0;
 
     a {
       display: block;
@@ -113,7 +115,7 @@
       }
 
       &:hover {
-        background-color: darken($green, 5%);
+        background-color: lighten($green, 5%);
       }
     }
   }
@@ -131,28 +133,13 @@
   }
 }
 
-// Flex box
 
-.flexbox {
-  .content-resources {
-    display: flex;
-    flex: 1 100%;
-//    @include flexbox();
-//    @include flex(1 100%);
-    flex-flow: row wrap;
-//    justify-content: space-around;
-
-    .resources-card {
-
-    }
-  }
-}
 
 @media #{$zd-medium-up} {
   .content-resources {
 //    margin: 140px auto 0;
-    width: 680px;
-    padding: 80px 0;
+//    width: 680px;
+//    padding: 80px 0;
   }
 
   .resources-card-image {
@@ -166,41 +153,40 @@
 
   .resources-card {
 //    margin: 0 10px 20px 10px;
-    width: 100%;
-  }
-}
-
-@media #{$zd-large-up} {
-  .content-resources {
-//    margin: 60px auto 0;
-    width: 1040px;
-    padding: 80px 10px 0;
-  }
-
-
-  .resources-card {
-    margin: 0 10px 20px 10px;
-    //    min-height: 500px;
-
-    width: 320px;
+//    width: 100%;
 
     .entry-content {
 
       @include restrict-height-by-lines(4);
     }
+  }
+}
 
-//    &.normal {
-//    }
+@media #{$zd-large-up} {
+
+//  #landing-page-container {
+//    padding-top: 0;
+//  }
+
+  .content-resources {
+//    margin: 60px auto 0;
+//    width: 1040px;
+//    padding: 80px 10px 0;
+    @include _r(pt, 30);
+  }
+
+
+  .resources-card {
 
     &.large {
-      width: 660px;
+//      width: 660px;
 
       .entry-content {
         height: auto;
       }
 
       & + .large {
-        width: 320px;
+//        width: 320px;
 
         .entry-content {
           @include restrict-height-by-lines(4);

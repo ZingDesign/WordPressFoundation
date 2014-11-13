@@ -228,6 +228,10 @@ img.aligncenter,
   .comment-content {
     word-wrap: break-word;
   }
+
+  .comment-author {
+    @include _r(mb, 10);
+  }
 }
 
 .form-allowed-tags {
@@ -303,7 +307,7 @@ img.aligncenter,
   }
 }
 
-@media #{$medium-up} {
+@media #{$zd-medium-up} {
   .nav-links {
 //    margin-bottom: 0;
   }

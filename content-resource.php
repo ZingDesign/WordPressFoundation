@@ -3,39 +3,37 @@
 //$display_large = array( 0,3,7,10,13 );
 //$clear_elements = array( 2,4,9,12,15 );
 //$clear = in_array(++$resource_index, array_map('increment_value', $display_large)) ? ' clear' : '';
-$class = 'resources-card';
+$class = 'resources-card columns';
 $thumb_size = 'resource-thumb';
 
 if( zd_metabox::zd_get_custom_meta(get_the_ID(), 'is_large_post') ) {
 //if( is_large_resource($resource_index) ) {
-	$class .= ' large';
+	$class .= ' large large-8';
 	$thumb_size = 'resource-large';
 }
 else {
-	$class .= ' normal';
+	$class .= ' medium-6 large-4';
 }
 ?>
 <div class="<?php echo $class; ?>">
+	<div class="resource-card-inner">
 
-    <div class="card-image resources-card-image"><?php zd_the_post_thumbnail( $thumb_size ); ?></div>
+		<div class="card-image resources-card-image"><?php zd_the_post_thumbnail( $thumb_size ); ?></div>
 
-	<div class="resources-card-content">
-		<div class="resources-card-meta entry-meta">
-			<?php
-//			$current_post_type = get_post_type(get_the_ID());
-//			$post_cats = get_categories($args);
+		<div class="resources-card-content">
+			<div class="resources-card-meta entry-meta">
+				<?php get_category_icons( get_the_ID() ); ?>
 
-			get_category_icons( get_the_ID() );
+			</div>
+			<h3><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
 
-			?>
+			<div class="entry-content">
+				<?php the_excerpt();?>
+			</div>
 
-		</div>
-		<h3><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
-
-		<div class="entry-content">
-			<?php the_excerpt();?>
+			<?php edit_post_link( __( 'Edit', 'zingdesign' ), '<span class="edit-link">', '</span>' );?>
 		</div>
 
-		<?php edit_post_link( __( 'Edit', 'zingdesign' ), '<span class="edit-link">', '</span>' );?>
-	</div>
+	</div><!-- .resource-card-inner-->
+
 </div><!--.resources-card-->

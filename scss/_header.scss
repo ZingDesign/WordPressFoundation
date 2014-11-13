@@ -15,13 +15,14 @@
 
 .header {
   position: fixed;
-  top: $admin-bar-height-mobile;
+  top: 0;
   left: 0;
-  height: 60px;
+  height: $header-height;
   width: 100%;
   background: $electric-blue;
   text-align: center;
   z-index: 99999;
+//  margin-bottom: 20px;
 
   a {
     text-decoration: none;
@@ -43,7 +44,8 @@
   }
 
 //  .admin-bar & {
-//    margin-top: 46px;
+////    margin-top: 46px;
+//    top: $admin-bar-height-mobile;
 //  }
 
 }
@@ -53,10 +55,14 @@
 }
 
 .logo-raygun {
-  background: center image-url('logos/logo-raygun-white.svg') no-repeat;
+  background: center $header-logo no-repeat;
   height: 60px;
   width: 75px;
   display: inline-block;
+
+  .no-svg & {
+    background-image: $header-logo-fallback;
+  }
 }
 
 .link-back {
@@ -86,6 +92,11 @@
 
 @media #{$zd-medium-up} {
   .header-sub {
+    @include _r(mb, 40);
+
+    .page-template-page-templateslanding-page-php & {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -95,6 +106,7 @@
   }
   .header {
     text-align: left;
+//    margin-bottom: 0;
     .logo-raygun {
       float: left;
       margin: 0 20px 0 0;
@@ -102,9 +114,9 @@
   }
 
   .header-sub {
-    position: relative;
-    top: 60px;
-    left: 0;
+//    position: relative;
+    margin-top: $header-height;
+//    left: 0;
     display: block;
     height: 80px;
     width: 100%;
@@ -133,11 +145,11 @@
     }
 
     .header-content {
-      max-width: 800px;
+//      max-width: 800px;
       overflow: hidden;
     }
   }
   .header-sub .header-content {
-    max-width: 1020px;
+    max-width: $zd-large;
   }
 }

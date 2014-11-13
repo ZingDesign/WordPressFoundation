@@ -9,7 +9,7 @@
 
 get_header(); ?>
 
-<div id="main" class="main-full-width">
+<div id="main" class="main-full-width row">
 
 	<?php
 	if ( is_front_page() && zd_has_featured_posts() ) {
@@ -18,7 +18,7 @@ get_header(); ?>
 	}
 	?>
 
-	<div id="primary" class="content-area">
+	<div id="primary" class="content-area small-12 columns">
 		<div id="content" class="site-content" role="main">
 			<?php
 			// Start the Loop.

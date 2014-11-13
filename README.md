@@ -4,7 +4,7 @@
 
 ### Install Compass
 
-Compass v1.0.0 is all weird and don't work right, rather than fixing the stylesheets, I suggest reverting back an older, more reliable version
+Compass v1.0.0 is all weird and don't work right, rather than fixing the stylesheets, I suggest reverting back to an older, more reliable version
 
 ```
 gem uninstall compass (uninstall version 1.0.0)
@@ -67,6 +67,22 @@ grunt copyFonts
 ```
 
 #### Lazy command for Process and Watch
+
+```
+grunt w
+```
+
+#### Disable dev-mode
+
+While in dev-mode, stylesheets and scripts are uncompressed for easier debuggingness. It is recommended that you do this before production for optimisation reasons.
+
+In Gruntfile.js:
+
+```
+var devMode = false;
+```
+
+Stop any Grunt watchers, then run: 
 
 ```
 grunt w

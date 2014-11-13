@@ -3,7 +3,7 @@
 body {
   font-size: 16px;
   // off set absolute positioned footer
-  padding-bottom: $footer-height;
+//  padding-bottom: $footer-height;
 }
 
 // No classes/IDs, only basic element selectors
@@ -29,6 +29,10 @@ h4 {
 h1 {
   font-size: 2.4rem;
   margin: 0 0 1.5rem;
+
+  &.page-title {
+    font-size: 2rem;
+  }
 }
 
 h2 {
@@ -78,14 +82,19 @@ img {
 
 figure {
   margin: 0;
+  width: auto !important;
 }
 
-@media #{$medium-up} {
+@media #{$zd-medium-up} {
+
+  h1 {
+    &.page-title {
+      font-size: 2.4rem;
+    }
+  }
 
   figure {
-
     margin: 1em 40px;
-
   }
 
 }

@@ -13,9 +13,9 @@
 
 get_header(); ?>
 
-<div id="main">
+<div id="main" class="row">
 
-	<section id="primary" class="content-area">
+	<section id="primary" class="content-area <?php primary_content_class(); ?>">
 		<div id="content" class="site-content" role="main">
 
 			<?php if ( have_posts() ) : ?>

@@ -1,5 +1,5 @@
 /*!
- * Zing Design 0.1.0 ()
+ * Zing Design 1.0.0 ()
  * Copyright 2014 Zing Design
  */
 
