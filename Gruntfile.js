@@ -25,10 +25,14 @@ module.exports = function(grunt) {
 
     var plugins = [
         bowerComponentsPath + 'slick-carousel/slick/slick.js'
+        //,bowerComponentsPath + 'raygun4js/dist/raygun.js'
     ];
 
     var polyfills = [
-        bowerComponentsPath + 'jquery-placeholder/jquery.placeholder.js'
+        bowerComponentsPath + 'jquery-placeholder/jquery.placeholder.js',
+        bowerComponentsPath + 'respond/src/respond.js',
+        bowerComponentsPath + 'selectivizr/selectivizr.js'
+
     ];
 
     var cssTasks = ['compass', 'autoprefixer'];

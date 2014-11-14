@@ -92,7 +92,7 @@ img.aligncenter,
 .single {
   .tag-links {
     a {
-      @include rem-val(margin-right, 10px);
+      @include _r(margin-right, 10px);
       @extend .fa-tag;
       &:before {
         @extend .fa;
@@ -105,7 +105,7 @@ img.aligncenter,
 }
 
 .comments-link {
-  @include rem-val(margin-right, 10px);
+  @include _r(margin-right, 10px);
   a {
     @extend .fa-comment;
     &:before {

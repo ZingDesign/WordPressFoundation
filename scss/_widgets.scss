@@ -53,6 +53,10 @@ $sticky-content-offset: $header-height-desktop + 40px;
       width: 100%;
     }
 
+    &.large-4 & {
+      width: 343px;
+    }
+
   }
 
 }

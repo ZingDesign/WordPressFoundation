@@ -9,8 +9,11 @@
 }
 
 article {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+//  margin-bottom: 2rem;
+//  padding-bottom: 2rem;
+  @include _r(mb, 32);
+  @include _r(pb, 32);
+
   border-bottom: 1px solid #D8D8D8;
 
   header {
@@ -178,9 +181,10 @@ blockquote {
 
 //  button,
   a {
-    width: 100%;
+//    width: 100%;
     margin: 0 0 20px;
     text-align: center;
+    display: block;
   }
 
 }
@@ -295,11 +299,11 @@ time.entry-date {
     }
   }
 
-  .post-share {
-    a {
-      padding: 0 20px;
-    }
-  }
+//  .post-share {
+//    a {
+//      padding: 0 20px;
+//    }
+//  }
 
 
 }

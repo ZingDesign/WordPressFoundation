@@ -1,0 +1,30 @@
+// Custom breakpoints for Raygun
+
+$row-width: rem-calc($zd-large);
+
+$small-range: (0em, $zd-small-max);
+$medium-range: ($zd-medium, $zd-medium-max);
+
+// Fonts
+
+$body-font-family: $proxima-nova-fontname, $sans-serif-fallback;
+//$paragraph-font-family: $droid-serif-fontname, $serif-fallback;
+
+// Links
+$default-link-color: $electric-blue;
+
+// Pagination
+$pagination-text-color: #fff;
+$pagination-bg-color: $electric-blue;
+$pagination-active-bg-color: $pagination-text-color;
+
+// Modal
+$reveal-modal-bg: $electric-blue;
+$reveal-close-color: #fff;
+$reveal-radius: rem-calc(3px);
+$reveal-overlay-bg: rgba($dark-blue, .45);
+
+// Tooltip
+
+$tooltip-bg: $dark-blue;
+$tooltip-close-font-color: #eee;

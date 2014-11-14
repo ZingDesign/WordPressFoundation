@@ -20,21 +20,14 @@ $success: $green;
 
 /// ----- Foundation settings:
 
-// Links
-$default-link-color: $electric-blue;
+$rem-base: 16px;
 
-// Pagination
-$pagination-text-color: #fff;
-$pagination-bg-color: $electric-blue;
-$pagination-active-bg-color: $pagination-text-color;
+// Font names
+$proxima-nova-fontname: "proxima-nova";
+$droid-serif-fontname: "Droid Serif";
 
-// Modal
-$reveal-modal-bg: $electric-blue;
-$reveal-close-color: #fff;
-$reveal-radius: rem-calc(3px);
-
-$tooltip-bg: $dark-blue;
-$tooltip-close-font-color: #eee;
+$sans-serif-fallback: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$serif-fallback: Georgia, "Times New Roman", Times, serif;
 
 /// -----
 
@@ -48,7 +41,7 @@ $tooltip-close-font-color: #eee;
 //$slide-menu-link-color: #666 !default;
 
 $para-line-height: 1.8;
-$para-base-font-size: 16px;
+$para-base-font-size: $rem-base;
 
 
 // Fixed height values
@@ -61,11 +54,6 @@ $admin-bar-height-tablet: $admin-bar-height-mobile;
 $admin-bar-height-desktop: 32px;
 
 
-// Fonts
-$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-$proxima-nova-fontname: "proxima-nova";
-$body-font-family: $proxima-nova-fontname, $helvetica;
 
 //Custom media queries
 
@@ -75,9 +63,9 @@ $retina: "only screen and (-webkit-min-device-pixel-ratio: 2),only screen and (m
 // WordPress' tablet breakpoint
 $wp-medium-up: 'only screen and (min-width: 783px)';
 
-// Custom breakpoints for Raygun
 $zd-medium: 768px;
 $zd-large: 1120px;
+$zd-small-max: $zd-medium - 1px;
 $zd-medium-max: $zd-large - 1px;
 
 $zd-medium-up: 'only screen and (min-width: #{$zd-medium})';
@@ -92,7 +80,7 @@ $header-logo-fallback: image-url("logos/logo-raygun-white.png");
 
 
 // Enable CSS support
-$legacy-support: 'ie9';
+$legacy-support: ie8 ie9;
 $no-js-support: true;
 $use-font-awesome: true;
 $use-slick-slider: true;

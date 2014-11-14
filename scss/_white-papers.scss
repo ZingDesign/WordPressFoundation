@@ -35,7 +35,7 @@
 // Form
 
 .form-title {
-  @include rem-val(mb, 20);
+  @include _r(mb, 20);
 }
 
 #white-paper-form {

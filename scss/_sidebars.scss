@@ -3,7 +3,7 @@
   background: $light-grey;
   border-radius: 3px;
 //  padding: 32px 40px;
-  @include rem-val(pd, 20);
+  @include _r(pd, 20);
 
 }
 
@@ -15,7 +15,7 @@
   }
 
   .widget-title {
-    @include rem-val(mb, 20);
+    @include _r(mb, 20);
   }
 
   ul {
@@ -25,7 +25,7 @@
 
     li {
       font-size: 1rem;
-      @include rem-val(mt, 20);
+      @include _r(mt, 20);
 
       &:first-child {
         margin-top: 0;
@@ -107,6 +107,6 @@
 
 @media #{$zd-large-up} {
   .grey-box {
-    @include rem-val(pd, 32 40);
+    @include _r(pd, 32 40);
   }
 }

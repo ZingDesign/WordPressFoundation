@@ -40,7 +40,7 @@
 
 
     <!--[if lt IE 9]>
-    <script src="<?php echo get_template_directory_uri(); ?>/js/polyfill/ie.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/dist/js/zing-polyfill.min.js"></script>
     <![endif]-->
 
 	<?php if($google_analytics_code = get_option('google-analytics-code')) : ?>
@@ -143,12 +143,6 @@
 
 				<a href="http://raygun.io" class="header-logo logo-raygun"><?php bloginfo('name'); ?></a>
 
-				<div class="link-back">
-					<a href="http://raygun.io">
-						<i class="fa fa-angle-left fa-lg header-align header-margin-right"></i> <?php _e('Back to Raygun', 'zingdesign'); ?>
-					</a>
-				</div>
-
 				<?php
 	//			if( get_option('show-search-form-in-header') ) {
 					echo get_search_form();
@@ -176,7 +170,7 @@
 					zd_get_menu('secondary');
 				} ?>
 
-				<a href="<?php esc_url(get_option('callout-button-url')); ?>" class="green promo button" target="_blank"><?php echo esc_attr(get_option('callout-button-text')) ?></a>
+				<a href="<?php echo esc_url(get_option('callout-button-url')); ?>" class="green promo button" target="_blank"><?php echo esc_attr(get_option('callout-button-text')) ?></a>
 			</div>
 
 		</div>

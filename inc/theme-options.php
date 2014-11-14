@@ -131,15 +131,20 @@ class ZingDesignThemeOptions {
 					    'type'      => 'text',
 					    'section'   => 'general',
 					    'class'     => 'widefat',
-					    'default'   => __('Try Raygun FREE today', 'zingdesign')
+//					    'default'   => __('Try Raygun FREE today', 'zingdesign')
 				    ),
 				    'callout_button_url' => array(
 					    'label'     => __('Header callout button URL', 'zingdesign'),
 					    'type'      => 'url',
 					    'section'   => 'general',
 					    'class'     => 'widefat',
-					    'default'   => 'https://app.raygun.io/signup'
+//					    'default'   => 'https://app.raygun.io/signup'
 
+				    ),
+				    'show_full_post_in_blog' => array(
+					    'type'      => 'checkbox',
+					    'section'   => 'general',
+					    'tooltip'   => __('Default is post excerpt and the "Continue Reading" button. It is recommended that you decrease the number of posts per page if enabled.', 'zingdesign')
 				    ),
 //				    'enable_mobile_navigation' => array(
 //					    'id'        => 'zd-enable-mobile-navigation',
@@ -386,15 +391,15 @@ class ZingDesignThemeOptions {
 
         echo "<h2 class=\"nav-tab-wrapper zd-admin-tab-nav\">\n";
 
-	    $i = 0;
+//	    $i = 0;
 
         foreach( $this->tabs as $tab_id => $tab_label ) {
 	        // Set first tab to active by default
-            $active = 0 === $i ? ' nav-tab-active' : '';
+//            $active = 0 === $i ? ' nav-tab-active' : '';
 
-            echo "<a href=\"#tab-{$tab_id}\" class=\"nav-tab{$active}\">{$tab_label}</a>\n";
+            echo "<a href=\"#tab-{$tab_id}\" class=\"nav-tab\">{$tab_label}</a>\n";
 
-	        $i ++;
+//	        $i ++;
         }
         echo "</h2>\n";
 
@@ -402,15 +407,21 @@ class ZingDesignThemeOptions {
 
         //do_settings_sections( 'zd_theme_options_page' ); 	//pass slug name of page
 
-	    $i = 0;
-        foreach( $this->tabs as $tab_id => $tab_label ) {
-            $active = (0 === $i) ? ' zd-active-tab' : '';
+//	    $i = 0;
 
-            echo "<div id=\"tab-{$tab_id}\" class=\"zd-tab{$active}\">\n";
+	    echo "<div class=\"zd-tab zd-active-tab loading\">\n";
+	    echo "<i class=\"fa fa-spin fa-refresh\"></i>\n";
+	    echo "<p>" . __('Loading', 'zingdesign') . "</p>\n";
+	    echo "</div>\n";
+
+        foreach( $this->tabs as $tab_id => $tab_label ) {
+//            $active = (0 === $i) ? ' zd-active-tab' : '';
+
+            echo "<div id=\"tab-{$tab_id}\" class=\"zd-tab\">\n";
             do_settings_fields( 'zd_theme_options_page', 'zd-'.$tab_id.'-section' );
             echo "</div>\n";
 
-	        $i ++;
+//	        $i ++;
         }
 
         submit_button();

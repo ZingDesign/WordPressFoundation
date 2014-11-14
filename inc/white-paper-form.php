@@ -17,6 +17,7 @@ function zd_get_white_paper_form($post_id) {
 	$nonce = wp_create_nonce( $nonce_name );
 
 	if( $white_paper_meta = zd_metabox::zd_get_custom_meta( $post_id, 'white_paper' ) ) {
+		// Get file URL from post meta
 		$file_url = wp_get_attachment_url( $white_paper_meta['white_paper_pdf'] );
 
 		// DB Option to store added users
@@ -112,6 +113,7 @@ function zd_get_white_paper_form($post_id) {
 			// Store sent users for an hour to prevent multiple sendings
 			$sent_to_user_posts = get_transient($encrypted_email) ? get_transient($encrypted_email) : array();
 
+			// Run Validation on data
 			$validation_errors = zd_validate_white_paper_form($clean_data, $inputs);
 
 			// Valid
@@ -169,9 +171,17 @@ function zd_get_white_paper_form($post_id) {
 							$mailchimp_sender = zd_send_data_to_mailchimp($clean_data);
 
 							if( isset($mailchimp_sender['status']) && 'error' === $mailchimp_sender['status'] ) {
-								// Fail quietly?
-								// TODO: Error tracking... ironically...
-								//								_d($mailchimp_sender);
+
+//								include_once( get_template_directory() . '/libs/raygun-error-tracking.php' );
+
+
+								$code = isset($mailchimp_sender['code']) ? $mailchimp_sender['code'] : 1;
+								$error = isset($mailchimp_sender['error']) ? $mailchimp_sender['error'] : 'No error string';
+								$file_name = get_template_directory_uri() . '/inc/white-paper-form.php';
+								$line_number = 171;
+
+								error_handler( $code, $error, $file_name, $line_number );
+
 							}
 							else {
 								// if successful add user to the added users array
@@ -192,6 +202,7 @@ function zd_get_white_paper_form($post_id) {
 
 			}
 		}
+
 		$html .= '<h4 class="form-title">'."\n";
 		if( $form_title = get_option('white-paper-form-title') ) {
 			$html .= esc_attr( $form_title );
@@ -205,6 +216,9 @@ function zd_get_white_paper_form($post_id) {
 
 		// First name
 
+		// Display form inputs,
+		// Check each input for errors
+		// and display
 		foreach($inputs as $input) {
 
 			if( isset($validation_errors[$input['name']] ) ) {
@@ -382,6 +396,14 @@ function zd_send_email_smtp( $message=array() ) {
 			return true;
 		}
 		else {
+
+			$code = 'mail_not_sent';
+			$error = 'Message not sent to user';
+			$file_name = get_template_directory_uri() . '/inc/white-paper-form.php';
+			$line_number = 392;
+
+			error_handler( $code, $error, $file_name, $line_number );
+
 			return __('Message failed to send. Please try again', 'zingdesign');
 		}
 
@@ -392,11 +414,17 @@ function zd_send_email_smtp( $message=array() ) {
 		if( WP_DEBUG ) {
 			return $e -> errorMessage();
 		}
+		else {
+			exception_handler($e);
+		}
 
 	} catch (Exception $e) {
 
 		if( WP_DEBUG ) {
 			return $e -> getMessage();
+		}
+		else {
+			exception_handler($e);
 		}
 
 	}
@@ -441,6 +469,9 @@ function zd_send_data_to_mailchimp($data) {
 	catch( Exception $e ) {
 		if( WP_DEBUG ) {
 			return $e -> getMessage();
+		}
+		else {
+			exception_handler($e);
 		}
 	}
 

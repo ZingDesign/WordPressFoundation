@@ -153,9 +153,9 @@ jQuery(document).ready(function ($) {
                         }
 
                         if(e.data.stickToTop) {
-                            //window.scrollTo(0, 0);
+                            window.scrollTo(0, 0);
                             //ZD.debug(e);
-                            ZD.animateScrollVertical(0, e.pageY );
+                            //ZD.animateScrollVertical(0, e.pageY );
                         }
                         if (e.data.stickToBottom && isMediumUp()) {
                             window.scrollTo(0, document.body.scrollHeight);

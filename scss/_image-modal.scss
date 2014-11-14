@@ -1,6 +1,8 @@
 #zd-image-modal {
+
   .image-slider {
-    @include rem-val(mt, 30);
+    @include _r(mt, 30);
+//    transition: height 300ms ease-out;
 
     h2 {
       font-size: 1.2rem;
@@ -18,6 +20,11 @@
 
     p {
       margin: 20px auto;
+    }
+
+    .image-slide {
+//      width: 0;
+//      transition: width 200ms ease-out;
     }
   }
 }

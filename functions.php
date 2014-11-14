@@ -85,6 +85,8 @@ endif;
 
 include_once get_template_directory() . '/inc/FormHelper.php';
 
+include_once get_template_directory() . '/libs/raygun-error-tracking.php';
+
 include_once get_template_directory() . '/inc/custom-post-types.php';
 include_once get_template_directory() . '/inc/custom-shortcodes.php';
 include_once get_template_directory() . '/inc/custom-metaboxes.php';
@@ -323,15 +325,17 @@ function zd_scripts() {
 
 	// Add Genericons font, used in the main stylesheet.
 //	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.0.2' );
+//	wp_enqueue_style( 'droid-serif-font', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700' );
 
     // Load our custom stylesheet manually
 //	$stylesheet_file = WP_DEBUG ? 'zing.css' : 'zing.min.css';
-    wp_enqueue_style( 'zd-main', get_template_directory_uri() . '/css/zing.css');
+    wp_enqueue_style( 'zd-main', get_template_directory_uri() . '/css/zing.css', array());
+
 
 	// Load our main stylesheet.
 	// Load the style.css file AFTER the custom stylesheet
 	// So that any overrides can be made in the editor if necessary
-	wp_enqueue_style( 'zd-style', get_stylesheet_uri(), array( 'genericons' ) );
+	wp_enqueue_style( 'zd-style', get_stylesheet_uri(), array( 'zd-main' ) );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -402,7 +406,7 @@ function zd_admin_setup() {
 
     wp_enqueue_style( 'zd-admin-style', get_template_directory_uri() . '/css/zing-admin.css' );
 
-	wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+//	wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
 
 
 	wp_enqueue_media();
@@ -931,10 +935,11 @@ add_action('wp_footer', 'zd_add_image_modal');
 function zd_add_image_modal() {
 	$html = '';
 
-	if( is_single() && get_option('enable-image-modal-slider') ) {
+	if( ( is_single() || get_option('show-full-post-in-blog') ) && get_option('enable-image-modal-slider') ) {
 		$html .= '<div aria-hidden="true" class="reveal-modal-bg" style="display: none;"></div>'."\n";
 		$html .= '<div aria-hidden="true" id="zd-image-modal" class="reveal-modal" data-reveal>'."\n";
 		$html .= '<div class="image-slider">'."\n";
+//		$html .= "<i class=\"fa fa-spin fa-refresh\"></i>\n";
 		//	$html .= '<img src="" alt="image modal output" />'."\n";
 		$html .= '</div><!--image-slider-->'."\n";
 		$html .= '<a class="close-reveal-modal">&#215;</a>'."\n";
@@ -945,8 +950,8 @@ function zd_add_image_modal() {
 }
 
 function primary_content_class($echo=true) {
-	$medium_up = is_int( intval( get_option('primary-content-width-medium') ) ) ? get_option('primary-content-width-medium') : 8;
-	$large_up = is_int( intval( get_option('primary-content-width-large') ) ) ? get_option('primary-content-width-large') : 8;
+	$medium_up = is_int( intval( get_option('primary-content-width-medium') ) ) ? get_option('primary-content-width-medium') : '8';
+	$large_up = is_int( intval( get_option('primary-content-width-large') ) ) ? get_option('primary-content-width-large') : '8';
 
 	$medium_class = "medium-{$medium_up}";
 	$large_class = "large-{$large_up}";

@@ -33,6 +33,13 @@ get_header(); ?>
 				}
 			endwhile;
 			?>
+
+			<div class="row">
+				<div class="medium-6 columns">
+					<?php get_template_part( 'content', 'social' ); ?>
+				</div>
+			</div>
+
 		</div><!-- #content -->
 	</div><!-- #primary -->
 

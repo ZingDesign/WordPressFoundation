@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
 
         var imageModal = $(imageModalSelector);
 
-        var imageSlider = imageModal.find('.image-slider');
+        var imageSlider = imageModal.find('.image-slider').addClass('loading');
 
         //ZD.debug( imageSlider.getSlick() );
 
@@ -127,6 +127,8 @@ jQuery(document).ready(function($) {
 
             imageSlider.slickAdd( newSlide );
         });
+
+        imageSlider.removeClass('loading');
     }
 
     // Event listeners
@@ -171,13 +173,13 @@ jQuery(document).ready(function($) {
     // Disable link around image
     if( $('a.img').length ) {
 
-        $('a.img').on('click', function() {
+        //$('a.img').on('click', function() {
             //event.preventDefault();
             //alert('image link clicked');
-            $(this).find('img').trigger('click');
+            //$(this).find('img').trigger('click');
 
-            return false;
-        });
+            //return false;
+        //});
 
     }
 

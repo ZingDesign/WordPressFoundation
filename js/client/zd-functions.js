@@ -148,7 +148,7 @@
             }
 
             if( ZD.isset(_origY) ) {
-                speed = Math.floor( Math.abs( _destY - _origY ) * 0.2 );
+                speed = Math.floor( Math.abs( _destY - _origY ) * 0.1 );
             }
 
             $('html, body').animate({

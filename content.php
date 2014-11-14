@@ -50,13 +50,17 @@
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->
+
 	<?php else : ?>
         <?php
-		zd_the_post_thumbnail();
+		if( ! get_option('show-full-post-in-blog') ) {
+			zd_the_post_thumbnail();
+		}
         ?>
+
 	<div class="entry-content">
         <?php
-        if ( !is_single() ) :
+        if ( !is_single() && ! get_option('show-full-post-in-blog') ) :
             the_excerpt();
             ?> <a class="button blue" href="<?php echo get_permalink(); ?>">Continue reading</a>
         <?php else :

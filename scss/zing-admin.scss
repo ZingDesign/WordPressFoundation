@@ -47,6 +47,8 @@
 @import "compass/css3/transition";
 @import "compass/css3/transform";
 
+@import "../fnd/bower_components/font-awesome/scss/font-awesome";
+
 select {
   width: auto;
 }
@@ -69,6 +71,23 @@ select {
   color: #999;
 }
 
+
+// Tooltip
+.zd-tooltip {
+  background-color: #B00;
+  color: #FFF;
+  border: 0;
+  border-radius: 50%;
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+
+  &:hover {
+    color: #fff;
+    border-bottom: 1px solid #d00;
+  }
+}
+
 .zd-admin-tab-nav {
   margin-bottom: 0;
 
@@ -82,6 +101,8 @@ select {
   display: none;
   padding: 20px;
   background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: 0;
 
   input, label {
     display: inline-block;
@@ -89,6 +110,10 @@ select {
 
   input {
     margin: 0;
+
+    &[type="number"] {
+      width: 50px;
+    }
   }
 
   label {
@@ -104,6 +129,7 @@ select {
     margin-bottom: 0;
     margin-left: 5px;
   }
+
 
   label.image-label {
     display: block;
@@ -143,6 +169,14 @@ select {
 
   .wp-editor-wrap {
     margin-bottom: 20px;
+  }
+
+  &.loading {
+    text-align: center;
+
+    .fa-spin {
+      font-size: 50px;
+    }
   }
 }
 

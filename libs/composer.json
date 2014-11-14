@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mindscape/raygun4php": "dev-master"
+    }
+}

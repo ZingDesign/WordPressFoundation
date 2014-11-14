@@ -2,6 +2,7 @@
 
 body {
   font-size: 16px;
+  @extend .antialiased;
   // off set absolute positioned footer
 //  padding-bottom: $footer-height;
 }
