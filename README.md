@@ -60,6 +60,12 @@ grunt watch
 grunt css
 ```
 
+#### Auto-prefix for Cross-browser compatibleness
+
+```
+grunt prefix
+```
+
 #### Copy icon fonts for Font Awesome and Slick
 
 ``` 
@@ -93,7 +99,7 @@ grunt w
 #### Development
 
 ``` 
-compass compile -e development && grunt prefix
+compass clean && compass compile -e development && grunt prefix
 ```
 
 #### Production
