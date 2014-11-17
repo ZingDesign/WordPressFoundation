@@ -6969,25 +6969,26 @@ span.required {
   background: #fff;
   border: 1px solid #d7e0e9;
   border-radius: 3px;
+  width: 100%;
 }
-/* line 33, ../scss/_landing-page.scss */
+/* line 34, ../scss/_landing-page.scss */
 .resources-card .entry-content p {
   margin: 0;
 }
-/* line 37, ../scss/_landing-page.scss */
+/* line 38, ../scss/_landing-page.scss */
 .resources-card .entry-content .read-more-link {
   text-decoration: none;
 }
-/* line 40, ../scss/_landing-page.scss */
+/* line 41, ../scss/_landing-page.scss */
 .resources-card .entry-content .read-more-link:hover {
   text-decoration: hover;
 }
-/* line 46, ../scss/_landing-page.scss */
+/* line 47, ../scss/_landing-page.scss */
 .resources-card.clear {
   clear: both;
 }
 
-/* line 51, ../scss/_landing-page.scss */
+/* line 52, ../scss/_landing-page.scss */
 .card-image {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
@@ -6996,7 +6997,7 @@ span.required {
   overflow: hidden;
   position: relative;
 }
-/* line 59, ../scss/_landing-page.scss */
+/* line 60, ../scss/_landing-page.scss */
 .card-image:before {
   position: absolute;
   top: 65px;
@@ -7006,44 +7007,44 @@ span.required {
   width: 100%;
   text-align: center;
 }
-/* line 71, ../scss/_landing-page.scss */
+/* line 72, ../scss/_landing-page.scss */
 .card-image:empty {
   height: 220px;
 }
-/* line 75, ../scss/_landing-page.scss */
+/* line 76, ../scss/_landing-page.scss */
 .card-image a {
   display: block;
 }
-/* line 79, ../scss/_landing-page.scss */
+/* line 80, ../scss/_landing-page.scss */
 .card-image img {
   z-index: 1;
   position: relative;
   width: 100%;
 }
 
-/* line 94, ../scss/_landing-page.scss */
+/* line 95, ../scss/_landing-page.scss */
 .resources-card-content {
   width: 100%;
   padding: 32px;
   position: relative;
 }
-/* line 100, ../scss/_landing-page.scss */
+/* line 101, ../scss/_landing-page.scss */
 .resources-card-content h3 {
   margin: 4px 0px;
   margin: 0.25rem 0;
 }
-/* line 104, ../scss/_landing-page.scss */
+/* line 105, ../scss/_landing-page.scss */
 .resources-card-content h3 a {
   color: inherit;
 }
-/* line 109, ../scss/_landing-page.scss */
+/* line 110, ../scss/_landing-page.scss */
 .resources-card-content .edit-link {
   text-align: center;
   display: inline-block;
   margin-top: 20px;
   margin-top: 1.25rem;
 }
-/* line 114, ../scss/_landing-page.scss */
+/* line 115, ../scss/_landing-page.scss */
 .resources-card-content .edit-link a {
   display: block;
   padding: 10px 40px;
@@ -7051,33 +7052,33 @@ span.required {
   background-color: #8eba3b;
   border-radius: 3px;
 }
-/* line 121, ../scss/_landing-page.scss */
+/* line 122, ../scss/_landing-page.scss */
 .resources-card-content .edit-link a:before {
   color: #fff;
 }
-/* line 125, ../scss/_landing-page.scss */
+/* line 126, ../scss/_landing-page.scss */
 .resources-card-content .edit-link a:hover {
   background-color: #9ac549;
 }
 
-/* line 133, ../scss/_landing-page.scss */
+/* line 134, ../scss/_landing-page.scss */
 .resources-card-meta i {
   margin-left: 20px;
   margin-right: 10px;
   color: #158fef;
 }
-/* line 138, ../scss/_landing-page.scss */
+/* line 139, ../scss/_landing-page.scss */
 .resources-card-meta i:first-child {
   margin-left: 0;
 }
 
 @media only screen and (min-width: 768px) {
-  /* line 171, ../scss/_landing-page.scss */
+  /* line 172, ../scss/_landing-page.scss */
   .resources-card-image {
     height: 220px;
   }
 
-  /* line 185, ../scss/_landing-page.scss */
+  /* line 186, ../scss/_landing-page.scss */
   .no-js .resources-card .entry-content {
     display: block;
     overflow: hidden;
@@ -7085,13 +7086,13 @@ span.required {
   }
 }
 @media only screen and (min-width: 1120px) {
-  /* line 201, ../scss/_landing-page.scss */
+  /* line 202, ../scss/_landing-page.scss */
   .no-js .content-resources {
     padding-top: 30px;
     padding-top: 1.875rem;
   }
 
-  /* line 215, ../scss/_landing-page.scss */
+  /* line 216, ../scss/_landing-page.scss */
   .resources-card:nth-child(6n+1) .entry-content {
     height: auto;
   }
@@ -7502,7 +7503,7 @@ input {
 }
 /* line 12, ../scss/_image-modal.scss */
 #zd-image-modal .image-slider h2, #zd-image-modal .image-slider p {
-  color: #FFF;
+  color: #158fef;
 }
 /* line 16, ../scss/_image-modal.scss */
 #zd-image-modal .image-slider img {
