@@ -7,7 +7,7 @@
     "foundation"
   ],
   "author": "Zing Design",
-  "environment": "development",
+  "environment": "production",
   "repository": {
     "type": "git",
     "url": "https://github.com/MindscapeHQ/raygun-blog-theme.git"

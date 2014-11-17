@@ -1,11 +1,22 @@
 # generated files
 node_modules
-bower_components
 .sass-cache
 .idea
 
+!/fnd
+/fnd/*
 
-#
+!/fnd/bower_components
+/fnd/bower_components/*
+
+!/fnd/bower_components/spectrum/spectrum.js
+!/fnd/bower_components/spectrum/spectrum.css
+/fnd/bower_components/spectrum/*
+
+!/fnd/bower_components/foundation/js/foundation.min.js
+/fnd/bower_components/foundation/*
+
+# Git merge files
 *.orig
 *.BACKUP.*
 *.LOCAL.*

@@ -374,11 +374,11 @@ function zd_scripts() {
 
     // --- Custom JS ---
 
-	$javascript_file = WP_DEBUG ? '/src/js/zing-client.js' :'/dist/js/zing-client.min.js';
+	$client_javascript_file = (WP_DEBUG === true) ? '/src/js/zing-client.js' :'/dist/js/zing-client.min.js';
 
     wp_enqueue_script(
         'zd-client',
-        get_template_directory_uri() . $javascript_file,
+        get_template_directory_uri() . $client_javascript_file,
         array('jquery'),
         '1',
         true
@@ -867,7 +867,7 @@ function zd_get_menu($menu_location='primary', $menu_class='nav-menu', $is_found
 		wp_nav_menu( $args );
 
 	}
-	else if(WP_DEBUG) {
+	else if(WP_DEBUG === true) {
 		printf( '<p class="zd-error">%1$s</p>', __("Please enable a menu in the '{$menu_location} menu' location", "zingdesign" ) );
 	}
 

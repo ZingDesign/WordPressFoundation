@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     //var wpConfig = grunt.file.read('../../../wp-config.php');
 
-    var devMode = true;
+    var devMode = false;
 
     if( devMode ) {
         console.log('-----------------------------------');
@@ -11,7 +11,9 @@ module.exports = function(grunt) {
         console.log('-----------------------------------');
     }
 
-    var environment = devMode ? 'development' : 'production';
+    var environment = (true === devMode) ? 'development' : 'production';
+
+    console.log('Environment: ' + environment );
 
     var bowerComponentsPath = './fnd/bower_components/';
 
@@ -143,6 +145,7 @@ module.exports = function(grunt) {
         compass: {
             dist: {
                 options: {
+                    config: './config.rb',
                     sassDir: 'scss',
                     cssDir: 'css',
                     javascriptsDir: 'js',

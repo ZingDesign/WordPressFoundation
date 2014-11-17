@@ -3,9 +3,7 @@
  * Copyright 2014 Zing Design
  */
 
-if (typeof jQuery === "undefined") { throw new Error("Foundation requires jQuery") }
-
-(function(){window.devMode = true})();/**
+if (typeof jQuery === "undefined") { throw new Error("Foundation requires jQuery") }/**
  * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
  *
  * @version 1.0.1
