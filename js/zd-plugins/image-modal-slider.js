@@ -81,7 +81,7 @@ jQuery(document).ready(function($) {
         //ZD.debug('imageLinks.length: ' + imageLinks.length);
 
         imageSlider.slick({
-            adaptiveHeight: true,
+            adaptiveHeight: false,
             useCSS: Modernizr.cssanimations,
             swipe: Modernizr.touch,
             arrows: !Modernizr.touch,
@@ -153,6 +153,8 @@ jQuery(document).ready(function($) {
     $doc.on('opened.fndtn.reveal', imageModalSelector, function () {
         var modal = $(this);
         //ZD.debug('CLOSE!');
+
+        //ZD.debug(modal.find('.image-slider').length);
 
         if( modal.find('.image-slider').length ) {
 
