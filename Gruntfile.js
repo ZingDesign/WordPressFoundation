@@ -11,9 +11,9 @@ module.exports = function(grunt) {
         console.log('-----------------------------------');
     }
 
-    var environment = (true === devMode) ? 'development' : 'production';
+    var environment = (devMode) ? 'development' : 'production';
 
-    console.log('Environment: ' + environment );
+    //console.log('Environment: ' + environment );
 
     var bowerComponentsPath = './fnd/bower_components/';
 
@@ -59,7 +59,8 @@ module.exports = function(grunt) {
         jqueryCheck: preScript,
 
         clean: {
-            dist: ['dist', 'src', '.sass-cache', 'css']
+            dist: ['dist', 'src', '.sass-cache', 'css'],
+            js: ['dist', 'src']
         },
 
         jshint: {
@@ -245,7 +246,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['clean', 'jshint:client', 'jshint:zdPlugins', 'concat', 'uglify', 'compass', 'copy']);
     grunt.registerTask('css', cssTasks);
-    grunt.registerTask('js', ['jshint:client', 'jshint:zdPlugins', 'concat', 'uglify']);
+    grunt.registerTask('prefix', 'autoprefixer');
+    grunt.registerTask('js', ['clean:js', 'jshint:client', 'jshint:zdPlugins', 'concat', 'uglify']);
     grunt.registerTask('w', ['css', 'js', 'watch']);
     grunt.registerTask('copyFonts', ['copy:fontAwesomeFonts']);
 };

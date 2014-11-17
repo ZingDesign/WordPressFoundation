@@ -87,3 +87,17 @@ Stop any Grunt watchers, then run:
 ```
 grunt w
 ```
+
+### Compass (manual config)
+
+#### Development
+
+``` 
+compass compile -e development && grunt prefix
+```
+
+#### Production
+
+``` 
+compass clean && compass compile -e production && grunt prefix
+```
