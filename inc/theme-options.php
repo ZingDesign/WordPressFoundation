@@ -78,6 +78,7 @@ class ZingDesignThemeOptions {
 			    'categories'        => __('Categories',         'zingdesign'),
 			    'white_papers'      => __('White Papers',       'zingdesign'),
 			    'design'            => __('Design',             'zingdesign'),
+			    'addons'            => __('Add-ons',            'zingdesign'),
 //			    'custom-post-types' => __('Custom post types',  'zingdesign'),
 		    );
 
@@ -116,21 +117,21 @@ class ZingDesignThemeOptions {
 				    ),
 				    'enable_ajax_pagination' => array(
 					    'label'     => __('Enable AJAX pagination', 'zingdesign'),
-					    'tooltip'      => __('AJAX pagination means that the browser doesn\'t have to make a separate request for each page, which makes for a smoother user experience.', 'zingdesign'),
+					    'tooltip'      => __('AJAX pagination means that the browser doesn\'t have to make a separate request for each page, which makes for a faster load and a smoother user experience.', 'zingdesign'),
 					    'type'      => 'checkbox',
-					    'section'   => 'general'
+					    'section'   => 'addons'
 				    ),
 				    'enable_image_modal_slider' => array(
 					    'label'     => __('Enable Image modal sliders', 'zingdesign'),
-					    'tooltip'      => __('This feature allows users to view post images in a modal window, where they can be shown at their full-width, rather than constricted by the width of post content container.', 'zingdesign'),
+					    'tooltip'      => __('This feature allows users to view post images in a modal window, where they can be shown at their full-width, rather than constricted by the width of post content container. Users can then browse through all of the images on the page easily.', 'zingdesign'),
 					    'type'      => 'checkbox',
-					    'section'   => 'general'
+					    'section'   => 'addons'
 				    ),
 				    'enable_image_lazy_load' => array(
 					    'label'     => __('Enable image lazy-loading'),
-					    'tooltip'   => __('Image lazy-loading involves loading images only as the user requires them, dramatically speeding up the page load'),
+					    'tooltip'   => __('Image lazy-loading involves loading images only as the user requires them (by watching how far the user has scrolled down the page), dramatically speeding up the page load'),
 					    'type'      => 'checkbox',
-					    'section'   => 'general'
+					    'section'   => 'addons'
 				    ),
 				    'callout_button_text' => array(
 					    'label'     => __('Header callout button text (The big green button)', 'zingdesign'),
