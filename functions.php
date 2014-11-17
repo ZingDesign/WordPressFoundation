@@ -353,7 +353,7 @@ function zd_scripts() {
 //		) );
 //	}
 
-	if( is_singular() ) {
+	if( is_singular() || (! is_singular() && get_option('show-full-post-in-blog') ) ) {
 		$uploads_dir = wp_upload_dir();
 		$theme_file = '/crayon-syntax-highlighter/themes/raygun/raygun.css';
 
