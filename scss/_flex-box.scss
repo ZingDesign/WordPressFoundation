@@ -18,16 +18,22 @@
       @media #{$zd-medium-up} {
         flex: 0 0 49.9%;
 
-        &.large {
-          flex: 0 0 100%;
-        }
+//        &.large {
+//          flex: 0 0 100%;
+//        }
       }
 
       @media #{$zd-large-up} {
         flex: 0 0 33%;
 
-        &.large {
-          flex: 0 0 66%;
+//        &.large {
+//          flex: 0 0 66%;
+//        }
+
+        &.resources-card {
+          &:nth-child(6n+1) {
+            flex: 0 0 66%;
+          }
         }
       }
     }

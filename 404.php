@@ -9,8 +9,8 @@
 
 get_header(); ?>
 
-<div id="main">
-	<div id="primary" class="content-primary">
+<div id="main" class="row">
+	<div id="primary" class="content-primary small-12 columns">
 		<div id="content" class="site-content" role="main">
 
 			<div class="page-content">

@@ -39,3 +39,21 @@
     }
   }
 }
+
+@media #{$zd-large-up} {
+  .slick-prev, .slick-next {
+    height: 100%;
+    top: 0;
+    background-color: #fff;
+    transition: background-color 200ms;
+    margin: 0;
+
+    &:hover {
+      background-color: lighten($electric-blue, 45%);
+    }
+
+    &:active {
+      background-color: lighten($electric-blue, 35%);
+    }
+  }
+}

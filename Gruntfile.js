@@ -89,7 +89,7 @@ module.exports = function(grunt) {
                     bowerComponentsPath + 'bootstrap-sass/js/affix.js',
                     //Comment out unused scripts here for extra optimisingness
                     foundationScriptPath + '/foundation.js',
-                    //foundationScriptPath + '/foundation.abide.js',
+                    foundationScriptPath + '/foundation.abide.js',
                     //foundationScriptPath + '/foundation.accordian.js',
                     //foundationScriptPath + '/foundation.alert.js',
                     //foundationScriptPath + '/foundation.clearing.js',

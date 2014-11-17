@@ -15,7 +15,7 @@ get_header(); ?>
 
 <div id="main">
 
-	<div id="main-content" class="main-content">
+	<div id="main-content" class="main-content row">
 
 	<?php
 		if ( is_front_page() && zd_has_featured_posts() ) {
@@ -23,7 +23,7 @@ get_header(); ?>
 			get_template_part( 'featured-content' );
 		}
 	?>
-		<div id="primary" class="content-primary">
+		<div id="primary" class="content-primary <?php primary_content_class(); ?>">
 			<div id="content" class="site-content" role="main">
 
 				<?php

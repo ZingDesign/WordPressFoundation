@@ -27,8 +27,11 @@ if( is_array($displayed_categories) && ! empty($displayed_categories) ) {
 	$displayed_categories_string = implode(",", array_keys($displayed_categories) );
 }
 
+$allowed_post_types = array( 'post', 'white_paper' );
+
 $landing_page_query = new WP_Query( array(
-	//				'posts_per_page'    => 11,
+	'posts_per_page'    => 7,
+	'post_type'         => $allowed_post_types,
 	'paged'             => $paged,
 	'cat'               => $displayed_categories_string
 ) );
@@ -43,8 +46,12 @@ get_header(); ?>
 
 				if ( $landing_page_query->have_posts() ) :
 					// Start the Loop.
-					//				$resource_index = 0;
+					$resource_index = 0;
+//					$element_index = 1;
+
 					while ( $landing_page_query->have_posts() ) : $landing_page_query->the_post();
+
+						$is_large = ($resource_index % 6 === 0);
 
 						/*
 						 * Include the post format-specific template for the content. If you want to
@@ -53,7 +60,8 @@ get_header(); ?>
 						 */
 						get_template_part( 'content', 'resource' );
 
-						//					$resource_index ++;
+						$resource_index ++;
+//						$element_index ++;
 
 					endwhile;
 

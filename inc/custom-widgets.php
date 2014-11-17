@@ -474,9 +474,11 @@ class ZD_Widget_Sticky_Content extends WP_Widget {
 
 	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, array(
-			'title' => '',
-			'text' => '',
-			'sticky_content_image' => ''
+			'title'                 => '',
+			'text'                  => '',
+			'sticky_content_image'  => '',
+			'image_link'            => '',
+			'link_target'           => '_self'
 		) );
 
 		$title = strip_tags($instance['title']);

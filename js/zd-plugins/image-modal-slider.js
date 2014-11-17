@@ -81,10 +81,11 @@ jQuery(document).ready(function($) {
         //ZD.debug('imageLinks.length: ' + imageLinks.length);
 
         imageSlider.slick({
-            //adaptiveHeight: true,
+            adaptiveHeight: true,
             useCSS: Modernizr.cssanimations,
             swipe: Modernizr.touch,
-            arrows: !Modernizr.touch
+            arrows: !Modernizr.touch,
+            //draggable: true
         });
 
         imageLinks.each(function () {
@@ -114,7 +115,10 @@ jQuery(document).ready(function($) {
                 newSlide += '<h2>' + title + '</h2>';
             }
 
-            newSlide += '<img src="' + img.attr('src') + '" ' +
+            // Enable compat with lazy load
+            var newSrc = ZD.isset( img.attr('data-original') ) ? img.attr('data-original') : img.attr('src');
+
+            newSlide += '<img src="' + newSrc + '" ' +
                 'alt="' + img.attr('alt') + '" ' +
                 'width="' + width + '" ' +
                 'height="' + img.attr('height') + '" />\n';
@@ -143,23 +147,17 @@ jQuery(document).ready(function($) {
 
         $doc.on('init zd.page_loaded', initImageModal);
 
-        $(document).trigger('init');
-
-        $(document).on('click', imageSelector, {}, openImageInModal);
+        $(document).trigger('init').on('click', imageSelector, {}, openImageInModal);
     }
 
     $doc.on('opened.fndtn.reveal', imageModalSelector, function () {
         var modal = $(this);
         //ZD.debug('CLOSE!');
-        var slider = modal.find('.image-slider');
 
-        if( slider.length && slider.children().length ) {
-            try {
-                slider.resize();
-            }
-            catch(e) {
-                ZD.debug(e);
-            }
+        if( modal.find('.image-slider').length ) {
+
+            modal.find('.image-slider').resize();
+
         }
     });
 
@@ -171,7 +169,7 @@ jQuery(document).ready(function($) {
     });
 
     // Disable link around image
-    if( $('a.img').length ) {
+    //if( $('a.img').length ) {
 
         //$('a.img').on('click', function() {
             //event.preventDefault();
@@ -181,7 +179,7 @@ jQuery(document).ready(function($) {
             //return false;
         //});
 
-    }
+    //}
 
     function isMediumUp() {
         return window.matchMedia ? matchMedia(Foundation.media_queries.medium).matches : true;

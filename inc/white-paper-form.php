@@ -212,7 +212,7 @@ function zd_get_white_paper_form($post_id) {
 		}
 		$html .= '</h4>'."\n";
 
-		$html .= '<form id="white-paper-form" action="' . $_SERVER['REQUEST_URI'] . '" method="post">' . "\n";
+		$html .= '<form id="white-paper-form" action="' . $_SERVER['REQUEST_URI'] . '" method="post" data-abide>' . "\n";
 
 		// First name
 

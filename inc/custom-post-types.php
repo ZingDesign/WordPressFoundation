@@ -59,7 +59,7 @@ function zd_add_custom_post_types() {
 //				'page-attributes',
 //				'author'
 			),
-			'taxonomies'    => array()
+			'taxonomies'    => array( 'category' )
 		),
 
 	);
@@ -110,6 +110,8 @@ function zd_add_custom_post_types() {
 
 		$plural_title = ucfirst( str_replace("_", " ", $plural) );
 
+		$slug = str_replace("_", "-", $post_type_id);
+
 		extract(wp_parse_args($options, $defaults));
 
 		$labels = array(
@@ -128,7 +130,7 @@ function zd_add_custom_post_types() {
 			'not_found_in_trash'  => __( $singular_title . ' not found in Trash', 'zingdesign' ),
 		);
 		$rewrite = array(
-			'slug'                => $post_type_id,
+			'slug'                => $slug,
 			'with_front'          => true,
 			'pages'               => true,
 			'feeds'               => true,

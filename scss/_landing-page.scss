@@ -28,13 +28,19 @@
   }
 
   .entry-content {
-    margin-bottom: 20px;
+//    margin-bottom: 20px;
 
     p {
-      margin-top: 0;
+      margin: 0;
     }
 
+    .read-more-link {
+      text-decoration: none;
 
+      &:hover {
+        text-decoration: hover;
+      }
+    }
   }
 
   &.clear {
@@ -92,7 +98,8 @@
   position: relative;
   
   h3 {
-    margin: 0.25rem 0;
+//    margin: 0.25rem 0;
+    @include _r(mg, 4 0);
 
     a {
       color: inherit;
@@ -102,6 +109,7 @@
   .edit-link {
     text-align: center;
     display: inline-block;
+    @include _r(mt, 20);
 
     a {
       display: block;
@@ -133,6 +141,24 @@
   }
 }
 
+// Post modal
+//#zd-post-modal {
+//  background-color: #fff;
+
+//  &.loading {
+//    text-align: center;
+//    min-height: 100px;
+//  }
+
+//  .close-reveal-modal {
+//    color: $electric-blue;
+//  }
+//}
+
+//.excerpt-wrapper {
+//  height: auto;
+//  transition: height 220ms ease-out;
+//}
 
 
 @media #{$zd-medium-up} {
@@ -151,15 +177,18 @@
 //    }
   }
 
-  .resources-card {
-//    margin: 0 10px 20px 10px;
-//    width: 100%;
+  .no-js {
+    .resources-card {
+      //    margin: 0 10px 20px 10px;
+      //    width: 100%;
 
-    .entry-content {
+      .entry-content {
 
-      @include restrict-height-by-lines(4);
+        @include restrict-height-by-lines(4);
+      }
     }
   }
+
 }
 
 @media #{$zd-large-up} {
@@ -168,30 +197,35 @@
 //    padding-top: 0;
 //  }
 
-  .content-resources {
-//    margin: 60px auto 0;
-//    width: 1040px;
-//    padding: 80px 10px 0;
-    @include _r(pt, 30);
+  .no-js {
+    .content-resources {
+      //    margin: 60px auto 0;
+      //    width: 1040px;
+      //    padding: 80px 10px 0;
+      @include _r(pt, 30);
+    }
   }
 
 
   .resources-card {
 
-    &.large {
+    &:nth-child(6n+1) {
 //      width: 660px;
 
       .entry-content {
         height: auto;
       }
 
-      & + .large {
-//        width: 320px;
-
-        .entry-content {
-          @include restrict-height-by-lines(4);
-        }
-      }
+//      & + .large {
+////        width: 320px;
+//
+//        .entry-content {
+//
+//          .no-js & {
+//            @include restrict-height-by-lines(4);
+//          }
+//        }
+//      }
     }
 
     //    &:first-child,

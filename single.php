@@ -7,7 +7,36 @@
  * @since Zing Design 1.0
  */
 
+// IF is AJAX request
 
+if ( !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+        && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ) :?>
+	<div id="ajax-content-container">
+		<div class="ajax-content-area">
+
+		<?php while ( have_posts() ) : the_post();
+			get_template_part( 'content', get_post_format() );
+
+			// IF modal
+			if( isset( $_GET['pagetype'] ) && 'modal' === $_GET['pagetype']) {
+				echo '<a class="close-reveal-modal">&#215;</a>'."\n";
+			}
+			else {
+				// Previous/next post navigation.
+				zd_post_nav();
+
+				// If comments are open or we have at least one comment, load up the comment template.
+				if ( comments_open() || get_comments_number() ) {
+					comments_template();
+				}
+			}
+
+		endwhile; ?>
+
+		</div><!--ajax-content-area-->
+	</div>
+
+<?php else :
 get_header(); ?>
 <div id="main" class="row">
 	<div id="primary" class="content-primary ajax-content-area <?php primary_content_class(); ?>" role="main">
@@ -33,7 +62,7 @@ get_header(); ?>
 		endwhile;
 		?>
 
-	</div><!-- #content -->
+	</div><!-- #primary -->
 
 	<?php get_sidebar(); ?>
 </div><!-- #main -->
@@ -41,4 +70,6 @@ get_header(); ?>
 
 <?php
 get_footer();
+
+endif;
 

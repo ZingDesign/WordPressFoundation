@@ -35,7 +35,7 @@ get_header(); ?>
 			?>
 
 			<div class="row">
-				<div class="medium-6 columns">
+				<div class="large-6 columns">
 					<?php get_template_part( 'content', 'social' ); ?>
 				</div>
 			</div>

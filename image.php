@@ -15,7 +15,7 @@ get_header();
 
 <div id="main" class="row">
 
-	<section id="primary" class="content-area image-attachment medium-8">
+	<section id="primary" class="content-area image-attachment <?php primary_content_class(); ?>">
 		<div id="content" class="site-content" role="main">
 
 	<?php

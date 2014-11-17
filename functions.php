@@ -395,6 +395,17 @@ function zd_scripts() {
 		wp_enqueue_style('zd-generated-theme-css', get_template_directory_uri() . $theme_options->custom_css_file_name );
 	}
 
+//	_d(get_page_template_slug());
+
+	if( 'page-templates/landing-page.php' === get_page_template_slug() ) {
+		wp_enqueue_script( 'dotdotdot', get_template_directory_uri() . '/js/vendor/jquery.dotdotdot.min.js', array('jquery'), '1.6.16', true );
+	}
+
+	if( get_option('enable-image-lazy-load') ) {
+		wp_enqueue_script('lazyload', get_template_directory_uri() . '/js/vendor/jquery.lazyload.min.js', array('jquery'), '1.9.3', true);
+	}
+
+
 }
 add_action( 'wp_enqueue_scripts', 'zd_scripts' );
 
@@ -935,14 +946,29 @@ add_action('wp_footer', 'zd_add_image_modal');
 function zd_add_image_modal() {
 	$html = '';
 
-	if( ( is_single() || get_option('show-full-post-in-blog') ) && get_option('enable-image-modal-slider') ) {
-		$html .= '<div aria-hidden="true" class="reveal-modal-bg" style="display: none;"></div>'."\n";
+	if( ( is_single() || ( get_option('show-full-post-in-blog') && ! is_single() ) ) && get_option('enable-image-modal-slider') ) {
+//		$html .= '<div aria-hidden="true" class="reveal-modal-bg" style="display: none;"></div>'."\n";
 		$html .= '<div aria-hidden="true" id="zd-image-modal" class="reveal-modal" data-reveal>'."\n";
 		$html .= '<div class="image-slider">'."\n";
 //		$html .= "<i class=\"fa fa-spin fa-refresh\"></i>\n";
 		//	$html .= '<img src="" alt="image modal output" />'."\n";
 		$html .= '</div><!--image-slider-->'."\n";
 		$html .= '<a class="close-reveal-modal">&#215;</a>'."\n";
+		$html .= '</div><!--zd-image-modal-->'."\n";
+	}
+
+	echo $html;
+}
+
+add_action('wp_footer', 'zd_add_post_modal');
+
+function zd_add_post_modal() {
+	$html = '';
+
+	if( 'page-templates/landing-page.php' === get_page_template_slug() ) {
+//		$html .= '<div aria-hidden="true" class="reveal-modal-bg" style="display: none;"></div>'."\n";
+		$html .= '<div aria-hidden="true" id="zd-post-modal" class="reveal-modal loading" data-reveal>'."\n";
+		$html .= "<i class=\"fa fa-spin fa-refresh fa-2x\"></i>\n";
 		$html .= '</div><!--zd-image-modal-->'."\n";
 	}
 
@@ -985,3 +1011,32 @@ function sidebar_content_class($echo=true) {
 
 	echo $output;
 }
+
+function zd_excerpt_more( $more ) {
+	$nonce = wp_create_nonce( 'zd_single_post_ajax_nonce' );
+
+	return ' ... <a class="read-more-link" href="'. get_permalink( get_the_ID() ) . '?pagetype=modal&token='.$nonce.'" data-reveal-id="zd-post-modal" data-reveal-ajax="true">' . __('Read More', 'zingdesign') . '</a>'. "\n";
+}
+add_filter( 'excerpt_more', 'zd_excerpt_more' );
+
+function zd_add_lazyload($content) {
+
+	if( get_option('enable-image-lazy-load') ) {
+		$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
+		$dom = new DOMDocument();
+		@$dom->loadHTML($content);
+
+		foreach ($dom->getElementsByTagName('img') as $node) {
+			$oldsrc = $node->getAttribute('src');
+			$node->setAttribute("data-original", $oldsrc );
+			$newsrc = get_template_directory_uri() . '/images/image-loading.svg';
+			$node->setAttribute("src", $newsrc);
+		}
+		$newHtml = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $dom->saveHTML()));
+		return $newHtml;
+	}
+
+	return $content;
+
+}
+add_filter('the_content', 'zd_add_lazyload');

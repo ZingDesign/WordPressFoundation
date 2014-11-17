@@ -10,7 +10,8 @@
 
     @extend .fa;
     @extend .fa-spin;
-    animation-duration: 1.5s;
+    animation-duration: 1.25s;
+//    animation-timing-function: ease-out;
 
     position: fixed;
     left: 43%;

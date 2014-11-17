@@ -1,5 +1,10 @@
 // User Interface
 
+// Hack offset for fixed header
+.tooltip {
+  margin-top: -$header-height;
+}
+
 .menu-toggle {
   display: none;
 }
@@ -12,7 +17,8 @@
     border: 1px solid #ddd;
     transition: box-shadow 150ms;
 
-    &.input-error {
+    &.input-error,
+    &.error {
       border-color: $error;
     }
 
@@ -58,3 +64,7 @@ small.error {
   }
 }
 
+// lazy loading images
+img[data-original] {
+//  background: $ajax-loader center no-repeat;
+}

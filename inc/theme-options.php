@@ -126,6 +126,12 @@ class ZingDesignThemeOptions {
 					    'type'      => 'checkbox',
 					    'section'   => 'general'
 				    ),
+				    'enable_image_lazy_load' => array(
+					    'label'     => __('Enable image lazy-loading'),
+					    'tooltip'   => __('Image lazy-loading involves loading images only as the user requires them, dramatically speeding up the page load'),
+					    'type'      => 'checkbox',
+					    'section'   => 'general'
+				    ),
 				    'callout_button_text' => array(
 					    'label'     => __('Header callout button text (The big green button)', 'zingdesign'),
 					    'type'      => 'text',

@@ -61,7 +61,9 @@ jQuery(document).ready(function($){
 
         // Tap listener
 
-        //if( $('.header-content').length && Modernizr.touch ) {
+        //var enableTouchTap = false;
+        //
+        //if( $('.header-content').length && Modernizr.touch && enableTouchTap) {
         //
         //    var getPointerEvent = function(event) {
         //        return event.originalEvent.targetTouches ? event.originalEvent.targetTouches[0] : event;
@@ -110,6 +112,62 @@ jQuery(document).ready(function($){
         //    });
         //}
 
+        if( $('.header-content').length && Modernizr.touch ) {
+            $('.header-content').find('label').on('touchend', function(e) {
+                e.preventDefault();
+
+                var $this = $(this);
+
+                var $target = $('#' + $this.attr('for'));
+
+                $target.trigger('click');
+
+            });
+        }
+
+        if( $('.excerpt-wrapper').length ) {
+
+            // Cut off text at ~ 4 lines
+            $('.excerpt-wrapper').dotdotdot({
+                ellipsis: ' ... ',
+                after: '.read-more-link',
+                height: 116
+            });
+        }
+
+        if( $('#zd-post-modal').length ) {
+
+            var postModalSelector = '#zd-post-modal';
+
+            $(document).on('opened.fndtn.reveal', postModalSelector, function () {
+                var $this = $(this)
+                    .removeClass('loading')
+                    .attr('aria-hidden', 'false');
+
+                // re-jiggle crayon if there's any crayons
+                if( $this.find('.crayon-syntax').length ) {
+                    CrayonSyntax.init();
+                }
+            }).on('closed.fndtn.reveal', postModalSelector, function(){
+                $(this)
+                    .addClass('loading')
+                    .attr('aria-hidden', 'true');
+            });
+        }
+
+        if( $('#mobile-search-form').length && Modernizr.touch ) {
+            $('#mobile-search-form').find('label').on('click', function(){
+                var $this = $(this);
+
+                var $target = $('#' + $this.attr('for'));
+
+                $target.trigger('click');
+            });
+        }
+
+        if( $('img[data-original]').length ) {
+            $('img[data-original]').lazyload();
+        }
 
     }
 
@@ -118,9 +176,6 @@ jQuery(document).ready(function($){
     }
 
     $(document).on('init zd.page_loaded', initGeneral).trigger('init');
-
-
-
 
 
 });

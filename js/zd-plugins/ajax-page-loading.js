@@ -17,6 +17,7 @@ jQuery(document).ready(function ($) {
 
             //debug($this.selector);
 
+            //var triggerEvent = Modernizr.touch ? 'touchend' : 'click';
             var triggerEvent = 'click';
 
             var linkSelector = isset(settings.linkSelector) ? settings.linkSelector : $this.selector;
@@ -33,13 +34,15 @@ jQuery(document).ready(function ($) {
             // Container validation
             if ( ! isset(theContainer) ) {
                 debug('Container element is required.');
+                //alert('Container element is required.');
                 return false;
-                //window.location = $request;
+                ////window.location = $request;
             }
             else if (0 === $(theContainer).length) {
                 debug('No element found: ' + theContainer);
+                //alert('No element found: ' + theContainer);
                 return false;
-                //window.location = $request;
+                ////window.location = $request;
             }
 
             // Set up event data
@@ -63,7 +66,7 @@ jQuery(document).ready(function ($) {
                 }
 
                 // Re-jiggle Foundation
-                $(document).foundation();
+                $doc.foundation();
             });
 
             //return this;
@@ -83,7 +86,6 @@ jQuery(document).ready(function ($) {
         $.fn.loadAjaxContent.loadPageContent = function (e) {
             //e.preventDefault();
             //debug(e);
-            //debug(e);
 
             var $this = $(this);
 
@@ -93,7 +95,8 @@ jQuery(document).ready(function ($) {
 
             if (!$request) {
                 debug('No href specified in anchor tag!');
-                window.location = $request;
+                //alert('No href specified in anchor tag!');
+                //window.location = $request;
             }
 
             //var _container = '.ajax-content-area';
@@ -103,33 +106,35 @@ jQuery(document).ready(function ($) {
 
             //var _container = containerSet ? e.data.container : '[data-ajax-content-area]';
             //var _container = '.ajax-content-area';
-            var _container = '';
+            //var _container = '';
             //var _target = '';
 
             if ( isset(e.data.container) ) {
 
-                var $container = $(e.data.container);
+                //var $container = $(e.data.container);
 
                 // If it is an ID, then use the container
-                if (e.data.container.indexOf('#') === 0) {
-                    _container = e.data.container;
-                }
-                // Get the ID if that's set
-                else if (isset( $container.attr('id') )) {
-                    _container = '#' + $container.attr('id');
-                }
-                // Or get the class(es) if no ID
-                else if (isset( $container.attr('class') )) {
-                    var containerClass = $container.attr('class');
+                //if (e.data.container.indexOf('#') === 0) {
+                //    _container = e.data.container;
+                //}
+                //// Get the ID if that's set
+                //else if (isset( $container.attr('id') )) {
+                //    _container = '#' + $container.attr('id');
+                //}
+                //// Or get the class(es) if no ID
+                //else if (isset( $container.attr('class') )) {
+                //    var containerClass = $container.attr('class');
+                //
+                //    // Concat classes to form a stronger selector
+                //    _container = '.' + containerClass.replace(' ', '.', containerClass);
+                //}
+                //else {
+                //    debug('Invalid container: ' + _container);
+                //    //window.location = $request;
+                //    return false;
+                //}
 
-                    // Concat classes to form a stronger selector
-                    _container = '.' + containerClass.replace(' ', '.', containerClass);
-                }
-                else {
-                    debug('Invalid container: ' + _container);
-                    window.location = $request;
-                    return false;
-                }
+                var _container = e.data.container;
 
                 var $_container = $(_container);
 
@@ -139,49 +144,61 @@ jQuery(document).ready(function ($) {
 
                     //debug( status );
                     //debug(response);
+                    //alert(status);
 
                     if ('success' === status) {
 
-                        var newContent = $(response).find(_container).html();
+                        //debug(response);
+                        var $resp = $(response);
 
-                        //debug(newContent);
+                        if($resp.find(_container).length) {
+                            var newContent = $resp.find(_container).html();
 
-                        //debug($(response).find(_target));
+                            //debug($(response).find(_target));
 
-                        if (Modernizr.history) {
-                            window.history.pushState(null, null, $request);
+                            if (Modernizr.history) {
+                                window.history.pushState(null, null, $request);
+                            }
+
+                            if(e.data.stickToTop) {
+                                window.scrollTo(0, 0);
+                                //ZD.debug(e);
+                                //ZD.animateScrollVertical(0, e.pageY );
+                            }
+                            if (e.data.stickToBottom && isMediumUp()) {
+                                window.scrollTo(0, document.body.scrollHeight);
+                            }
+
+                            $_container
+                                .html(newContent)
+                                .removeClass('loading');
+
+                            //return false;
+                            // Re-jiggle the DOM
+
+                            $(document).trigger('zd.page_loaded');
+                        }
+                        else {
+                            //alert('no container in response');
+                            //window.location = $request;
                         }
 
-                        if(e.data.stickToTop) {
-                            window.scrollTo(0, 0);
-                            //ZD.debug(e);
-                            //ZD.animateScrollVertical(0, e.pageY );
-                        }
-                        if (e.data.stickToBottom && isMediumUp()) {
-                            window.scrollTo(0, document.body.scrollHeight);
-                        }
-
-                        $_container
-                            .html(newContent)
-                            .removeClass('loading');
-
-                        //return false;
-                        // Re-jiggle the DOM
-
-                        $(document).trigger('zd.page_loaded');
                     }
                     else {
-                        window.location = $request;
+                        //alert('not success');
+                        //window.location = $request;
                     }
 
                     //return true;
                     //return false;
                 }).fail(function(){
-                    window.location = $request;
+                    //alert('get fail');
+                    //window.location = $request;
                 });
             }
             else {
                 debug('Container not set');
+                //alert('Container not set');
             }
 
             //debug( _container );
@@ -220,9 +237,9 @@ jQuery(document).ready(function ($) {
             return window.matchMedia ? matchMedia(Foundation.media_queries.medium).matches : true;
         }
 
-        function isLargeUp() {
-            return window.matchMedia ? matchMedia(Foundation.media_queries.large).matches : true;
-        }
+        //function isLargeUp() {
+        //    return window.matchMedia ? matchMedia(Foundation.media_queries.large).matches : true;
+        //}
 
     })(jQuery, document);
 
@@ -230,7 +247,7 @@ jQuery(document).ready(function ($) {
 
     // AJAX pagination listeners
     if( $('.pagination').length ) {
-        $('.pagination').find('a').loadAjaxContent();
+        $('.pagination a').loadAjaxContent();
     }
 
 

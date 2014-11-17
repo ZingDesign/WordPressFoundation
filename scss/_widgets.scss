@@ -33,9 +33,20 @@ $sticky-content-offset: $header-height-desktop + 40px;
       top: ( strip-unit($sticky-content-offset) + strip-unit($admin-bar-height-tablet)) * 1px;
     }
 
+    .medium-4 & {
+      width: 226px;
+    }
+
   }
 
+}
 
+@media #{$zd-medium-up} and (orientation: landscape) {
+  .zd-sticky-content {
+    .medium-4 & {
+      width: 311px;
+    }
+  }
 }
 
 @media #{$zd-large-up} {
@@ -53,7 +64,7 @@ $sticky-content-offset: $header-height-desktop + 40px;
       width: 100%;
     }
 
-    &.large-4 & {
+    .large-4 & {
       width: 343px;
     }
 

@@ -19,8 +19,8 @@ $pagination-bg-color: $electric-blue;
 $pagination-active-bg-color: $pagination-text-color;
 
 // Modal
-$reveal-modal-bg: $electric-blue;
-$reveal-close-color: #fff;
+$reveal-modal-bg: #fff;
+$reveal-close-color: $electric-blue;
 $reveal-radius: rem-calc(3px);
 $reveal-overlay-bg: rgba($dark-blue, .45);
 
