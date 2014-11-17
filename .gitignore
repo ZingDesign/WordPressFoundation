@@ -16,6 +16,8 @@ node_modules
 !/fnd/bower_components/foundation/js/foundation.min.js
 /fnd/bower_components/foundation/*
 
+/libs/vendor/mindscape/
+
 # Git merge files
 *.orig
 *.BACKUP.*
