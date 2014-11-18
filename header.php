@@ -22,8 +22,6 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="csrf-param" content="<?php echo wp_create_nonce( 'request_forgery_protection_token' ); ?>">
-	<meta name="csrf-token" content="<?php echo wp_create_nonce( 'form_authenticity_token' ); ?>">
 
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">

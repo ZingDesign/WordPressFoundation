@@ -144,7 +144,7 @@ jQuery(document).ready(function($){
 
             $(document).on('opened.fndtn.reveal', postModalSelector, function () {
 
-                // this the modal
+                // this is the modal
                 var $this = $(this)
                     .removeClass('loading')
                     .attr('aria-hidden', 'false');
@@ -154,6 +154,7 @@ jQuery(document).ready(function($){
                     CrayonSyntax.init();
                 }
 
+                // re-jiggle the image lazyloading
                 if( $this.find('img[data-original]').length ) {
                     $('img[data-original]').lazyload();
                 }

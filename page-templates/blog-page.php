@@ -7,7 +7,7 @@
  */
 
 // Exclude Resources (and posts with categories that are child of Resources)
-$exclude_cats = '-' . get_cat_ID('resource');
+$exclude_cats = '-' . get_cat_ID('resource') . ',-' .get_cat_ID('resources');
 
 //$paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
 
