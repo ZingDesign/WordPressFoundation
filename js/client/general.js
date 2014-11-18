@@ -34,6 +34,7 @@ jQuery(document).ready(function($){
             $('input, textarea').placeholder();
         }
 
+        // Figure width hack fix
         if( $('figure').length ) {
             $('figure').css({'width':'auto'});
         }
@@ -135,11 +136,15 @@ jQuery(document).ready(function($){
             });
         }
 
+        // Post modal for Landing page easy Read more
+
         if( $('#zd-post-modal').length ) {
 
             var postModalSelector = '#zd-post-modal';
 
             $(document).on('opened.fndtn.reveal', postModalSelector, function () {
+
+                // this the modal
                 var $this = $(this)
                     .removeClass('loading')
                     .attr('aria-hidden', 'false');
@@ -148,6 +153,11 @@ jQuery(document).ready(function($){
                 if( $this.find('.crayon-syntax').length ) {
                     CrayonSyntax.init();
                 }
+
+                if( $this.find('img[data-original]').length ) {
+                    $('img[data-original]').lazyload();
+                }
+
             }).on('closed.fndtn.reveal', postModalSelector, function(){
                 $(this)
                     .addClass('loading')
