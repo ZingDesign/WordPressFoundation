@@ -29,12 +29,33 @@ if( is_array($displayed_categories) && ! empty($displayed_categories) ) {
 
 $allowed_post_types = array( 'post', 'white_paper' );
 
+$landing_posts_per_page = get_option('landing-posts-per-page') ? intval( get_option('landing-posts-per-page') ) : 7;
+
 $landing_page_query = new WP_Query( array(
-	'posts_per_page'    => 7,
+	'posts_per_page'    => $landing_posts_per_page,
 	'post_type'         => $allowed_post_types,
 	'paged'             => $paged,
 	'cat'               => $displayed_categories_string
 ) );
+
+
+$large_posts = array();
+if( get_transient('landing_page_large_posts') && ( $landing_posts_per_page === get_transient('landing_posts_per_page') ) ) {
+	$large_posts = get_transient('landing_page_large_posts');
+}
+else {
+
+	for($i = 0; $i <= $landing_posts_per_page; $i++) {
+
+		if( $i % 10 === 0 || ($i - 6) % 10 === 0 ) {
+			$large_posts[] = $i;
+		}
+
+	}
+	set_transient('landing_page_large_posts', $large_posts );
+	set_transient('landing_posts_per_page', $landing_posts_per_page );
+}
+//_d( $large_posts );
 
 get_header(); ?>
 	<div id="landing-page-container" class="content-wrapper landing-page" role="main">
@@ -48,10 +69,14 @@ get_header(); ?>
 					// Start the Loop.
 					$resource_index = 0;
 //					$element_index = 1;
+//					$state_switch = 0;
 
 					while ( $landing_page_query->have_posts() ) : $landing_page_query->the_post();
 
-						$is_large = ($resource_index % 6 === 0);
+//						_d( );
+
+						$is_large = ( in_array($resource_index, $large_posts) );
+//						_d($state_switch);
 
 						/*
 						 * Include the post format-specific template for the content. If you want to

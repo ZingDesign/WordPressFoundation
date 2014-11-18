@@ -281,6 +281,11 @@ class ZingDesignThemeOptions {
 					    'help'   => 'See <a href="http://foundation.zurb.com/docs/components/grid.html" target="_blank">Foundation Grid docs</a> for more info',
 					    'default'   => 8
 				    ),
+				    'landing_posts_per_page' => array(
+					    'label'     => 'Posts to display on the Landing Page',
+					    'section'   => 'design',
+					    'type'      => 'number',
+				    ),
 //				    'sidebar_content_width_medium' => array(
 //					    'label'     => 'Sidebar width (tablet-up)',
 //					    'section'   => 'design',

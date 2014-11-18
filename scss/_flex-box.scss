@@ -31,7 +31,10 @@
 //        }
 
         &.resources-card {
-          &:nth-child(6n+1) {
+//          &:nth-child(6n+1) {
+//            flex: 0 0 66%;
+//          }
+          &.large {
             flex: 0 0 66%;
           }
         }
