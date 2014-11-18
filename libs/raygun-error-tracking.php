@@ -10,7 +10,7 @@ namespace
 {
 	require_once 'vendor/autoload.php';
 
-	$client = new \Raygun4php\RaygunClient("HeOop4TH6WT7lwN0UIL03g==");
+	$client = new \Raygun4php\RaygunClient("HeOop4TH6WT7lwN0UIL03g==", false);
 
 	function error_handler($errno, $errstr, $errfile, $errline ) {
 		global $client;
