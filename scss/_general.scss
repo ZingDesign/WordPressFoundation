@@ -101,6 +101,12 @@ figure {
   width: auto !important;
 }
 
+// form outlines
+button,
+input {
+  outline: none;
+}
+
 @media #{$zd-medium-up} {
 
 //  h1 {

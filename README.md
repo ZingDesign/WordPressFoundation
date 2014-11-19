@@ -4,11 +4,10 @@
 
 ### Install Compass
 
-Compass v1.0.0 is all weird and don't work right, rather than fixing the stylesheets, I suggest reverting back to an older, more reliable version
+#### Run this command *only* **ONCE**
 
 ```
-gem uninstall compass (uninstall version 1.0.0)
-gem install compass -v 0.12.7
+bundle
 ```
 
 ### Install Node modules, set up Foundation and Grunt

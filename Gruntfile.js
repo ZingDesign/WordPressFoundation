@@ -151,7 +151,9 @@ module.exports = function(grunt) {
                     cssDir: 'css',
                     javascriptsDir: 'js',
                     imagesDir: 'images',
-                    environment: environment
+                    environment: environment,
+                    outputStyle: devMode ? 'expanded' : 'compressed',
+                    bundleExec: true
                 }
             }
         },
