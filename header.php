@@ -26,6 +26,7 @@
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+
 	<?php if( get_option('favicon-image') ) : ?>
 		<link rel="shortcut icon" href="<?php echo wp_get_attachment_url(get_option('favicon-image')); ?>" type="image/x-icon"/>
 	<?php else : ?>
@@ -81,7 +82,7 @@
 						<div class="mobile-navigation-scroll">
 							<!-- primary (mobile) menu-->
 							<?php
-							zd_get_menu('primary');
+							zd_get_menu('raygun_mobile');
 							 ?>
 						</div>
 
@@ -162,10 +163,10 @@
 	//			_d( zd_is_resource_category() );
 
 				if( zd_is_resource_page() ) {
-					zd_get_menu('resources');
+					zd_get_menu('raygun_resources');
 				}
 				else {
-					zd_get_menu('secondary');
+					zd_get_menu('raygun_blog');
 				} ?>
 
 				<a href="<?php echo esc_url(get_option('callout-button-url')); ?>" class="green promo button" target="_blank"><?php echo esc_attr(get_option('callout-button-text')) ?></a>

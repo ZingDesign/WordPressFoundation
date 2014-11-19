@@ -25,10 +25,7 @@ get_header(); ?>
 				<ul class="error-list">
 					<li><a href="<?php echo home_url(); ?>">Home</a></li>
 				</ul>
-				<?php wp_nav_menu( array(
-					//                            'theme_location' => 'primary',
-					'menu' => 'Header Navigation',
-				) ); ?>
+				<?php zd_get_menu('raygun_mobile'); ?>
 			</div><!-- .page-content -->
 
 		</div><!-- #content -->

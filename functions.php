@@ -156,10 +156,10 @@ function zd_setup() {
 
 	// This theme uses wp_nav_menu() in two locations.
 	register_nav_menus( array(
-		'primary'   => __( 'Mobile menu', 'zingdesign' ),
-		'secondary' => __( 'Menu for the Blog', 'zingdesign' ),
-		'resources' => __( 'Menu for the Resources page', 'zingdesign' ),
-		'footer' => __( 'Footer menu', 'zingdesign' ),
+		'raygun_mobile'     => __( 'Mobile menu', 'zingdesign' ),
+		'raygun_blog'       => __( 'Menu for the Blog', 'zingdesign' ),
+		'raygun_resources'  => __( 'Menu for the Resources page', 'zingdesign' ),
+		'raygun_footer'     => __( 'Footer menu', 'zingdesign' )
 	) );
 
 	/*
@@ -850,7 +850,7 @@ if( ! function_exists('empty_r') ) {
 
 if( ! function_exists('zd_get_primary_menu') ) :
 
-function zd_get_menu($menu_location='primary', $menu_class='nav-menu', $is_foundation=false) {
+function zd_get_menu($menu_location, $menu_class='nav-menu') {
 
 	if ( has_nav_menu( $menu_location ) ) {
 
@@ -859,10 +859,6 @@ function zd_get_menu($menu_location='primary', $menu_class='nav-menu', $is_found
 			'menu_class'     => $menu_class,
 			'container_class' => 'zd-nav-menu zd-nav-menu-' . $menu_location
 		);
-
-		if($is_foundation) {
-			$args['walker'] = new Zing_Design_Nav_Menu();
-		}
 
 		wp_nav_menu( $args );
 
@@ -1028,6 +1024,7 @@ function zd_add_lazyload($content) {
 
 		foreach ($dom->getElementsByTagName('img') as $node) {
 			$oldsrc = $node->getAttribute('src');
+//			$image_height = $node->getAttribute('height');
 			$node->setAttribute("data-original", $oldsrc );
 			$newsrc = get_template_directory_uri() . '/images/image-loading.svg';
 			$node->setAttribute("src", $newsrc);

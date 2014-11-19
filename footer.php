@@ -16,25 +16,12 @@
 
 			<div class="footer-content row">
 				<div class="small-12 columns">
-					<?php if(has_nav_menu('footer')) :
-
-						wp_nav_menu(array(
-							'menu_location'     => 'footer',
-							'container'         => false,
-							'menu_class'        => 'footer-links'
-						));
-
-					else : ?>
-						<ul class="footer-links">
-							<li><a href="https://raygun.io/about" target="_blank">About</a></li>
-							<li><a href="<?php get_permalink( get_page_by_title('resources') ); ?>">Resources</a></li>
-							<li><a href="https://raygun.io/faq" target="_blank">Support</a></li>
-							<li><a href="https://raygun.io/forums" target="_blank">Community</a></li>
-							<li><a href="https://raygun.io/about/contact" target="_blank">Contact</a></li>
-							<li><a href="<?php echo site_url('/'); ?>">Blog</a></li>
-						</ul>
-
-					<?php endif; ?>
+					<?php
+					wp_nav_menu( array(
+						'theme_location'     => 'raygun_footer',
+						'container'         => false,
+						'menu_class'        => 'footer-links'
+					));  ?>
 
 					<div class="footer-icons footer-right">
 						<a class="icon-footer colour-github" href="<?php echo get_option('github-url'); ?>" target="_blank"><i class="fa fa-github fa-fw"></i></a>
