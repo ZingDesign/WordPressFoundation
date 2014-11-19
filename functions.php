@@ -85,7 +85,7 @@ endif;
 
 include_once get_template_directory() . '/inc/FormHelper.php';
 
-include_once get_template_directory() . '/libs/raygun-error-tracking.php';
+//include_once get_template_directory() . '/libs/raygun-error-tracking.php';
 
 include_once get_template_directory() . '/inc/custom-post-types.php';
 include_once get_template_directory() . '/inc/custom-shortcodes.php';
