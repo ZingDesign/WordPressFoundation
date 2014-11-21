@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     //var wpConfig = grunt.file.read('../../../wp-config.php');
 
-    var devMode = false;
+    var devMode = true;
 
     if( devMode ) {
         console.log('-----------------------------------');
@@ -34,7 +34,6 @@ module.exports = function(grunt) {
         bowerComponentsPath + 'jquery-placeholder/jquery.placeholder.js',
         bowerComponentsPath + 'respond/src/respond.js',
         bowerComponentsPath + 'selectivizr/selectivizr.js'
-
     ];
 
     var cssTasks = ['compass', 'autoprefixer'];
@@ -146,7 +145,7 @@ module.exports = function(grunt) {
         compass: {
             dist: {
                 options: {
-                    config: './config.rb',
+                    //config: './config.rb',
                     sassDir: 'scss',
                     cssDir: 'css',
                     javascriptsDir: 'js',
@@ -154,6 +153,7 @@ module.exports = function(grunt) {
                     environment: environment,
                     outputStyle: devMode ? 'expanded' : 'compressed',
                     bundleExec: true
+                    ,importPath: ['fnd/bower_components/foundation/scss', 'fnd/bower_components']
                 }
             }
         },

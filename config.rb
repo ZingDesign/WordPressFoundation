@@ -2,6 +2,8 @@
 
 require "compass/import-once/activate"
 
+add_import_path "/fnd/bower_components/foundation/scss/foundation/components"
+
 # Set this to the root of your project when deployed:
 http_path = "/"
 css_dir = "css"
