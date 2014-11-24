@@ -208,6 +208,10 @@
   label {
     cursor: pointer;
     height: 24px;
+
+    &.mobile-search-close {
+      height: 60px;
+    }
   }
 }
 

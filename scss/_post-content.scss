@@ -32,7 +32,8 @@ article {
   }
 
   img{
-    margin-bottom: 1.5rem;
+//    margin-bottom: 1.5rem;
+    @include _r(mb, 24);
   }
 
   button {
@@ -59,7 +60,8 @@ article {
 }
 
 .entry-meta{
-  margin-bottom: 1rem;
+//  margin-bottom: 1rem;
+  @include _r(mb, 16);
   line-height: 1.5;
   @include rem-font(14);
 
@@ -93,7 +95,8 @@ article {
 }
 
 footer.entry-meta {
-  margin-top: 1rem;
+//  margin-top: 1rem;
+  @include _r(mt, 16);
 
   .tag-links {
     a {
@@ -133,54 +136,55 @@ blockquote {
   }
 }
 
-.post-code{
-  background: $light-grey;
-  border-radius: 3px;
-  border: 1px solid $light-grey-border;
-  margin-bottom: 1rem;
-  overflow-x: auto;
-
-  ol{
-    counter-reset: li;
-    margin-left: 0;
-    padding-left: 0;
-    min-width: 618px;
-    box-sizing: border-box;
-
-    & > li{
-      position: relative;
-      margin: 0 0 0 60px;
-      padding: 0.25rem 0;
-      list-style: none;
-
-      &:before{
-        content: counter(li);
-        counter-increment: li;
-        position: absolute;
-        left: -60px;
-        top: 0;
-        box-sizing: border-box;
-        width: 40px;
-        text-align: center;
-        padding: 0.25rem 0;
-        border-right: 1px solid $light-grey-border;
-      }
-    }
-  }
-
-  .blue{
-    color: $electric-blue;
-  }
-
-  .green{
-    color: $green;
-  }
-
-  .red{
-    color: $raygun-red;
-  }
-
-}
+//.post-code{
+//  background: $light-grey;
+//  border-radius: 3px;
+//  border: 1px solid $light-grey-border;
+//  margin-bottom: 1rem;
+//  overflow-x: auto;
+//
+//  ol{
+//    counter-reset: li;
+//    margin-left: 0;
+//    padding-left: 0;
+//    min-width: 618px;
+//    box-sizing: border-box;
+//
+//    & > li{
+//      position: relative;
+//      margin: 0 0 0 60px;
+////      padding: 0.25rem 0;
+//      @include _r(pd, 0 4 0 0);
+//      list-style: none;
+//
+//      &:before{
+//        content: counter(li);
+//        counter-increment: li;
+//        position: absolute;
+//        left: -60px;
+//        top: 0;
+//        box-sizing: border-box;
+//        width: 40px;
+//        text-align: center;
+//        padding: 0.25rem 0;
+//        border-right: 1px solid $light-grey-border;
+//      }
+//    }
+//  }
+//
+//  .blue{
+//    color: $electric-blue;
+//  }
+//
+//  .green{
+//    color: $green;
+//  }
+//
+//  .red{
+//    color: $raygun-red;
+//  }
+//
+//}
 .post-share{
 
 //  button,
@@ -275,7 +279,8 @@ time.entry-date {
   article {
     header {
       .entry-title {
-        font-size: 2rem;
+//        font-size: 2rem;
+        @include rem-font(32);
       }
     }
   }

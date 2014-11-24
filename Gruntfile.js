@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     //var wpConfig = grunt.file.read('../../../wp-config.php');
 
-    var devMode = true;
+    var devMode = false;
 
     if( devMode ) {
         console.log('-----------------------------------');
@@ -59,7 +59,8 @@ module.exports = function(grunt) {
 
         clean: {
             dist: ['dist', 'src', '.sass-cache', 'css'],
-            js: ['dist', 'src']
+            js: ['dist', 'src'],
+            compass: ['.sass-cache', 'css/zing.css', 'css/zing-admin.css', 'css/zing-unprefixed.css']
         },
 
         jshint: {
@@ -143,15 +144,28 @@ module.exports = function(grunt) {
         },
 
         compass: {
-            dist: {
+            dev: {
                 options: {
                     //config: './config.rb',
                     sassDir: 'scss',
                     cssDir: 'css',
                     javascriptsDir: 'js',
                     imagesDir: 'images',
-                    environment: environment,
-                    outputStyle: devMode ? 'expanded' : 'compressed',
+                    environment: 'development',
+                    outputStyle: 'expanded',
+                    bundleExec: true
+                    ,importPath: ['fnd/bower_components/foundation/scss', 'fnd/bower_components']
+                }
+            },
+            deploy: {
+                options: {
+                    //config: './config.rb',
+                    sassDir: 'scss',
+                    cssDir: 'css',
+                    javascriptsDir: 'js',
+                    imagesDir: 'images',
+                    environment: 'production',
+                    outputStyle: 'compressed',
                     bundleExec: true
                     ,importPath: ['fnd/bower_components/foundation/scss', 'fnd/bower_components']
                 }
@@ -252,4 +266,6 @@ module.exports = function(grunt) {
     grunt.registerTask('js', ['clean:js', 'jshint:client', 'jshint:zdPlugins', 'concat', 'uglify']);
     grunt.registerTask('w', ['css', 'js', 'watch']);
     grunt.registerTask('copyFonts', ['copy:fontAwesomeFonts']);
+
+    grunt.registerTask('deploy', ['clean:compass', 'compass:deploy', 'autoprefixer']);
 };

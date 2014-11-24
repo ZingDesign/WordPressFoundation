@@ -69,123 +69,164 @@
     }
   }
 
-  // Style overrides for IE8 and earlier
-  .no-cssremunit {
+}
 
-    // Foundation rem fixes
 
-    // General
-    blockquote {
-      padding: 9px 20px 0;
-      margin-bottom: 20px;
-    }
+// Modernizr support checks
 
-    p {
-      margin-bottom: 20px;
-    }
+// Style overrides for IE8 and earlier
+.no-cssremunit {
 
-    // Grid
+  // Foundation rem fixes
 
-    .row {
-      max-width: $zd-large;
-
-      // Fix embedded row issue in IE8
-      .row {
-        max-width: auto;
-        margin-left: -15px;
-        margin-right: -15px;
-      }
-    }
-
-    .column,
-    .columns {
-      //    padding: 0 15px;
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-    // Block grid
-
-    [class*="block-grid-"] > li {
-      padding-bottom: 20px;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-
-    // Inputs
-
-    input[type="text"],
-    input[type="password"],
-    input[type="date"],
-    input[type="datetime"],
-    input[type="datetime-local"],
-    input[type="month"],
-    input[type="week"],
-    input[type="email"],
-    input[type="number"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="time"],
-    input[type="url"],
-    textarea {
-      padding: 10px 8px;
-      line-height: auto;
-      height: auto;
-    }
-
-    // Lists
-
-    ul {
-      li {
-        ul, ol {
-          margin-left: 20px;
-        }
-      }
-    }
-
-    // Buttons
-//    .button {
-//      padding: 16px 32px;
-//    }
-
-    // Modal
-
-    .reveal-modal {
-      top: 100px;
-      padding: 30px;
-    }
-
-    .close-reveal-modal {
-      top: 8px;
-      right: 11px;
-      font-size: 40px;
-    }
-
-    // Tabs
-    .tabs {
-      .tab-title {
-        & > a {
-          padding: 16px 32px;
-        }
-      }
-    }
-
-    .tabs-content {
-      & > .content {
-        padding: 15px 0;
-      }
-    }
-
-    // Tooltips
-
-    .tooltip {
-      padding: 16px;
-    }
-
-    footer.entry-meta {
-      margin-top: 16px;
-    }
-
+  // General
+  blockquote {
+    padding: 9px 20px 0;
+    margin-bottom: 20px;
   }
 
+  p {
+    margin-bottom: 20px;
+  }
+
+  // Grid
+
+  .row {
+    max-width: $zd-large;
+
+    // Fix embedded row issue in IE8
+    .row {
+      max-width: auto;
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+
+  .column,
+  .columns {
+    //    padding: 0 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  // Block grid
+
+  [class*="block-grid-"] > li {
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  // Inputs
+
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="url"],
+  textarea {
+    padding: 10px 8px;
+    line-height: auto;
+    height: auto;
+  }
+
+  // Lists
+
+  ul {
+    li {
+      ul, ol {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  // Buttons
+  //    .button {
+  //      padding: 16px 32px;
+  //    }
+
+  // Modal
+
+  .reveal-modal {
+    top: 100px;
+    padding: 30px;
+  }
+
+  .close-reveal-modal {
+    top: 8px;
+    right: 11px;
+    font-size: 40px;
+  }
+
+  // Tabs
+  .tabs {
+    .tab-title {
+      & > a {
+        padding: 16px 32px;
+      }
+    }
+  }
+
+  .tabs-content {
+    & > .content {
+      padding: 15px 0;
+    }
+  }
+
+  // Tooltips
+
+  .tooltip {
+    padding: 16px;
+  }
+
+  footer.entry-meta {
+    margin-top: 16px;
+  }
+
+}
+
+.no-fontface {
+
+  .mobile-navigation-toggle {
+    &.open {
+      &:before {
+        content: none;
+        box-shadow: inset 0 0 4px #FFF, 0 -8px #FFF, 0 8px #FFF;
+        width: 30px;
+        height: 4px;
+        display: inline-block;
+        position: relative;
+        top: 20px;
+        background-color: #FFF;
+      }
+    }
+  }
+
+  .mobile-search-toggle {
+    &:before {
+      content: 'Search';
+    }
+  }
+
+  .mobile-search-close,
+  .mobile-navigation-toggle.close {
+    &:before {
+      content: 'Close';
+    }
+  }
+
+  [class*="category-icon"] {
+    &:before {
+      content: none;
+      margin: 0;
+    }
+  }
 }
