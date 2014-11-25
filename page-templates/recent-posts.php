@@ -6,19 +6,18 @@
  * @since Zing Design 1.0
  */
 $args = array(
-	'post_type' => array('post', 'resource')
+	'post_type'     => array('post', 'white_paper'),
+	'post_status'   => 'publish'
 );
 
 $recent_posts = wp_get_recent_posts($args, OBJECT);
 
-//_d($recent_posts);
-
 get_header(); ?>
 
-<div id="main" class="row">
-	<div id="main-content" class="content-primary medium-8">
+<div id="main" class="">
+	<div id="main-content" class="content-primary row">
 
-		<div id="primary" class="content-area">
+		<div id="primary" class="content-area <?php primary_content_class(); ?>">
 			<div id="content" class="site-content" role="main">
 
 				<?php
